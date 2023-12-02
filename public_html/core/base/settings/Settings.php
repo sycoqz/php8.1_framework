@@ -52,7 +52,16 @@ class Settings
 
     private array $projectTables = [
         'users' => ['name' => 'Персонажи', 'img' => 'pages.png'],
-        'titans' => ['titan_name' => 'Титаны']
+        'titans' => ['name' => 'Титаны']
+    ];
+
+    private array $warningUser = [
+        'name' => ['Название', 'Не более 100 символов'],
+    ];
+    private array $blockNeedle = [
+        'vg-rows' => [],
+        'vg-img' => ['id'],
+        'vg-content' => ['content']
     ];
 
     /**

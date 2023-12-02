@@ -28,6 +28,8 @@ abstract class BaseController
     protected array $styles;
     protected array $scripts;
 
+    protected string|int $userID;
+
     /**
      * @throws RouteException
      */

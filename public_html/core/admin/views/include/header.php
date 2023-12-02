@@ -69,11 +69,11 @@
                     <a href="<?=$this->adminPath?>show/<?=$table?>" class="vg-wrap vg-element vg-full vg-center ">
                         <div class="vg-element vg-half  vg-center">
                             <div>
-                                <img src="<?=PATH . ADMIN_TEMPLATE?>img/<?=$item['img'] ?: 'pages.png'?>" alt="pages">
+                                <img src="<?=PATH . ADMIN_TEMPLATE?>img/<?=$item['img'] ?? 'pages.png'?>" alt="pages">
                             </div>
                         </div>
                         <div class="vg-element vg-half vg-center vg_hidden">
-                            <span class="vg-text vg-firm-color5"><?=$item['name'] ?: $table?></span>
+                            <span class="vg-text vg-firm-color5"><?=$item['name'] ?? $table?></span>
                         </div>
                     </a>
                 <?php endforeach;?>
