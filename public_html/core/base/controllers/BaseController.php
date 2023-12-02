@@ -19,7 +19,7 @@ abstract class BaseController
     protected mixed $inputMethod;
     protected mixed $outputMethod;
     protected ?array $parameters = null;
-    protected string|array $page;
+    protected string|array|null $page = null;
     protected string|bool $header;
     protected string|bool $content;
     protected string|bool $footer;

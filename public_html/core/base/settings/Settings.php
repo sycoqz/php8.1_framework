@@ -51,8 +51,8 @@ class Settings
     private string $defaultTable = 'users';
 
     private array $projectTables = [
-        'users' => ['name' => 'Обладатели', 'img' => 'pages.png'],
-        'titans' => ['titan' => 'Титаны']
+        'users' => ['name' => 'Персонажи', 'img' => 'pages.png'],
+        'titans' => ['titan_name' => 'Титаны']
     ];
 
     /**
