@@ -18,8 +18,8 @@ abstract class BaseController
     protected string $controller;
     protected mixed $inputMethod;
     protected mixed $outputMethod;
-    protected ?array $parameters;
-    protected string|array|null $page = null;
+    protected array $parameters;
+    protected string|array $page;
     protected string|bool $header;
     protected string|bool $content;
     protected string|bool $footer;
@@ -63,10 +63,10 @@ abstract class BaseController
 
         $data = $this->inputData();
 
-        if ($outputData !== null && method_exists($this, $outputData)) {
+        if (method_exists($this, 'outputData')) {
 
-            $page = $this->$outputData($data); // Проверка для работы только с 1 методом
-            if (isset($page)) $this->page = $page;
+            $page = $this->outputData($data); // Проверка для работы только с 1 методом
+            if ($page) $this->page = $page;
 
         } elseif (isset($data)) {
             $this->page = $data; // Если что-то возвращается
