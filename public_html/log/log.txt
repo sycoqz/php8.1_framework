@@ -1,0 +1,16 @@
+Fault: 02-12-2023 11-17-59 - Неверное имя файла для подключения - core/user/controllers/DirController
+file C:\OSPanel\domains\im.my\public_html\core\base\settings\internal_settings.php
+In line 35
+
+Fault: 02-12-2023 11-17-59 - Class "core\user\controllers\DirController" does not exist
+file C:\OSPanel\domains\im.my\public_html\core\base\controllers\BaseController.php
+In line 52
+
+Fault: 02-12-2023 11-18-47 - Неверное имя файла для подключения - core/user/controllers/DirController
+file C:\OSPanel\domains\im.my\public_html\core\base\settings\internal_settings.php
+In line 35
+
+Fault: 02-12-2023 11-18-47 - Class "core\user\controllers\DirController" does not exist
+file C:\OSPanel\domains\im.my\public_html\core\base\controllers\BaseController.php
+In line 52
+
