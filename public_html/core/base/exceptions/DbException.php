@@ -9,7 +9,7 @@ class DbException extends Exception
 {
 
     use BaseMethods;
-    protected mixed $messages;
+    protected $messages;
 
     public function __construct(string $message = "", int $code = 0)
     {

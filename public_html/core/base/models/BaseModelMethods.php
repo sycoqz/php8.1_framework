@@ -7,7 +7,7 @@ abstract class BaseModelMethods
 
     protected array $sqlFunc = ['NOW()'];
 
-    protected function createFields(array $set, string|bool $table = false): string
+    protected function createFields(array $set, string|bool $table = false)
     {
         if (array_key_exists('fields', $set) && $set['fields'] === null) return '';
 
@@ -25,7 +25,7 @@ abstract class BaseModelMethods
 
     }
 
-    protected function createOrder(array $set, string|bool $table = false): string
+    protected function createOrder(array $set, string|bool $table = false)
     {
 
         if (array_key_exists('order', $set) && $set['order'] === null) return '';
@@ -69,7 +69,7 @@ abstract class BaseModelMethods
         return $order_by;
     }
 
-    protected function createWhere(array $set, string|bool $table = false, $instruction = 'WHERE'): string
+    protected function createWhere(array $set, string|bool $table = false, $instruction = 'WHERE')
     {
         $table = $table . '.' ?? '';
 
@@ -168,7 +168,7 @@ abstract class BaseModelMethods
         return $where;
     }
 
-    protected function createJoin(array $set, string|bool $table, bool $new_where = false): array
+    protected function createJoin(array $set, string|bool $table, bool $new_where = false)
     {
         $fields = '';
         $join = '';
@@ -248,7 +248,7 @@ abstract class BaseModelMethods
 
     }
 
-    protected function createInsert(array|bool $fields, array|bool $files, array|bool $except): array
+    protected function createInsert(array|bool $fields, array|bool $files, array|bool $except)
     {
         $insert_arr = [
             'fields' => '',
@@ -291,7 +291,7 @@ abstract class BaseModelMethods
 
     }
 
-    protected function createUpdate(array|bool $fields, array|bool $files, array|bool $except): string
+    protected function createUpdate(array|bool $fields, array|bool $files, array|bool $except)
     {
         $update = '';
 

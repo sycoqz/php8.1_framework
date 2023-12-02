@@ -95,7 +95,7 @@ abstract class BaseModel extends BaseModelMethods
      * @throws DbException
      */
 
-    final public function read(string $table, array $set = []): bool|array|int|string|null
+    final public function read(string $table, array $set = [])
     {
         $fields = $this->createFields($set, $table);
 
@@ -132,7 +132,7 @@ abstract class BaseModel extends BaseModelMethods
      * @return mixed
      * @throws DbException
      */
-    final public function create(string $table, array $set = []): mixed
+    final public function create(string $table, array $set = [])
     {
 
         $set['fields'] = (!empty($set['fields']) && is_array($set['fields'])) ? $set['fields'] : $_POST;
@@ -164,7 +164,7 @@ abstract class BaseModel extends BaseModelMethods
      * @return array|bool|int|string|null
      * @throws DbException
      */
-    final public function update(string $table, array $set = []): array|bool|int|string|null
+    final public function update(string $table, array $set = [])
     {
 
         $where = $this->createWhere($set, $table);
@@ -240,7 +240,7 @@ abstract class BaseModel extends BaseModelMethods
      * @return array|int|string|true|null
      * @throws DbException
      */
-    final public function delete(array $set,string $table): int|bool|array|string|null
+    final public function delete(array $set,string $table)
     {
         $table = trim($table);
 
@@ -289,7 +289,7 @@ abstract class BaseModel extends BaseModelMethods
      * @return array
      * @throws DbException
      */
-    final public function showColumns(string $table): array
+    final public function showColumns(string $table)
     {
         $query = "SHOW COLUMNS FROM $table";
 
@@ -314,7 +314,7 @@ abstract class BaseModel extends BaseModelMethods
     /**
      * @throws DbException
      */
-    protected function connect(): void
+    protected function connect()
     {
         $this->db = @new mysqli(HOST,USER,PASS,DB_NAME);
 
