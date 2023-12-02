@@ -31,7 +31,7 @@ abstract class BaseController
     /**
      * @throws RouteException
      */
-    public function route(): void
+    public function route()
     {
         $controller = str_replace('/', '\\', $this->controller); // Имя класса в строковом виде
 
