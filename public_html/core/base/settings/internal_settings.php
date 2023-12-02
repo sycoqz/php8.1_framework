@@ -26,7 +26,7 @@ const USER_CSS_JS = [
 
 use core\base\exceptions\RouteException;
 
-function autoloadMainClasses($class_name): void
+function autoloadMainClasses($class_name)
 {
 
     $class_name = str_replace('\\', '/', $class_name);

@@ -27,7 +27,7 @@ class ShowController extends BaseAdmin
      * @throws RouteException
      * @throws DbException
      */
-    protected function outputData(): bool|string
+    protected function outputData()
     {
         $args = func_get_arg(0);
         $vars = $args ?: [];

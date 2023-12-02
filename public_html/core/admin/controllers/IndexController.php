@@ -13,7 +13,7 @@ class IndexController extends BaseController
     /**
      * @throws DbException
      */
-    #[NoReturn] protected function inputData(): void
+    #[NoReturn] protected function inputData()
     {
         $redirect = PATH . Settings::get('routes')['admin']['alias'] . '/show';
         $this->redirect($redirect);
