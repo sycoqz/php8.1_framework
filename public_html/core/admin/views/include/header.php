@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta type="keywords" content="...">
     <meta type="description" content="...">
-    <title>Document</title>
+    <title>Admin Panel</title>
 
-    <?php use core\base\settings\Settings;
-
-    foreach ($this->styles as $style):?>
+    <?php foreach ($this->styles as $style):?>
         <link rel="stylesheet" href="<?=$style?>">
     <?php endforeach;?>
 
@@ -35,7 +33,7 @@
                     <div>
                         <img src="<?=PATH . ADMIN_TEMPLATE?>img/search.png" alt="">
                     </div>
-                    <form method="post" action="<?=PATH . Settings::get('routes')['admin']['alias']?>/search" autocomplete="off">
+                    <form method="post" action="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>search" autocomplete="off">
                         <label>
                             <input type="text" name="search" class="vg-input vg-text">
                         </label>
@@ -44,7 +42,7 @@
                 </div>
             </div>
             <!--кнопка-->
-            <a href="/admin/createsitemap" class="vg-element vg-box-shadow sitemap-button">
+            <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>create-sitemap" class="vg-element vg-box-shadow sitemap-button">
                             <span class="vg-text vg-firm-color1">
                                 Create sitemap
                             </span>
@@ -66,8 +64,7 @@
     </div>
     <div class="vg-main vg-right vg-relative">
         <div class="vg-wrap vg-firm-background-color1 vg-center vg-block vg-menu">
-
-            <?php if($this->menu):?>
+            <?php if ($this->menu):?>
                 <?php foreach ($this->menu as $table => $item):?>
                     <a href="<?=$this->adminPath?>show/<?=$table?>" class="vg-wrap vg-element vg-full vg-center ">
                         <div class="vg-element vg-half  vg-center">
@@ -79,5 +76,6 @@
                             <span class="vg-text vg-firm-color5"><?=$item['name'] ?: $table?></span>
                         </div>
                     </a>
-                    <?php endforeach;?>
+                <?php endforeach;?>
             <?php endif;?>
+        </div>
