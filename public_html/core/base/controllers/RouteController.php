@@ -15,7 +15,7 @@ class RouteController extends BaseController
     protected string $controller;
     protected mixed $inputMethod = null;
     protected mixed $outputMethod = null;
-    protected ?array $parameters = null;
+    protected array $parameters;
 
     /**
      * @throws RouteException
