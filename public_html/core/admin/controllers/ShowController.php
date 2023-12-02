@@ -9,10 +9,9 @@ use core\base\settings\Settings;
 class ShowController extends BaseAdmin
 {
     /**
-     * @return mixed|void
      * @throws DbException
      */
-    protected function inputData()
+    protected function inputData() : mixed
     {
         $this->executeBase();
 
