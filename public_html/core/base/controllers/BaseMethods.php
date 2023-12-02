@@ -50,7 +50,7 @@ trait BaseMethods
             exit;
     }
 
-    protected function writeLog($message, $file = 'log.txt', $event = 'Fault'): void
+    protected function writeLog(string $message, $file = 'log.txt', $event = 'Fault'): void
     {
         $dateTime = new DateTime();
 

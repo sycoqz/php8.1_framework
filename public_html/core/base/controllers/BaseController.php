@@ -15,18 +15,18 @@ abstract class BaseController
 
     use BaseMethods;
 
-    protected $controller;
-    protected $inputMethod;
-    protected $outputMethod;
-    protected $parameters;
-    protected $page;
-    protected $header;
-    protected $content;
-    protected $footer;
-    protected $template;
-    protected $errors;
-    protected $styles;
-    protected $scripts;
+    protected string $controller;
+    protected mixed $inputMethod;
+    protected mixed $outputMethod;
+    protected ?array $parameters;
+    protected string|array|null $page = null;
+    protected string|bool $header;
+    protected string|bool $content;
+    protected string|bool $footer;
+    protected string|bool $template;
+    protected string|bool $errors;
+    protected array $styles;
+    protected array $scripts;
 
     /**
      * @throws RouteException

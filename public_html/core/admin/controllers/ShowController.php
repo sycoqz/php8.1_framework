@@ -116,7 +116,7 @@ class ShowController extends BaseAdmin
 
         }
 
-        $this->data = $this->model->read($this->table, [
+        return $this->data = $this->model->read($this->table, [
             'fields' => $fields,
             'order' => $order,
             'order_direction' => $order_direction

@@ -6,15 +6,16 @@ use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
 use core\base\settings\Settings;
 
-class RouteController extends BaseController // Разбор адресной строки
+class RouteController extends BaseController
+// Разбор адресной строки
 {
     use Singleton;
 
     protected array $routes;
-    protected $controller;
-    protected $inputMethod;
-    protected $outputMethod;
-    protected $parameters;
+    protected string $controller;
+    protected mixed $inputMethod = null;
+    protected mixed $outputMethod = null;
+    protected ?array $parameters = null;
 
     /**
      * @throws RouteException
