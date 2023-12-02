@@ -14,7 +14,7 @@ class ShowController extends BaseAdmin
      */
     protected function inputData()
     {
-        $this->executeBase();
+        if (!isset($this->userID)) $this->executeBase();
 
         $this->createTableData();
 
@@ -22,22 +22,6 @@ class ShowController extends BaseAdmin
 
         return $this->extension();
 
-    }
-
-    /**
-     * @throws RouteException
-     * @throws DbException
-     */
-    protected function outputData(): bool|string
-    {
-        $args = func_get_arg(0);
-        $vars = $args ?: [];
-
-        if (!isset($this->template)) $this->template = ADMIN_TEMPLATE . 'show';
-
-        $this->content = $this->render($this->template, $vars);
-
-        return parent::outputData();
     }
 
     /**
