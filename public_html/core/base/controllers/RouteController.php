@@ -11,11 +11,11 @@ class RouteController extends BaseController
 {
     use Singleton;
 
-    protected array $routes;
-    protected string $controller;
-    protected mixed $inputMethod = null;
-    protected mixed $outputMethod = null;
-    protected ?array $parameters = null;
+    protected $routes;
+    protected $controller;
+    protected $inputMethod;
+    protected $outputMethod;
+    protected $parameters;
 
     /**
      * @throws RouteException
