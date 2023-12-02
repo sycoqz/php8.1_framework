@@ -16,6 +16,7 @@ abstract class BaseAdmin extends BaseController
     protected string $table;
     protected array $columns;
     protected array $data = [];
+    protected array $foreignData = [];
 
     protected string $adminPath;
 
@@ -168,7 +169,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createOutputData(bool|object $settings = false)
+    protected function createOutputData(bool|object $settings = false): void
     {
 
         if (!$settings) $settings = Settings::instance();
