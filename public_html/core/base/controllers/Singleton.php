@@ -7,12 +7,12 @@ use core\base\exceptions\DbException;
 trait Singleton
 {
 
-    static private ?object $_instance = null;
+    static private $_instance;
 
     /**
      * @throws DbException
      */
-    static public function instance() : object
+    static public function instance()
     {
         if (self::$_instance instanceof self) {
             return self::$_instance;

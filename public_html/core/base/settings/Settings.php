@@ -10,7 +10,7 @@ class Settings
 
     use Singleton;
 
-    private array $routes = [
+    private $routes = [
         'admin' => [
           'alias' => 'admin',
           'path' => 'core/admin/controllers/',
@@ -41,31 +41,26 @@ class Settings
         ]
     ];
 
-    private array $templateArr = [
+    private $templateArr = [
         'text' => ['name', 'phone', 'address'],
         'textarea' => ['content', 'keywords']
     ];
 
-    private string $extension = 'core/admin/extension/';
+    private $extension = 'core/admin/extension/';
 
-    private string $defaultTable = 'users';
+    private $defaultTable = 'users';
 
-    private array $projectTables = [
+    private $projectTables = [
         'users' => ['name' => 'Обладатели', 'img' => 'pages.png'],
         'titans' => ['titan' => 'Титаны']
     ];
 
-    /**
-     * @param $property
-     * @return mixed
-     * @throws DbException
-     */
-    static public function get($property): mixed
+    static public function get($property)
     {
         return self::instance()->$property;
     }
 
-    public function clueProperties($class): array
+    public function clueProperties($class)
     {
         $baseProperties = [];
 

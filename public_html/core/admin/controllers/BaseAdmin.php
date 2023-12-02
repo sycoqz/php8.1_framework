@@ -11,16 +11,16 @@ use core\base\settings\Settings;
 abstract class BaseAdmin extends BaseController
 {
 
-    protected object $model;
+    protected $model;
 
-    protected string $table;
-    protected array $columns;
-    protected array $data;
+    protected $table;
+    protected $columns;
+    protected $data;
 
-    protected string $adminPath;
+    protected $adminPath;
 
-    protected array $menu;
-    protected string $title;
+    protected $menu;
+    protected $title;
 
 
     /**
@@ -44,7 +44,7 @@ abstract class BaseAdmin extends BaseController
      * @throws RouteException
      * @throws DbException
      */
-    protected function outputData(): bool|string
+    protected function outputData()
     {
         $this->header = $this->render(ADMIN_TEMPLATE . 'include/header');
         $this->footer = $this->render(ADMIN_TEMPLATE . 'include/footer');
@@ -52,7 +52,7 @@ abstract class BaseAdmin extends BaseController
         return $this->render(ADMIN_TEMPLATE . 'layout/default');
     }
 
-    protected function sendNoCacheHeaders(): void
+    protected function sendNoCacheHeaders()
     {
         header('Last-Modified: ' . gmdate('D, d m Y H:i:s') . ' GMT'); // Отправка заголовков последней модификации сайта браузеру.
         header('Cache-Control: no-cache, must-revalidate');
@@ -63,7 +63,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function executeBase(): void
+    protected function executeBase()
     {
         self::inputData();
     }
@@ -71,7 +71,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createTableData(): void
+    protected function createTableData()
     {
 
         if (!isset($this->table)) {
@@ -90,7 +90,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function extension(array $args = [], bool|object $settings = false): mixed
+    protected function extension(array $args = [], bool|object $settings = false)
     {
         $filename = explode('_', $this->table);
         $className = '';

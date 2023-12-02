@@ -8,9 +8,9 @@ class ShopSettings
 {
 
     use Singleton;
-    private null|object $baseSettings;
+    private $baseSettings;
 
-    private array $routes = [
+    private $routes = [
         'plugins' => [
             'dir' => false,
             'routes' => [
@@ -18,12 +18,12 @@ class ShopSettings
             ]
         ]
     ];
-    private array $templateArr = [
+    private $templateArr = [
         'text' => ['price', 'short'],
         'textarea' => ['goods_content']
     ];
 
-    private string $extension = 'core/plugin/extension/';
+    private $extension = 'core/plugin/extension/';
 
     /**
      * @throws DbException
@@ -35,7 +35,7 @@ class ShopSettings
     /**
      * @throws DbException
      */
-    static private function getInstance(): ?object
+    static private function getInstance()
     {
         if (self::$_instance instanceof self) {
             return self::$_instance;
@@ -48,7 +48,7 @@ class ShopSettings
         return self::$_instance;
     }
 
-    protected function setProperty($properties): void
+    protected function setProperty($properties)
     {
         if ($properties) {
             foreach ($properties as $name => $property) {

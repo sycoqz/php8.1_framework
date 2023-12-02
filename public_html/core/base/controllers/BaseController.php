@@ -15,23 +15,23 @@ abstract class BaseController
 
     use BaseMethods;
 
-    protected string $controller;
-    protected mixed $inputMethod;
-    protected mixed $outputMethod;
-    protected ?array $parameters;
-    protected string|array|null $page = null;
-    protected string|bool $header;
-    protected string|bool $content;
-    protected string|bool $footer;
-    protected string|bool $template;
-    protected string|bool $errors;
-    protected array $styles;
-    protected array $scripts;
+    protected $controller;
+    protected $inputMethod;
+    protected $outputMethod;
+    protected $parameters;
+    protected $page;
+    protected $header;
+    protected $content;
+    protected $footer;
+    protected $template;
+    protected $errors;
+    protected $styles;
+    protected $scripts;
 
     /**
      * @throws RouteException
      */
-    public function route(): void
+    public function route()
     {
         $controller = str_replace('/', '\\', $this->controller); // Имя класса в строковом виде
 
@@ -54,7 +54,7 @@ abstract class BaseController
 
     }
 
-    #[NoReturn] public function request(array $args): void
+    #[NoReturn] public function request(array $args)
     {
         $this->parameters = $args['parameters'];
 
@@ -79,7 +79,7 @@ abstract class BaseController
         $this->getPage();
     }
 
-    protected function init($admin = false): void
+    protected function init($admin = false)
     {
         if (!$admin) {
             if (USER_CSS_JS['styles']) {
@@ -104,7 +104,7 @@ abstract class BaseController
      * @throws RouteException
      * @throws DbException
      */
-    protected function render(string $path = '', array $parameters = []): bool|string // Шаблонизатор
+    protected function render(string $path = '', array $parameters = []) // Шаблонизатор
     {
         extract($parameters); // Разбор массива, создание переменных. Пример на вход: $arr = ['name' => 'value']. Создаётся переменная $name, содержащая строку 'value'
 
@@ -129,7 +129,7 @@ abstract class BaseController
 
     }
 
-    #[NoReturn] protected function getPage(): void
+    #[NoReturn] protected function getPage()
     {
         if (is_array($this->page)) {
             foreach ($this->page as $block) echo $block;
