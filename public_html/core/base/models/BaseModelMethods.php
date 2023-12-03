@@ -256,41 +256,124 @@ abstract class BaseModelMethods
     protected function createInsert(array|bool $fields, array|bool $files, array|bool $except): array
     {
         $insert_arr = [
-            'fields' => '',
+            'fields' => '(',
             'values' => '',
         ];
 
-        if ($fields) {
+        $array_type = array_keys($fields)[0];
 
-            foreach ($fields as $row => $value) {
+        if (is_int($array_type)) {
 
-                if (!empty($except) && in_array($row, $except)) continue;
+            $check_fields = false;
+            $count_fields = 0;
 
-                $insert_arr['fields'] .= $row . ',';
+            foreach ($fields as $item) {
 
-                if (in_array($value, $this->sqlFunc)) {
-                    $insert_arr['values'] .= $value . ',';
-                } else {
-                    $insert_arr['values'] .= "'" . addslashes($value) . "',";
+                $insert_arr['values'] .= '(';
+
+                if (!$count_fields) $count_fields = count($item);
+
+                $j = 0;
+
+                // Защита от лишних полей. Невозможно добавить лишнее поле.
+                foreach ($item as $row => $value) {
+
+                    if (!empty($except) && in_array($row, $except)) continue;
+
+                    // Проверка заполнены ли поля. $row - название поля
+                    if (!$check_fields) $insert_arr['fields'] .= $row . ',';
+
+                    if (!empty($this->sqlFunc) && in_array($value, $this->sqlFunc)) {
+
+                        $insert_arr['values'] .= $value . ',';
+
+                    } elseif ($value == 'NULL' || $value === NULL) { // Если пришёл null или string
+
+                        $insert_arr['values'] .= "NULL" . ',';
+
+                    } else {
+
+                        $insert_arr['values'] .= "'" . addslashes($value) . "',";
+
+                    }
+
+                    $j++;
+
+                    if ($j === $count_fields) break;
+
+                }
+
+                if ($j < $count_fields) {
+
+                    for (; $j < $count_fields; $j++) {
+
+                        $insert_arr['values'] .= "NULL" . ',';
+
+                    }
+
+                }
+
+                // Обрезание лишний ',' в конце.
+                $insert_arr['values'] = rtrim($insert_arr['values'], ',') . '),';
+
+                if (!$check_fields) $check_fields = true;
+
+            }
+
+        } else {
+
+            $insert_arr['values'] = '(';
+
+            if ($fields) {
+
+                // Защита от лишних полей. Невозможно добавить лишнее поле.
+                foreach ($fields as $row => $value) {
+
+                    if (!empty($except) && in_array($row, $except)) continue;
+
+                    // Проверка заполнены ли поля. $row - название поля
+                    $insert_arr['fields'] .= $row . ',';
+
+                    if (!empty($this->sqlFunc) && in_array($value, $this->sqlFunc)) {
+
+                        $insert_arr['values'] .= $value . ',';
+
+                    } elseif ($value == 'NULL' || $value === NULL) { // Если пришёл null или string
+
+                        $insert_arr['values'] .= "NULL" . ',';
+
+                    } else {
+
+                        $insert_arr['values'] .= "'" . addslashes($value) . "',";
+
+                    }
+
                 }
 
             }
 
-        }
+            if ($files) {
 
-        if ($files) {
 
-            foreach ($files as $row => $file) {
 
-                $insert_arr['fields'] .= $row . ',';
+                foreach ($files as $row => $file) {
 
-                if (is_array($file)) $insert_arr['values'] .= "'" . addslashes(json_encode($file)) . "',";
-                    else $insert_arr['values'] .= "'" . addslashes($file) . "',";
+                    // Проверка заполнены ли поля. $row - название поля
+                    $insert_arr['fields'] .= $row . ',';
+
+                    if (is_array($file)) $insert_arr['values'] .= "'" . addslashes(json_encode($file)) . "',";
+                        else $insert_arr['values'] .= "'" . addslashes($file) . "',";
+
+                }
 
             }
+
+            $insert_arr['values'] = rtrim($insert_arr['values'], ',') . ')';
+
         }
 
-        foreach ($insert_arr as $key => $arr) $insert_arr[$key] = rtrim($arr, ',');
+        $insert_arr['fields'] = rtrim($insert_arr['fields'], ',') . ')';
+        $insert_arr['values'] = rtrim($insert_arr['values'], ',');
 
         return $insert_arr;
 
