@@ -66,7 +66,7 @@ class Settings
 
     private array $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles']
+        'tables' => ['titansusers', 'articles']
     ];
 
     private array $radio = [

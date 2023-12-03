@@ -13,7 +13,7 @@ abstract class BaseModelMethods
 
         $set['fields'] = (!empty($set['fields']) && is_array($set['fields'])) ? $set['fields'] : ['*'];
 
-        $table = $table . '.' ?? '';
+        $table = ($table && !isset($set['no_concat'])) ? $table . '.' : '';
 
         $fields = '';
 
@@ -30,7 +30,7 @@ abstract class BaseModelMethods
 
         if (array_key_exists('order', $set) && $set['order'] === null) return '';
 
-        $table = $table . '.' ?? '';
+        $table = ($table && !isset($set['no_concat'])) ? $table . '.' : '';
 
         $order_by = '';
 
@@ -71,9 +71,14 @@ abstract class BaseModelMethods
 
     protected function createWhere(array $set, string|bool $table = false, $instruction = 'WHERE'): string
     {
-        $table = $table . '.' ?? '';
+        $table = ($table && !isset($set['no_concat'])) ? $table . '.' : '';
 
         $where = '';
+
+        if (!empty($set['where']) && is_string($set['where'])) {
+
+            return $instruction . ' ' . trim($set['where']);
+        }
 
         if (!empty($set['where']) && is_array($set['where'])) {
 
