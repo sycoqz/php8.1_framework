@@ -69,6 +69,10 @@ class Settings
         'tables' => ['articles']
     ];
 
+    private array $radio = [
+        'visibility' => ['Нет', 'Да', 'default' => 'Да']
+    ];
+
     /**
      * @param $property
      * @return mixed
