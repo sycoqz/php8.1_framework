@@ -7,7 +7,9 @@ use core\base\exceptions\DbException;
 class ShopSettings
 {
 
-    use Singleton;
+    use Singleton {
+        instance as traitInstance;
+    }
     private null|object $baseSettings;
 
     private array $routes = [
@@ -29,19 +31,19 @@ class ShopSettings
      * @throws DbException
      */
     static public function get($property) {
-        return self::getInstance()->$property;
+        return self::instance()->$property;
     }
 
     /**
      * @throws DbException
      */
-    static private function getInstance(): ?object
+    static public function instance(): ?object
     {
         if (self::$_instance instanceof self) {
             return self::$_instance;
         }
 
-        self::instance()->baseSettings = Settings::instance();
+        self::traitInstance()->baseSettings = Settings::instance();
         $baseProperties = self::$_instance->baseSettings->clueProperties(get_class());
         self::$_instance->setProperty($baseProperties);
 

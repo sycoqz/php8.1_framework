@@ -8,6 +8,8 @@ use core\base\settings\Settings;
 class AddController extends BaseAdmin
 {
 
+    protected string $action = 'add';
+
     protected function inputData()
     {
         if (!isset($this->userID)) $this->executeBase();

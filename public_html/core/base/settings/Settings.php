@@ -42,11 +42,17 @@ class Settings
     ];
 
     private array $templateArr = [
-        'text' => ['name', 'phone', 'address'],
-        'textarea' => ['content', 'keywords']
+        'text' => ['name'],
+        'textarea' => ['keywords', 'content'],
+        'radio' => ['visibility'],
+        'select' => ['menu_position', 'parent_id'],
+        'img' => ['img'],
+        'gallery_img' => ['gallery_img']
     ];
 
     private string $extension = 'core/admin/extension/';
+
+    private string $formTemplates = PATH . 'core/admin/views/include/form_templates/';
 
     private string $defaultTable = 'users';
 
@@ -57,16 +63,18 @@ class Settings
 
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
+        'content' => []
     ];
+
     private array $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['id'],
+        'vg-img' => ['img'],
         'vg-content' => ['content']
     ];
 
     private array $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['titansusers', 'articles']
+        'tables' => ['articles']
     ];
 
     private array $radio = [

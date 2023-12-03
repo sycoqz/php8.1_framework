@@ -13,8 +13,8 @@ class RouteController extends BaseController
 
     protected array $routes;
     protected string $controller;
-    protected mixed $inputMethod = null;
-    protected mixed $outputMethod = null;
+    protected ?string $inputMethod = null;
+    protected ?string $outputMethod = null;
     protected ?array $parameters = null;
 
     /**
