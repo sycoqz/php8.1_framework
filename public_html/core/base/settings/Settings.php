@@ -64,6 +64,11 @@ class Settings
         'vg-content' => ['content']
     ];
 
+    private array $rootItems = [
+        'name' => 'Корневая',
+        'tables' => ['articles']
+    ];
+
     /**
      * @param $property
      * @return mixed
