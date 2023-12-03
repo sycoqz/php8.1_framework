@@ -24,6 +24,9 @@ abstract class BaseAdmin extends BaseController
     protected string $title;
     protected array $warningUser; // $translate
     protected array $blocks = [];
+    protected array $templateArr;
+    protected string $formTemplates;
+    protected $noDelete;
 
 
     /**
@@ -33,11 +36,14 @@ abstract class BaseAdmin extends BaseController
     {
         $this->init(true);
 
-        $this->title = 'Shingeki no Kyojin';
+        $this->title = 'php 8.1 Framework';
 
         if (!isset($this->model)) $this->model = Model::instance();
         if (!isset($this->menu)) $this->menu = Settings::get('projectTables');
         if (!isset($this->adminPath)) $this->adminPath = PATH . Settings::get('routes')['admin']['alias'] . '/';
+
+        if (!isset($this->templateArr)) $this->templateArr = Settings::get('templateArr');
+        if (!isset($this->formTemplates)) $this->formTemplates = Settings::get('formTemplates');
 
         $this->sendNoCacheHeaders();
 
@@ -53,8 +59,6 @@ abstract class BaseAdmin extends BaseController
 
             $args = func_get_arg(0);
             $vars = $args ?: [];
-
-            if (!isset($this->template)) $this->template = ADMIN_TEMPLATE . 'show';
 
             $this->content = $this->render($this->template, $vars);
 
@@ -230,7 +234,7 @@ abstract class BaseAdmin extends BaseController
     protected function createRadio(bool $settings = false): void
     {
 
-        if (!$settings) $settings = Settings::instance('radio');
+        if (!$settings) $settings = Settings::instance();
 
         $radio = $settings::get('radio');
 
