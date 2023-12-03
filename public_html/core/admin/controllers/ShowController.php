@@ -20,7 +20,7 @@ class ShowController extends BaseAdmin
 
         $this->createData();
 
-        return $this->extension();
+        return $this->extension(get_defined_vars());
 
     }
 
