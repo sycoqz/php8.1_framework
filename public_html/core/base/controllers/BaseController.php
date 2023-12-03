@@ -16,14 +16,14 @@ abstract class BaseController
     use BaseMethods;
 
     protected string $controller;
-    protected mixed $inputMethod;
-    protected mixed $outputMethod;
+    protected ?string $inputMethod = null;
+    protected ?string $outputMethod = null;
     protected ?array $parameters = null;
     protected string|array|null $page = null;
     protected string|bool $header;
     protected string|bool $content;
     protected string|bool $footer;
-    protected string|bool $template;
+    protected string|bool $template = '';
     protected string|bool $errors;
     protected array $styles;
     protected array $scripts;
