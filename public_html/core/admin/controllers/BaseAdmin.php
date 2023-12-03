@@ -85,7 +85,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createTableData(bool|object $settings = false): void
+    protected function createTableData(bool $settings = false): void
     {
 
         if (!isset($this->table)) {
@@ -109,7 +109,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function extension(array $args = [], bool|object $settings = false): mixed
+    protected function extension(array $args = [], bool $settings = false): mixed
     {
         $filename = explode('_', $this->table);
         $className = '';
@@ -169,7 +169,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createOutputData(bool|object $settings = false): void
+    protected function createOutputData(bool $settings = false): void
     {
 
         if (!$settings) $settings = Settings::instance();
@@ -227,7 +227,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createRadio(bool|array $settings = false): void
+    protected function createRadio(bool $settings = false): void
     {
 
         if (!$settings) $settings = Settings::instance('radio');
