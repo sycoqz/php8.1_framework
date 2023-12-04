@@ -52,6 +52,8 @@ class Settings
 
     private string $extension = 'core/admin/extension/';
 
+    private string $messages = 'core/base/messages/';
+
     private string $formTemplates = PATH . 'core/admin/views/include/form_templates/';
 
     private string $defaultTable = 'users';
@@ -63,7 +65,9 @@ class Settings
 
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
-        'content' => []
+        'keywords' => ['Ключевые слова', 'Не более 70 символов'],
+        'content' => ['Контент'],
+        'img' => ['Изображение']
     ];
 
     private array $blockNeedle = [
@@ -79,6 +83,15 @@ class Settings
 
     private array $radio = [
         'visibility' => ['Нет', 'Да', 'default' => 'Да']
+    ];
+
+    private array $validation = [
+        'name' => ['empty' => true, 'trim' => true],
+        'price' => ['int' => true],
+        'login' => ['empty' => true, 'trim' => true],
+        'password' => ['crypt' => true, 'empty' => true],
+        'keywords' => ['count' => 70, 'trim' => true],
+        'description' => ['count' => 160, 'trim' => true]
     ];
 
     /**
