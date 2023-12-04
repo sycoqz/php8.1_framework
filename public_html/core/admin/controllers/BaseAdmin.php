@@ -7,6 +7,8 @@ use core\base\controllers\BaseController;
 use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
 use core\base\settings\Settings;
+use JetBrains\PhpStorm\NoReturn;
+use function libraries\mb_str_replace;
 
 abstract class BaseAdmin extends BaseController
 {
@@ -14,19 +16,30 @@ abstract class BaseAdmin extends BaseController
     protected object $model;
 
     protected string $table;
-    protected array $columns;
+
+    protected array $columns = [];
+
     protected array $data = [];
+
     protected array $foreignData = [];
 
     protected string $adminPath;
 
     protected array $menu;
+
     protected string $title;
+
     protected array $warningUser; // $translate
+
     protected array $blocks = [];
+
     protected array $templateArr;
+
     protected string $formTemplates;
-    protected $noDelete;
+
+    protected ?bool $noDelete = null;
+
+    protected array $messages;
 
 
     /**
@@ -44,6 +57,9 @@ abstract class BaseAdmin extends BaseController
 
         if (!isset($this->templateArr)) $this->templateArr = Settings::get('templateArr');
         if (!isset($this->formTemplates)) $this->formTemplates = Settings::get('formTemplates');
+
+        if (!isset($this->messages)) $this->messages = include $_SERVER['DOCUMENT_ROOT']
+            . PATH . Settings::get('messages') . 'informationMessages.php';
 
         $this->sendNoCacheHeaders();
 
@@ -250,6 +266,147 @@ abstract class BaseAdmin extends BaseController
             }
 
         }
+
+    }
+
+    /**
+     * @throws DbException
+     */
+    protected function checkPost(bool $settings = false): void
+    {
+
+        if ($this->isPost()) {
+
+            $this->clearPostFields($settings);
+            $this->table = $this->clearStr($_POST['table']);
+
+            unset($_POST['table']);
+
+            if ($this->table) {
+
+                $this->createTableData($settings);
+                $this->editData();
+
+            }
+
+        }
+
+    }
+
+    #[NoReturn] protected function addSessionData(array $arr = []): void
+    {
+
+        if (!isset($arr)) $arr = $_POST;
+
+        foreach ($arr as $key => $item) {
+
+            $_SESSION['result'][$key] = $item;
+
+        }
+
+        $this->redirect();
+
+    }
+
+    protected function countChar(string $str, int $counter, $answer, array $arr): void
+    {
+        if (mb_strlen($str) > $counter) {
+
+            $str_result = mb_str_replace('$1', $answer, $this->messages['count']);
+            $str_result = mb_str_replace('$2', $counter, $str_result);
+
+            $_SESSION['result']['answer'] = '<div class="error">' . $str_result . '</div>';
+            $this->addSessionData($arr);
+        }
+    }
+
+    protected function emptyFields(string $str, $answer, array $arr = []): void
+    {
+
+        if (empty($str)) {
+
+            $_SESSION['result']['answer'] = '<div class="error">' . $this->messages['empty'] . ' ' . $answer . '</div>';
+            $this->addSessionData($arr);
+
+        }
+
+    }
+
+    /**
+     * @throws DbException
+     */
+    protected function clearPostFields(bool $settings, array &$arr = []): bool
+    {
+        if (!$arr) $arr = &$_POST;
+
+        if (!$settings) $settings = Settings::instance();
+
+        if (isset($this->columns['id_row'])) $id = $_POST[$this->columns['id_row']] ?: false;
+
+        $validate = $settings::get('validation');
+        if (!isset($this->warningUser)) $this->warningUser = $settings::get('warningUser');
+
+        //Рекурсивный метод
+        foreach ($arr as $key => $item) {
+
+            if (is_array($item)) {
+
+                $this->clearPostFields($settings, $item);
+
+            } else {
+
+                if (is_numeric($item)) {
+
+                    $arr[$key] = $this->clearNum($item);
+                }
+
+                // Проверка на наличие данных в массиве валидации.
+                if ($validate) {
+
+                    if (isset($validate[$key])) {
+
+                        if (isset($this->warningUser[$key])) {
+
+                            $answer = $this->warningUser[$key][0];
+
+                        } else {
+
+                            $answer = $key;
+
+                        }
+
+                        if (isset($validate[$key]['crypt'])) {
+
+                            if (isset($id)) {
+
+                                if (empty($item)) {
+                                    unset($arr[$key]);
+                                    continue;
+                                }
+
+                                $arr[$key] = md5($item);
+                            }
+                        }
+
+                        if (isset($validate[$key]['empty'])) $this->emptyFields($item, $answer, $arr);
+
+                        if (isset($validate[$key]['trim'])) $arr[$key] = trim($item);
+
+                        if (isset($validate[$key]['int'])) $arr[$key] = $this->clearNum($item);
+
+                        if (isset($validate[$key]['count'])) $this->countChar($item, $validate[$key]['count'], $answer, $arr);
+
+                    }
+                }
+            }
+        }
+
+        return true;
+
+    }
+
+    protected function editData()
+    {
 
     }
 

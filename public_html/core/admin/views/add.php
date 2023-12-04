@@ -1,4 +1,4 @@
-<form id="main-form" class="vg-wrap vg-element vg-nineteen-of-twenty" method="post" action="<?=$this->adminPath . $this->action?>" enctype="multipart/form-data">
+<form id="main-form" class="vg-wrap vg-element vg-nineteen-of-twenty" method="POST" action="<?=$this->adminPath . $this->action?>" enctype="multipart/form-data">
     <div class="vg-wrap vg-element vg-full">
         <div class="vg-wrap vg-element vg-full vg-firm-background-color4 vg-box-shadow">
             <div class="vg-element vg-half vg-left">
@@ -7,7 +7,7 @@
                 </div>
                 <?php if (!$this->noDelete && $this->data):?>
                 <div class="vg-element vg-padding-in-px">
-                    <a href="/admin/delete/goods/53" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
+                    <a href="" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
                         <span>Удалить</span>
                     </a>
                 </div>
@@ -68,7 +68,7 @@
                     <input type="submit" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button" value="Сохранить">
                 </div>
                 <div class="vg-element vg-padding-in-px">
-                    <a href="/admin/shop/delete/table/shop_products/id_row/id/id/92" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
+                    <a href="" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
                         <span>Удалить</span>
                     </a>
                 </div>
