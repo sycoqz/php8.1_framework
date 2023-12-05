@@ -23,7 +23,7 @@ abstract class BaseModel extends BaseModelMethods
 
         if ($this->db->affected_rows === -1) {
             throw new DbException('Ошибка в SQL запросе: '
-            . $query . ' - ' . $this->db->errno . $this->db->error);
+                . $query . ' - ' . $this->db->errno . $this->db->error);
         }
 
         switch ($crud) {
@@ -105,7 +105,7 @@ abstract class BaseModel extends BaseModelMethods
         $where = $this->createWhere($set, $table);
 
         if (empty($where)) $new_where = true;
-                else $new_where = false;
+        else $new_where = false;
 
         $join_arr = $this->createJoin($set, $table, $new_where); // Массив
 
@@ -236,7 +236,7 @@ abstract class BaseModel extends BaseModelMethods
      * @return array|int|string|true|null
      * @throws DbException
      */
-    final public function delete(array $set,string $table): int|bool|array|string|null
+    final public function delete(array $set, string $table): int|bool|array|string|null
     {
         $table = trim($table);
 
@@ -301,10 +301,36 @@ abstract class BaseModel extends BaseModelMethods
                 $columns[$row['Field']] = $row;
                 if ($row['Key'] === 'PRI') $columns['id_row'] = $row['Field'];
             }
-            
+
         }
 
         return $columns;
+    }
+
+    /**
+     * @throws DbException
+     */
+    final public function showTables() : array
+    {
+
+        $query = 'SHOW TABLES';
+
+        $tables = $this->query($query);
+
+        $tableArr = [];
+
+        if (isset($tables)) {
+
+            foreach ($tables as $table) {
+
+                $tableArr[] = reset($table);
+
+            }
+
+        }
+
+        return $tableArr;
+
     }
 
     /**
