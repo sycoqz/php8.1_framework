@@ -109,6 +109,7 @@ class Settings
         $baseProperties = [];
 
         foreach ($this as $name => $item) {
+
             $property = $class::get($name);
 
             if (is_array($property) && is_array($item)) {
@@ -117,6 +118,7 @@ class Settings
             }
 
             if (!$property) $baseProperties[$name] = $this->$name;
+
         }
 
         return $baseProperties;
@@ -130,7 +132,7 @@ class Settings
 
         foreach ($arrays as $array) {
             foreach ($array as $key => $value) {
-                if (is_array($value) && is_array($base[$key])) {
+                if (isset($base[$key]) && is_array($value) && is_array($base[$key])) {
                     $base[$key] = $this->arrayMergeRecursive($base[$key], $value);
                 } else {
                     if (is_int($key)) {
