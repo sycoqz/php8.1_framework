@@ -15,7 +15,7 @@ class TextModify
 
     protected array $lowelLetter = ['а', 'е', 'и', 'о', 'у', 'э'];
 
-    public function translit(string $str)
+    public function translit(string $str): array|string|null
     {
 
         $str = mb_strtolower($str);

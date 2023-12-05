@@ -2,8 +2,6 @@
 
 namespace libraries;
 
-use const PATHINFO_EXTENSION;
-
 class FileEdit
 {
 
