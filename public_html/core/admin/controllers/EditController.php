@@ -7,7 +7,7 @@ class EditController extends BaseAdmin
 
     protected function inputData()
     {
-        if (!$this->userID) $this->executeBase();
+        if (!isset($this->userID)) $this->executeBase();
     }
 
     protected function checkOldAlias($id): void
