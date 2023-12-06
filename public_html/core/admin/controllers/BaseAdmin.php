@@ -8,6 +8,7 @@ use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
 use core\base\settings\Settings;
 use JetBrains\PhpStorm\NoReturn;
+use libraries\FileEdit;
 use libraries\TextModify;
 use function libraries\mb_str_replace;
 
@@ -490,6 +491,8 @@ abstract class BaseAdmin extends BaseController
 
             if (!$returnId) $this->redirect();
 
+            return false;
+
         }
 
     }
@@ -515,8 +518,12 @@ abstract class BaseAdmin extends BaseController
 
     }
 
-    protected function createFile()
+    protected function createFile(): void
     {
+
+        $fileEdit = new FileEdit();
+
+        $this->fileArray = $fileEdit->addFile();
 
     }
 

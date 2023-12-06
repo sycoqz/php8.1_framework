@@ -66,8 +66,6 @@ class Settings
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
-        'content' => ['Контент'],
-        'img' => ['Изображение']
     ];
 
     private array $blockNeedle = [
