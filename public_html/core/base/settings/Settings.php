@@ -52,6 +52,8 @@ class Settings
 
     private string $extension = 'core/admin/extension/';
 
+    private string $messages = 'core/base/messages/';
+
     private string $formTemplates = PATH . 'core/admin/views/include/form_templates/';
 
     private string $defaultTable = 'users';
@@ -63,7 +65,7 @@ class Settings
 
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
-        'content' => []
+        'keywords' => ['Ключевые слова', 'Не более 70 символов'],
     ];
 
     private array $blockNeedle = [
@@ -81,6 +83,15 @@ class Settings
         'visibility' => ['Нет', 'Да', 'default' => 'Да']
     ];
 
+    private array $validation = [
+        'name' => ['empty' => true, 'trim' => true],
+        'price' => ['int' => true],
+        'login' => ['empty' => true, 'trim' => true],
+        'password' => ['crypt' => true, 'empty' => true],
+        'keywords' => ['count' => 70, 'trim' => true],
+        'description' => ['count' => 160, 'trim' => true]
+    ];
+
     /**
      * @param $property
      * @return mixed
@@ -96,6 +107,7 @@ class Settings
         $baseProperties = [];
 
         foreach ($this as $name => $item) {
+
             $property = $class::get($name);
 
             if (is_array($property) && is_array($item)) {
@@ -104,6 +116,7 @@ class Settings
             }
 
             if (!$property) $baseProperties[$name] = $this->$name;
+
         }
 
         return $baseProperties;
@@ -117,7 +130,7 @@ class Settings
 
         foreach ($arrays as $array) {
             foreach ($array as $key => $value) {
-                if (is_array($value) && is_array($base[$key])) {
+                if (isset($base[$key]) && is_array($value) && is_array($base[$key])) {
                     $base[$key] = $this->arrayMergeRecursive($base[$key], $value);
                 } else {
                     if (is_int($key)) {

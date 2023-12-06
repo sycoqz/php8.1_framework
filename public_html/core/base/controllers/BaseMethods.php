@@ -26,7 +26,6 @@ trait BaseMethods
     protected function isPost(): bool
     {
         return $_SERVER['REQUEST_METHOD'] == 'POST';
-
     }
 
     protected function isAjax(): bool
