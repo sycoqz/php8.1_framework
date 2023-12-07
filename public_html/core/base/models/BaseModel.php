@@ -11,13 +11,13 @@ abstract class BaseModel extends BaseModelMethods
     protected mysqli $db;
 
     /**
-     * @param $query
+     * @param string $query
      * @param string $crud = r - SELECT / c - INSERT / u - UPDATE / d - DELETE
      * @param bool $return_id
      * @return array|int|string|true|void
      * @throws DbException
      */
-    final public function query($query, string $crud = 'r', bool $return_id = false)
+    final public function query(string $query, string $crud = 'r', bool $return_id = false)
     {
         $result = $this->db->query($query); // Объект с выборкой из базы данных.
 
