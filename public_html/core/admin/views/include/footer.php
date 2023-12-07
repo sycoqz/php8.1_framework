@@ -11,5 +11,12 @@
                 ?>
         </div>
 
+            <script>
+                const PATH = '<?=PATH?>';
+                const ADMIN_MODE = 1;
+            </script>
+
+        <?php $this->getScripts();?>
+
     </body>
 </html>
