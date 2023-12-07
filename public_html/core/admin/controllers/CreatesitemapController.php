@@ -34,7 +34,7 @@ class CreatesitemapController extends BaseAdmin
      * @throws DOMException
      * @throws DbException
      */
-    #[NoReturn] protected function inputData($linkCounter = 1): void
+    #[NoReturn] protected function inputData($linksCounter = 1): void
     {
 
         if (!function_exists('curl_init')) {
@@ -61,13 +61,13 @@ class CreatesitemapController extends BaseAdmin
             foreach ($reserve as $name => $item) {
 
                 if ($item) $this->$name = json_decode($item);
-                else $this->$name = [SITE_URL];
+                    else $this->$name = [SITE_URL];
 
             }
 
         }
 
-        $this->maxLinks = (int)$linkCounter > 1 ? ceil($this->maxLinks / $linkCounter) : $this->maxLinks;
+        $this->maxLinks = (int)$linksCounter > 1 ? ceil($this->maxLinks / $linksCounter) : $this->maxLinks;
 
         while ($this->temp_links) {
 
@@ -156,7 +156,7 @@ class CreatesitemapController extends BaseAdmin
 
             $curl[$i] = curl_init();
 
-            curl_setopt($curl[$i], CURLOPT_URL, $urls);
+            curl_setopt($curl[$i], CURLOPT_URL, $url);
             curl_setopt($curl[$i], CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl[$i], CURLOPT_HEADER, true);
             curl_setopt($curl[$i], CURLOPT_FOLLOWLOCATION, 1);
@@ -291,7 +291,7 @@ class CreatesitemapController extends BaseAdmin
                         mb_str_replace('/','\/', SITE_URL));
 
                     if (!in_array($link, $this->all_links) &&
-                        !preg_match('/^(' . $siteUrl . ')?\/?#[^\/]*?$/ui',$link) &&
+                        !preg_match('/^(' . $siteUrl . ')?\/?#[^\/]*?$/uis',$link) &&
                         str_starts_with($link, SITE_URL)) {
 
                         $this->temp_links[] = $link;
@@ -361,7 +361,7 @@ class CreatesitemapController extends BaseAdmin
 
     }
 
-    protected function cancel(string $message, string $log_message, int $success = 0, $exit = false): void
+    protected function cancel(string $message, string $log_message, int $success = 0, bool $exit = false): void
     {
 
         $exitArr = [];
@@ -414,7 +414,7 @@ class CreatesitemapController extends BaseAdmin
 
             foreach ($this->all_links as $item) {
 
-                $element = trim(mb_substr($item, mb_strlen(SITE_URL), '/'));
+                $element = trim(mb_substr($item, mb_strlen(SITE_URL)), '/');
                 $element = explode('/', $element);
 
                 $count = '0.' . (count($element) - 1);
