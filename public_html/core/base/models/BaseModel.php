@@ -11,13 +11,13 @@ abstract class BaseModel extends BaseModelMethods
     protected mysqli $db;
 
     /**
-     * @param $query
+     * @param string $query
      * @param string $crud = r - SELECT / c - INSERT / u - UPDATE / d - DELETE
      * @param bool $return_id
      * @return array|int|string|true|void
      * @throws DbException
      */
-    final public function query($query, string $crud = 'r', bool $return_id = false)
+    final public function query(string $query, string $crud = 'r', bool $return_id = false)
     {
         $result = $this->db->query($query); // Объект с выборкой из базы данных.
 
@@ -44,7 +44,7 @@ abstract class BaseModel extends BaseModelMethods
                 break;
 
             case 'c':
-                if (isset($return_id)) return $this->db->insert_id;
+                if ($return_id) return $this->db->insert_id;
                 return true;
 
             default:
@@ -142,7 +142,7 @@ abstract class BaseModel extends BaseModelMethods
 
         if (empty($set['fields']) && empty($set['files'])) return false;
 
-        $set['return_id'] = !empty(['return_id']);
+        $set['return_id'] = !empty(['return_id']) && isset($set['return_id']);
 
         $set['except'] = (!empty($set['except']) && is_array($set['except'])) ? $set['except'] : false;
 

@@ -10,7 +10,7 @@ class AddController extends BaseAdmin
 
     protected string $action = 'add';
 
-    protected function inputData()
+    protected function inputData(): void
     {
         if (!isset($this->userID)) $this->executeBase();
 
