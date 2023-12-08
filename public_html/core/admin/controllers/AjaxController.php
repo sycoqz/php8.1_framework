@@ -22,7 +22,9 @@ class AjaxController extends BaseAjax
 
                 case 'sitemap':
 
-                    return (new CreatesitemapController())->inputData($this->data['linksCounter'], false);
+                    $controller = new CreatesitemapController();
+
+                    $controller->inputData($this->data['linksCounter'], false);
 
             }
 
