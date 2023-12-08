@@ -2,7 +2,7 @@
 
 defined('VG_ACCESS') or die('Access denied');
 
-const SITE_URL = 'http://im.my';
+const SITE_URL = 'https://cq.ru/matches/cs-2';
 const PATH = '/';
 
 const HOST = 'localhost';

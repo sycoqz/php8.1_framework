@@ -21,8 +21,6 @@ abstract class BaseAdmin extends BaseController
 
     protected array $columns = [];
 
-    protected array $data = [];
-
     protected array $foreignData = [];
 
     protected string $adminPath;

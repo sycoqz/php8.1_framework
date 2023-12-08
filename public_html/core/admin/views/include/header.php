@@ -7,9 +7,7 @@
     <meta type="description" content="...">
     <title>Admin Panel</title>
 
-    <?php foreach ($this->styles as $style):?>
-        <link rel="stylesheet" href="<?=$style?>">
-    <?php endforeach;?>
+    <?php $this->getStyles();?>
 
 </head>
 <body>
@@ -42,9 +40,9 @@
                 </div>
             </div>
             <!--кнопка-->
-            <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>create-sitemap" class="vg-element vg-box-shadow sitemap-button">
+            <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/createsitemap" class="vg-element vg-box-shadow sitemap-button">
                             <span class="vg-text vg-firm-color1">
-                                Create sitemap
+                                Createsitemap
                             </span>
             </a>
             <!--/кнопка-->

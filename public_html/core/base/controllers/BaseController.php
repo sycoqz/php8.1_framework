@@ -20,6 +20,7 @@ abstract class BaseController
     protected ?string $outputMethod = null;
     protected ?array $parameters = null;
     protected string|array|null $page = null;
+    protected array $data = [];
     protected string|bool $header;
     protected string|bool $content;
     protected string|bool $footer;

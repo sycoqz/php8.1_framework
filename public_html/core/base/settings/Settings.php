@@ -70,7 +70,7 @@ class Settings
 
     private array $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img'],
+        'vg-img' => ['img', 'gallery_img'],
         'vg-content' => ['content']
     ];
 
