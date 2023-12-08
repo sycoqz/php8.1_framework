@@ -44,7 +44,7 @@ abstract class BaseModel extends BaseModelMethods
                 break;
 
             case 'c':
-                if (isset($return_id)) return $this->db->insert_id;
+                if ($return_id) return $this->db->insert_id;
                 return true;
 
             default:
@@ -142,7 +142,7 @@ abstract class BaseModel extends BaseModelMethods
 
         if (empty($set['fields']) && empty($set['files'])) return false;
 
-        $set['return_id'] = !empty(['return_id']);
+        $set['return_id'] = !empty(['return_id']) && isset($set['return_id']);
 
         $set['except'] = (!empty($set['except']) && is_array($set['except'])) ? $set['except'] : false;
 

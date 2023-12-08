@@ -5,7 +5,7 @@ namespace core\admin\controllers;
 class EditController extends BaseAdmin
 {
 
-    protected function inputData()
+    protected function inputData(): void
     {
         if (!isset($this->userID)) $this->executeBase();
     }

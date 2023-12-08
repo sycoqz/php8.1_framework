@@ -36,7 +36,7 @@ class CreatesitemapController extends BaseAdmin
      * @throws DOMException
      * @throws DbException
      */
-    #[NoReturn] public function inputData($linksCounter = 1, $redirect = true): void
+    #[NoReturn] public function inputData($linksCounter = 1, bool $redirect = true) : void
     {
 
         $linksCounter = $this->clearNum($linksCounter);
@@ -138,9 +138,9 @@ class CreatesitemapController extends BaseAdmin
 
         }
 
-//        $this->model->update('parsing_data', [
-//            'fields' => $table_rows
-//        ]);
+        $this->model->update('parsing_data', [
+            'fields' => $table_rows
+        ]);
         
         if ($this->all_links) {
 
@@ -167,7 +167,6 @@ class CreatesitemapController extends BaseAdmin
                 '', 1, true);
 
         }
-
 
     }
 
@@ -219,9 +218,9 @@ class CreatesitemapController extends BaseAdmin
 
                     if ($error != 0) {
 
-                        $this->cancel('Error' . $header['url'] . ' http code: ' .
+                        $this->cancel('Error: ' . $header['url'] . ' http code: ' .
                             $header['http_code'] . ' error: ' . 'message' . $message,
-                            '' );
+                            '');
 
                     }
                 }
