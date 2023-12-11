@@ -2,6 +2,7 @@
 
 namespace core\user\controllers;
 
+use core\admin\models\Model;
 use core\base\controllers\BaseController;
 use core\base\exceptions\DbException;
 use core\base\models\crypt;
@@ -17,11 +18,23 @@ class IndexController extends BaseController
      */
     #[NoReturn] protected function inputData(): void
     {
-        $str = '1234567890abcdefg';
 
-        $en_str = crypt::instance()->encrypt($str);
+        $model = Model::instance();
 
-        $dec_str = crypt::instance()->decrypt($en_str);
+        $result = $model->read('teachers', [
+            'where' => ['id' => '1,2'],
+            'operand' => ['IN'],
+            'join' => [
+                'stud_teach' => ['on' => ['id', 'teachers']],
+                'students' => [
+                    'fields' => ['name as student_name'],
+                    'on' => ['students', 'id']
+                ]
+            ],
+            'join_structure' => true
+        ]);
+
+        exit();
 
     }
 
