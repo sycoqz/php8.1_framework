@@ -298,38 +298,54 @@ abstract class BaseModel extends BaseModelMethods
 
         if (!isset($this->tableRows[$table]) || empty($this->tableRows[$table])) {
 
-            $query = "SHOW COLUMNS FROM $table";
+            $checkTable = $this->createTableAlias($table);
+
+            // Проверка был ли уже сделан подобный запрос
+            if (isset($this->tableRows[$checkTable['table']])) {
+
+                // Создание ячейки с псевдонимом равной таблице без псевдонима ($checkTable['table'])
+                return $this->tableRows[$checkTable['alias']] = $this->tableRows[$checkTable['table']];
+
+            }
+
+            $query = "SHOW COLUMNS FROM {$checkTable['table']}";
 
             $result = $this->query($query);
 
-            $this->tableRows[$table] = [];
+            $this->tableRows[$checkTable['table']] = [];
 
             if ($result) {
 
                 foreach ($result as $row) {
 
-                    $this->tableRows[$table][$row['Field']] = $row;
+                    $this->tableRows[$checkTable['table']][$row['Field']] = $row;
 
                     if ($row['Key'] === 'PRI') {
 
-                        if (!isset($this->tableRows[$table]['id_row'])) {
+                        if (!isset($this->tableRows[$checkTable['table']]['id_row'])) {
 
-                            $this->tableRows[$table]['id_row'] = $row['Field'];
+                            $this->tableRows[$checkTable['table']]['id_row'] = $row['Field'];
 
                         } else {
 
-                            if (!isset($this->tableRows[$table]['multi_id_row'])) {
+                            if (!isset($this->tableRows[$checkTable['table']]['multi_id_row'])) {
 
-                                $this->tableRows[$table]['multi_id_row'][] = $this->tableRows[$table]['id_row'];
+                                $this->tableRows[$checkTable['table']]['multi_id_row'][] = $this->tableRows[$checkTable['table']]['id_row'];
 
                             }
 
-                            $this->tableRows[$table]['multi_id_row'][] = $row['Field'];
+                            $this->tableRows[$checkTable['table']]['multi_id_row'][] = $row['Field'];
 
                         }
                     }
                 }
             }
+
+        }
+
+        if (isset($checkTable) && $checkTable['table'] !== $checkTable['alias']) {
+
+            return $this->tableRows[$checkTable['alias']] = $this->tableRows[$checkTable['table']];
 
         }
 
