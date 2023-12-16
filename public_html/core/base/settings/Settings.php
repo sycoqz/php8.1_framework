@@ -45,6 +45,7 @@ class Settings
         'text' => ['name'],
         'textarea' => ['keywords', 'content'],
         'radio' => ['visibility'],
+        'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
         'img' => ['img'],
         'gallery_img' => ['gallery_img']
@@ -56,16 +57,20 @@ class Settings
 
     private string $formTemplates = PATH . 'core/admin/views/include/form_templates/';
 
-    private string $defaultTable = 'users';
+    private string $defaultTable = 'goods';
 
     private array $projectTables = [
-        'users' => ['name' => 'Персонажи', 'img' => 'pages.png'],
-        'titans' => ['name' => 'Титаны']
+        'goods' => ['name' => 'Товары', 'img' => 'pages.png'],
+        'filters' => ['name' => 'Фильтры']
     ];
 
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
+    ];
+
+    private array $manyToMany = [
+        'goods_filters' => ['goods', 'filters'] // 'type' => 'child' || 'root'
     ];
 
     private array $blockNeedle = [

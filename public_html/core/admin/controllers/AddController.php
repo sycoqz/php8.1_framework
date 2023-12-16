@@ -3,6 +3,7 @@
 namespace core\admin\controllers;
 
 use core\base\exceptions\DbException;
+use core\base\exceptions\RouteException;
 use core\base\settings\Settings;
 
 class AddController extends BaseAdmin
@@ -10,6 +11,10 @@ class AddController extends BaseAdmin
 
     protected string $action = 'add';
 
+    /**
+     * @throws RouteException
+     * @throws DbException
+     */
     protected function inputData(): void
     {
         if (!isset($this->userID)) $this->executeBase();
@@ -26,8 +31,13 @@ class AddController extends BaseAdmin
 
         $this->createOutputData();
 
+        $this->createManyToMany();
+
     }
 
+    /**
+     * @throws RouteException
+     */
     protected function createForeignProperty(array $arr, array $rootItems): void
     {
 
@@ -39,23 +49,7 @@ class AddController extends BaseAdmin
             $this->foreignData[$arr['COLUMN_NAME']][0]['name'] = $rootItems['name'];
         }
 
-        $columns = $this->model->showColumns($arr['REFERENCED_TABLE_NAME']);
-
-        $name = '';
-
-        if (isset($columns['name'])) {
-            $name = 'name';
-        } else {
-            foreach ($columns as $key => $value) {
-
-                if (str_contains($key, 'name')) {
-                    $name = $key . ' as name';
-                }
-            }
-
-            if (!isset($name)) $name = $columns['id_row'] . ' as name';
-
-        }
+        $orderData = $this->createOrderData($arr['REFERENCED_TABLE_NAME']);
 
         if (!empty($this->data)) {
 
@@ -69,9 +63,10 @@ class AddController extends BaseAdmin
         }
 
         $foreign = $this->model->read($arr['REFERENCED_TABLE_NAME'], [
-            'fields' => [$arr['REFERENCED_COLUMN_NAME'] . ' as id', $name],
+            'fields' => [$arr['REFERENCED_COLUMN_NAME'] . ' as id', $orderData['name'], $orderData['parent_id']],
             'where' => $where,
-            'operand' => $operand
+            'operand' => $operand,
+            'order' => $orderData['order']
         ]);
 
         if (isset($foreign)) {
@@ -91,6 +86,7 @@ class AddController extends BaseAdmin
 
     /**
      * @throws DbException
+     * @throws RouteException
      */
     protected function createForeignData(bool $settings = false): void
     {

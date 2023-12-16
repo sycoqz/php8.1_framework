@@ -5,7 +5,6 @@ namespace core\admin\models;
 use core\base\controllers\Singleton;
 use core\base\exceptions\DbException;
 use core\base\models\BaseModel;
-use JetBrains\PhpStorm\NoReturn;
 
 class Model extends BaseModel
 {
@@ -15,7 +14,7 @@ class Model extends BaseModel
     /**
      * @throws DbException
      */
-    #[NoReturn] public function showForeignKeys(string $table, bool|string $key = false): bool|array|int|string|null
+    public function showForeignKeys(string $table, bool|string $key = false): bool|array|int|string|null
     {
 
         $db = DB_NAME;
