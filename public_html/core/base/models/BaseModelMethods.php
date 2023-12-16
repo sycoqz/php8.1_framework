@@ -336,7 +336,7 @@ abstract class BaseModelMethods
                     // Если есть new_where, то отправляется инструкция с именем where в where, иначе с именем group_condition или and.
                     if ($new_where) {
 
-                        if ($item['where']) {
+                        if (isset($item['where'])) {
                             $new_where = false;
                         }
 
