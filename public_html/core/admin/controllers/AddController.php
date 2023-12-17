@@ -45,7 +45,7 @@ class AddController extends BaseAdmin
         $operand = [];
 
         if (in_array($this->table, $rootItems['tables'])) {
-            $this->foreignData[$arr['COLUMN_NAME']][0]['id'] = 0;
+            $this->foreignData[$arr['COLUMN_NAME']][0]['id'] = 'NULL';
             $this->foreignData[$arr['COLUMN_NAME']][0]['name'] = $rootItems['name'];
         }
 

@@ -71,7 +71,7 @@ class Settings
     ];
 
     private array $manyToMany = [
-        'goods_filters' => ['goods', 'filters', 'type' => 'child'] // 'type' => 'child' || 'root'
+        'goods_filters' => ['goods', 'filters'] // 'type' => 'child' || 'root'
     ];
 
     private array $blockNeedle = [
@@ -82,7 +82,7 @@ class Settings
 
     private array $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles']
+        'tables' => ['articles', 'filters']
     ];
 
     private array $radio = [

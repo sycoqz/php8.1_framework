@@ -529,10 +529,28 @@ abstract class BaseAdmin extends BaseController
 
     }
 
-    protected function updateMenuPosition($id = false)
+    protected function updateMenuPosition($id = false): void
     {
 
+        if (isset($_POST['menu_position'])) {
 
+            $where = false;
+
+            if ($id && $this->columns['id_row']) $where = [$this->columns['id_row'] => $id];
+
+            if (array_key_exists('parent_id', $_POST)) {
+
+                $this->model->updateMenuPosition($this->table, 'menu_position',
+                    $where, $_POST['menu_position'], ['where' => 'parent_id']);
+
+            } else {
+
+                $this->model->updateMenuPosition($this->table, 'menu_position',
+                    $where, $_POST['menu_position']);
+
+            }
+
+        }
 
     }
 
@@ -1005,7 +1023,7 @@ abstract class BaseAdmin extends BaseController
                         'where' => [$targetRow => $_POST[$this->columns['id_row']]]
                     ]);
 
-                    if ($_POST[$tables[$otherKey]]) {
+                    if (isset($_POST[$tables[$otherKey]])) {
 
                         $insertArr = [];
                         $i = 0;
