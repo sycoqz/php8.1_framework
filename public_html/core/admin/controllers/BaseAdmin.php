@@ -41,7 +41,7 @@ abstract class BaseAdmin extends BaseController
 
     protected array $messages;
 
-    protected ?bool $settings = null;
+    protected bool|Settings|null $settings = null;
 
     protected array $fileArray = [];
 
@@ -111,7 +111,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createTableData(bool $settings = false): void
+    protected function createTableData($settings = false): void
     {
 
         if (!isset($this->table)) {
@@ -135,7 +135,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function extension(array $args = [], bool $settings = false): mixed
+    protected function extension(array $args = [], $settings = false): mixed
     {
         $filename = explode('_', $this->table);
         $className = '';
@@ -195,7 +195,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createOutputData(bool $settings = false): void
+    protected function createOutputData($settings = false): void
     {
 
         if (!$settings) $settings = Settings::instance();
@@ -252,7 +252,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function createRadio(bool $settings = false): void
+    protected function createRadio($settings = false): void
     {
 
         if (!$settings) $settings = Settings::instance();
@@ -277,7 +277,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function checkPost(bool $settings = false): void
+    protected function checkPost($settings = false): void
     {
 
         if ($this->isPost()) {
@@ -340,7 +340,7 @@ abstract class BaseAdmin extends BaseController
     /**
      * @throws DbException
      */
-    protected function clearPostFields(bool $settings, array &$arr = []): bool
+    protected function clearPostFields($settings, array &$arr = []): bool
     {
         if (!$arr) $arr = &$_POST;
 
@@ -473,6 +473,8 @@ abstract class BaseAdmin extends BaseController
 
         }
 
+        $this->checkManyToMany();
+
         $this->extension(get_defined_vars());
 
         $result = $this->checkAlias($_POST[$this->columns['id_row']] ?? '');
@@ -527,8 +529,10 @@ abstract class BaseAdmin extends BaseController
 
     }
 
-    protected function updateMenuPosition()
+    protected function updateMenuPosition($id = false)
     {
+
+
 
     }
 
@@ -682,7 +686,7 @@ abstract class BaseAdmin extends BaseController
      * @throws DbException
      * @throws RouteException
      */
-    protected function createManyToMany(bool $settings = false): void
+    protected function createManyToMany($settings = false): void
     {
 
         if (!$settings) $settings = $this->settings ?: Settings::instance();
@@ -744,7 +748,7 @@ abstract class BaseAdmin extends BaseController
                         $result = $this->model->read($mTable, [
                             'fields' => [$tables[$otherKey] . '_' . $orderData['columns']['id_row']],
                             'where' => [$this->table . '_' . $this->columns['id_row']
-                                    = $this->data[$this->columns['id_row']]],
+                                    === $this->data[$this->columns['id_row']]],
                         ]);
 
                         if (isset($result)) {
@@ -767,8 +771,6 @@ abstract class BaseAdmin extends BaseController
                                 $orderData['name'], $orderData['parent_id']],
                             'order' => $orderData['order'],
                         ]);
-
-                        $foreign = [];
 
                         if ($data) {
 
@@ -853,7 +855,8 @@ abstract class BaseAdmin extends BaseController
 
                                     } else {
 
-                                        if (isset($this->foreignData[$tables[$otherKey]][$data[$key][$orderData['parent_id']]])) {
+                                        if (isset($this->foreignData[$tables[$otherKey]]
+                                            [$data[$key][$orderData['parent_id']]])) {
 
                                             $this->foreignData[$tables[$otherKey]][$data[$key]
                                             [$orderData['parent_id']]]['sub'][$data[$key]['id']] = $data[$key];
@@ -872,8 +875,7 @@ abstract class BaseAdmin extends BaseController
 
                                                 $parent_id = $data[$key][$orderData['parent_id']];
                                                 // Если есть ['sub']
-                                                if (isset($item['sub']) && $item['sub']
-                                                    && isset($item['sub'][$parent_id])) {
+                                                if (isset($item['sub'][$parent_id]) && $item['sub']) {
 
                                                     $this->foreignData[$tables[$otherKey]][$id]['sub'][$data[$key]['id']]
                                                         = $data[$key];
@@ -956,6 +958,80 @@ abstract class BaseAdmin extends BaseController
                                 }
 
                             }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    /**
+     * @throws DbException
+     */
+    protected function checkManyToMany($settings = false): void
+    {
+
+        if (!$settings) $settings = $this->settings ?: Settings::instance();
+
+        $manyToMany = $settings::get('manyToMany');
+
+        if ($manyToMany) {
+
+            foreach ($manyToMany as $mTable => $tables) {
+
+                $targetKey = array_search($this->table, $tables);
+
+                if ($targetKey !== false) {
+
+                    $otherKey = $targetKey ? 0 : 1;
+
+                    $checkBoxList = $settings::get('templateArr')['checkboxlist'];
+
+                    if (!$checkBoxList || !in_array($tables[$otherKey], $checkBoxList)) continue;
+
+                    $columns = $this->model->showColumns($tables[$otherKey]);
+
+                    $targetRow = $this->table . '_' . $this->columns['id_row'];
+
+                    $otherRow = $tables[$otherKey] . '_' . $columns['id_row'];
+
+                    $this->model->delete($mTable, [
+                        'where' => [$targetRow => $_POST[$this->columns['id_row']]]
+                    ]);
+
+                    if ($_POST[$tables[$otherKey]]) {
+
+                        $insertArr = [];
+                        $i = 0;
+
+                        foreach ($_POST[$tables[$otherKey]] as $value) {
+
+                            foreach ($value as $item) {
+
+                                if ($item) {
+
+                                    $insertArr[$i][$targetRow] = $_POST[$this->columns['id_row']];
+                                    $insertArr[$i][$otherRow] = $item;
+
+                                    $i++;
+
+                                }
+
+                            }
+
+                        }
+
+                        if (isset($insertArr)) {
+
+                            $this->model->create($mTable, [
+                                'fields' => $insertArr
+                            ]);
 
                         }
 

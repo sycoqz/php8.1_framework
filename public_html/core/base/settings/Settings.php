@@ -67,10 +67,11 @@ class Settings
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
+        'content' => []
     ];
 
     private array $manyToMany = [
-        'goods_filters' => ['goods', 'filters'] // 'type' => 'child' || 'root'
+        'goods_filters' => ['goods', 'filters', 'type' => 'child'] // 'type' => 'child' || 'root'
     ];
 
     private array $blockNeedle = [
