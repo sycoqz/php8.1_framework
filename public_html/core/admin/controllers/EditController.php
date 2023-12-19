@@ -45,10 +45,12 @@ class EditController extends BaseAdmin
     /**
      * @throws RouteException
      */
-    protected function createData()
+    protected function createData(): void
     {
 
-        $id = $this->clearNum($this->parameters[$this->table]);
+        $id = is_numeric($this->parameters[$this->table]) ?
+            $this->clearNum($this->parameters[$this->table]) :
+            $this->clearStr($this->parameters[$this->table]);
 
         if (!$id) throw new RouteException('Некорректный идентификатор - '
             . $id . ' при редактировании таблицы - ' . $this->table);
