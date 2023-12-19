@@ -20,7 +20,8 @@ trait BaseMethods
 
     protected function clearNum($num): float|int // Возвращает число при вводе str или float.
     {
-        if(is_numeric($num)) return $num * 1; return 0;
+        return (!empty($num) && preg_match('/\d/', $num)) ?
+            preg_replace('/[^\d.]/', '', $num) * 1 : 0;
     }
 
     protected function isPost(): bool
