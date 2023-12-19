@@ -9,7 +9,6 @@ use core\base\settings\Settings;
 class ShowController extends BaseAdmin
 {
     /**
-     * @return mixed|void
      * @throws DbException
      */
     protected function inputData()
@@ -20,7 +19,7 @@ class ShowController extends BaseAdmin
 
         $this->createData();
 
-        return $this->extension(get_defined_vars());
+        return $this->extension();
 
     }
 
