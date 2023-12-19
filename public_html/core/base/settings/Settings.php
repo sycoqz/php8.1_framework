@@ -67,6 +67,7 @@ class Settings
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
+        'content' => []
     ];
 
     private array $manyToMany = [
@@ -81,7 +82,7 @@ class Settings
 
     private array $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles']
+        'tables' => ['articles', 'filters']
     ];
 
     private array $radio = [
