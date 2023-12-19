@@ -7,7 +7,7 @@
                 </div>
                 <?php if (!$this->noDelete && $this->data):?>
                 <div class="vg-element vg-padding-in-px">
-                    <a href="" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
+                    <a href="<?=$this->adminPath . 'delete/' . $this->table . '/' . $this->data[$this->columns['id_row']]?>" class="vg-text vg-firm-color1 vg-firm-background-color4 vg-input vg-button vg-center vg_delete">
                         <span>Удалить</span>
                     </a>
                 </div>

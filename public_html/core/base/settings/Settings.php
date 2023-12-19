@@ -51,6 +51,8 @@ class Settings
         'gallery_img' => ['gallery_img']
     ];
 
+    private array $fileTemplates = ['img', 'gallery_img'];
+
     private string $extension = 'core/admin/extension/';
 
     private string $messages = 'core/base/messages/';
