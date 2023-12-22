@@ -47,7 +47,7 @@ class Settings
         'radio' => ['visibility'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
-        'img' => ['img'],
+        'img' => ['img', 'main_img'],
         'gallery_img' => ['gallery_img']
     ];
 
@@ -78,7 +78,7 @@ class Settings
 
     private array $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img', 'gallery_img'],
+        'vg-img' => ['img', 'gallery_img', 'main_img'],
         'vg-content' => ['content']
     ];
 

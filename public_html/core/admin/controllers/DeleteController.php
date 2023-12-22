@@ -4,6 +4,7 @@ namespace core\admin\controllers;
 
 use core\admin\controllers\BaseAdmin;
 use core\base\settings\Settings;
+use JetBrains\PhpStorm\NoReturn;
 
 class DeleteController extends BaseAdmin
 {
@@ -49,16 +50,13 @@ class DeleteController extends BaseAdmin
 
                                 if (!empty($this->data[$item])) {
 
-                                    if (preg_match('/^[\[\{].*?[\}\]]$/', $this->data[$item]))
-                                        $fileData = json_decode($this->data[$item], true);
-                                    else
-                                        $fileData = $this->data[$item];
+                                    $fileData = json_decode($this->data[$item], true) ?? $this->data[$item];
 
                                     if (is_array($fileData)) {
 
-                                        foreach ($fileData as $file) {
+                                        foreach ($fileData as $f) {
 
-                                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $file);
+                                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $f);
 
                                         }
 
@@ -158,8 +156,67 @@ class DeleteController extends BaseAdmin
 
     }
 
-    protected function checkDeleteFile()
+    #[NoReturn] protected function checkDeleteFile(): void
     {
+        unset($this->parameters[$this->table]);
+
+        $updateFlag = false;
+
+        foreach ($this->parameters as $row => $item) {
+
+            $item = base64_decode($item);
+
+            if (!empty($this->data[$row])) {
+
+                $data = json_decode($this->data[$row], true);
+
+                if (isset($data)) {
+
+                    foreach ($data as $key => $value) {
+
+                        if ($item === $value) {
+
+                            $updateFlag = true;
+
+                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $item);
+
+                            unset($data[$key]);
+
+                            $this->data[$row] = $data ? json_encode($data) : 'NULL';
+
+                            break;
+
+                        }
+
+                    }
+
+                } elseif ($this->data[$row] === $item) {
+
+                    $updateFlag = true;
+
+                    @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $item);
+
+                    $this->data[$row] = 'NULL';
+
+                }
+
+            }
+
+        }
+
+        if ($updateFlag) {
+
+            $this->model->update($this->table, [
+                'fields' => $this->data
+            ]);
+
+            $_SESSION['result']['answer'] = '<div class="success">' . $this->messages['editSuccess'] . '</div>';
+
+        } else {
+
+            $_SESSION['result']['answer'] = '<div class="error">' . $this->messages['editFail'] . '</div>';
+
+        }
 
         $this->redirect();
 

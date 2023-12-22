@@ -92,4 +92,48 @@ class EditController extends BaseAdmin
 
     }
 
+    protected function checkFiles($id): void
+    {
+
+        if ($id && $this->fileArray) {
+
+            $data = $this->model->read($this->table, [
+                'fields' => array_keys($this->fileArray),
+                'where' => [$this->columns['id_row'] => $id]
+            ]);
+
+            if ($data) {
+
+                $data = $data[0];
+
+                foreach ($this->fileArray as $key => $item) {
+
+                    if (is_array($item) && !empty($data[$key])) {
+
+                        $fileArr = json_decode($data[$key]);
+
+                        if ($fileArr) {
+
+                            foreach ($fileArr as $file) {
+
+                                $this->fileArray[$key][] = $file;
+
+                            }
+
+                        } else {
+
+                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $data[$key]);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
 }
