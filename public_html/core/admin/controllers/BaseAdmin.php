@@ -209,7 +209,7 @@ abstract class BaseAdmin extends BaseController
 
             foreach ($this->columns as $name => $item) {
 
-                if ($name === 'id_row ') continue;
+                if ($name === 'id_row') continue;
 
                 if (!isset($this->warningUser[$name])) $this->warningUser[$name][] = $name;
 
