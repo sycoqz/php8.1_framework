@@ -65,9 +65,9 @@ class ShowController extends BaseAdmin
 
         }
 
-        if (isset($this->columns['titan_id'])) {
-            if (!in_array('titan_id', $fields)) $fields[] = 'titan_id';
-            $order[] = 'titan_id';
+        if (isset($this->columns['goods_id'])) {
+            if (!in_array('goods_id', $fields)) $fields[] = 'goods_id';
+            $order[] = 'goods_id';
         }
 
         if (isset($this->columns['menu_position'])) $order[] = 'menu_position';
