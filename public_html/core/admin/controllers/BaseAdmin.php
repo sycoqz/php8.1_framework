@@ -53,6 +53,7 @@ abstract class BaseAdmin extends BaseController
      */
     protected function inputData()
     {
+        // Блокировка входа в админ панель через IE
         if (!MS_MODE) {
 
             if (preg_match('/msie|trident.+?rv\s*:/i', $_SERVER['HTTP_USER_AGENT'])) {

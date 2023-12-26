@@ -48,7 +48,7 @@ class Settings
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
         'img' => ['img', 'main_img'],
-        'gallery_img' => ['gallery_img']
+        'gallery_img' => ['gallery_img', 'new_gallery_img']
     ];
 
     private array $fileTemplates = ['img', 'gallery_img'];
