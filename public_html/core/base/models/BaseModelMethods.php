@@ -508,7 +508,7 @@ abstract class BaseModelMethods
 
                 if (in_array($value, $this->sqlFunc)) {
                     $update .= $value . ',';
-                } elseif ($value === null) {
+                } elseif ($value === null || $value === 'NULL') {
                     $update .= "NULL" . ',';
                 } else {
                     $update .= "'" . addslashes($value) . "',";

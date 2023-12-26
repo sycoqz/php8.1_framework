@@ -99,7 +99,8 @@ class FileEdit
         if (!file_exists($this->directory . $fileName . $fileLastName))
             return $fileName . $fileLastName . '.' . $fileExtension;
 
-        return $this->checkFile($fileName, '_' . hash('crc32', time()));
+        return $this->checkFile($fileName, $fileExtension,
+            '_' . hash('crc32', time() . mt_rand(1, 1000)));
 
     }
 

@@ -209,7 +209,7 @@ abstract class BaseAdmin extends BaseController
 
             foreach ($this->columns as $name => $item) {
 
-                if ($name === 'id_row ') continue;
+                if ($name === 'id_row') continue;
 
                 if (!isset($this->warningUser[$name])) $this->warningUser[$name][] = $name;
 
@@ -446,6 +446,8 @@ abstract class BaseAdmin extends BaseController
         }
 
         $this->createFile();
+
+        if ($id && method_exists($this, 'checkFiles')) $this->checkFiles($id);
 
         $this->createAlias($id);
 
