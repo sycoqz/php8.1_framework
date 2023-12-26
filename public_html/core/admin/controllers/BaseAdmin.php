@@ -53,6 +53,16 @@ abstract class BaseAdmin extends BaseController
      */
     protected function inputData()
     {
+        if (!MS_MODE) {
+
+            if (preg_match('/msie|trident.+?rv\s*:/i', $_SERVER['HTTP_USER_AGENT'])) {
+
+                exit('Вы используете устаревшую версию браузера.');
+
+            }
+
+        }
+
         $this->init(true);
 
         $this->title = 'php 8.1 Framework';
