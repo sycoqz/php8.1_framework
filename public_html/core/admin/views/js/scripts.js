@@ -111,6 +111,69 @@ function createFile () {
             }
         })
 
+        let form = document.querySelector('#main-form')
+
+        if (form) {
+
+            form.onsubmit = function (e) {
+
+                if (!isEmpty(fileStore)) {
+
+                    e.preventDefault()
+
+                    let forData = new FormData(this)
+
+                    for (let i in fileStore) {
+
+                        if (fileStore.hasOwnProperty(i)) {
+
+                            forData.delete(i)
+
+                            //Получение чистого имени свойства
+                            let rowName = i.replace(/[\[\]]/g, '')
+
+                            fileStore[i].forEach((item, index) => {
+
+                                forData.append(`${rowName}[${index}]`, item)
+
+                            })
+
+                        }
+
+                    }
+
+                    forData.append('ajax', 'editData')
+
+                    Ajax({
+                        url: this.getAttribute('action'),
+                        type: 'post',
+                        data: forData,
+                        processData: false,
+                        contentType: false
+                    }).then(result => {
+
+                        try {
+
+                            result = JSON.parse(result)
+
+                            if (!result.success) throw new Error()
+
+                            location.reload()
+
+                        } catch (e) {
+
+                            alert('Произошла внутренняя ошибка')
+
+                        }
+
+                    })
+
+                }
+
+            }
+
+        }
+
         function deleteNewFiles (elementId, fileName, attributeName, container) {
 
             container.addEventListener('click', function () {
@@ -141,7 +204,6 @@ function createFile () {
 
             }
         }
-
 
     }
 
