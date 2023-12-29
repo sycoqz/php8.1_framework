@@ -20,7 +20,11 @@ class BaseAjax extends BaseController
 
         $data = $this->isPost() ? $_POST : $_GET;
 
-        if (isset($data['ADMIN_MODE'])) {
+        $httpReferer = str_replace('/', '\/', $_SERVER['REQUEST_SCHEME'] .
+            '://' . $_SERVER['SERVER_NAME'] . PATH . $route['admin']['alias']);
+
+        if (isset($data['ADMIN_MODE']) ||
+            preg_match('/^' . $httpReferer . '(\/?|$)/', $_SERVER['HTTP_REFERER'])) {
 
             unset($data['ADMIN_MODE']);
 
@@ -32,7 +36,7 @@ class BaseAjax extends BaseController
 
         $ajax = new $controller;
 
-        $ajax->createAjaxData($data);
+        $ajax->data = $data;
 
         $ajax->ajax();
 

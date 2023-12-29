@@ -2,11 +2,10 @@
 
 namespace core\admin\controllers;
 
-use core\base\controllers\BaseAjax;
 use core\base\exceptions\DbException;
 use DOMException;
 
-class AjaxController extends BaseAjax
+class AjaxController extends BaseAdmin
 {
 
     /**
@@ -18,6 +17,8 @@ class AjaxController extends BaseAjax
 
         if (isset($this->data['ajax'])) {
 
+            $this->executeBase();
+
             switch ($this->data['ajax']) {
 
                 case 'sitemap':
@@ -25,6 +26,14 @@ class AjaxController extends BaseAjax
                     $controller = new CreatesitemapController();
 
                     $controller->inputData($this->data['linksCounter'], false);
+
+                case 'editData':
+
+                    $_POST['return_id'] = true;
+
+                    $this->checkPost();
+
+                    return json_encode(['success' => 1]);
 
             }
 
