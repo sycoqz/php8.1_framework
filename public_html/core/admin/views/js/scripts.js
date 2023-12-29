@@ -162,7 +162,7 @@ function createFile () {
 
                         } catch (e) {
 
-                            alert('Произошла внутренняя ошибка')
+                            errorAlert()
 
                         }
 
@@ -206,6 +206,78 @@ function createFile () {
         }
 
     }
+
+}
+
+changeMenuPosition()
+
+function changeMenuPosition() {
+
+    let form = document.querySelector('#main-form')
+
+    if (form) {
+
+        let selectParent = form.querySelector('select[name=parent_id]')
+
+        let selectPosition = form.querySelector('select[name=menu_position]')
+
+        if (selectParent && selectPosition) {
+
+            let defaultParent = selectParent.value
+
+            let defaultPosition = +selectPosition.value
+
+            selectParent.addEventListener('change', function () {
+
+                let defaultChoice = false
+
+                if (this.value === defaultParent) defaultChoice = true
+
+                // Отправка данных на сервер
+
+                Ajax({
+                    data:{
+                        table: form.querySelector('input[name=table]').value,
+                        'parent_id': this.value,
+                        ajax: 'change_parent',
+                        iteration: !form.querySelector('#tableId') ? 1 : +!defaultChoice
+                    }
+                }).then(result => {
+
+                    result = +result
+
+                    if (!result) return errorAlert()
+
+                    let newSelect = document.createElement('select')
+
+                    newSelect.setAttribute('name', 'menu_position')
+
+                    newSelect.classList.add('vg-input', 'vg-text', 'vg-full', 'vg-firm-color1')
+
+                    for (let i = 1; i <= result; i++) {
+
+                        let selected = defaultChoice && i === defaultPosition ? 'selected' : ''
+
+                        newSelect.insertAdjacentHTML('beforeend',
+                            `<option ${selected} value="${i}">${i}</option>`)
+
+                    }
+
+                    selectPosition.before(newSelect)
+
+                    selectPosition.remove()
+
+                    selectPosition = newSelect
+
+                })
+
+            })
+
+        }
+
+    }
+
+
 
 }
 

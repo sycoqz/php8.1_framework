@@ -15,17 +15,19 @@ class AjaxController extends BaseAdmin
     public function ajax(): bool|string|null
     {
 
-        if (isset($this->data['ajax'])) {
+        if (isset($this->ajaxData['ajax'])) {
 
             $this->executeBase();
 
-            switch ($this->data['ajax']) {
+            foreach ($this->ajaxData as $key => $item) $this->ajaxData[$key] = $this->clearStr($item);
+
+            switch ($this->ajaxData['ajax']) {
 
                 case 'sitemap':
 
                     $controller = new CreatesitemapController();
 
-                    $controller->inputData($this->data['linksCounter'], false);
+                    $controller->inputData($this->ajaxData['linksCounter'], false);
 
                 case 'editData':
 
@@ -35,11 +37,28 @@ class AjaxController extends BaseAdmin
 
                     return json_encode(['success' => 1]);
 
+                case 'change_parent':
+
+                    return $this->changeParent();
+
             }
 
         }
 
         return json_encode(['success' => 0, 'message' => 'No ajax variable']);
+
+    }
+
+    protected function changeParent()
+    {
+
+
+
+        return $this->model->read($this->ajaxData['table'], [
+            'fields' => ['COUNT(*) as count'],
+            'where' => ['parent_id' => $this->ajaxData['parent_id']],
+            'no_concat' => true
+        ])[0]['count'] + $this->ajaxData['iteration'];
 
     }
 
