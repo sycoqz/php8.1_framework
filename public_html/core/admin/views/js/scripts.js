@@ -109,6 +109,15 @@ function createFile () {
                 }
 
             }
+
+            let dropArea = item.closest('.img_wrapper')
+
+            if (dropArea) {
+
+                dragAndDrop(dropArea, item)
+
+            }
+
         })
 
         let form = document.querySelector('#main-form')
@@ -162,7 +171,7 @@ function createFile () {
 
                         } catch (e) {
 
-                            errorAlert()
+                            alert('Произошла внутренняя ошибка')
 
                         }
 
@@ -203,6 +212,40 @@ function createFile () {
                 container.classList.remove('empty_container')
 
             }
+        }
+
+        function dragAndDrop(area, input) {
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName, index) => {
+
+                area.addEventListener(eventName, e => {
+
+                    e.preventDefault()
+
+                    e.stopPropagation()
+
+                    if (index < 2) {
+
+                        area.style.background = 'lightblue'
+
+                    } else {
+
+                        area.style.background = '#fff'
+
+                        if (index === 3) { // drop
+
+                            input.files = e.dataTransfer.files
+
+                            input.dispatchEvent(new Event('change'))
+
+                        }
+
+                    }
+
+                })
+
+            })
+
         }
 
     }
@@ -277,7 +320,55 @@ function changeMenuPosition() {
 
     }
 
+}
 
+blockParameters()
+
+function blockParameters() {
+
+    let wraps = document.querySelectorAll('.select_wrap')
+
+    if (wraps.length) {
+
+        let selectAllIndexes = []
+
+        wraps.forEach(item => {
+
+            let next = item.nextElementSibling
+
+            if (next && next.classList.contains('option_wrap')) {
+
+                item.addEventListener('click', e => {
+
+                    if (!e.target.classList.contains('select_all')) {
+
+                        next.slideToggle()
+
+                    } else {
+
+                        // Кнопка выделить всё
+                        if (getComputedStyle(next)['display'] === 'block') {
+
+                            let index = [...document.querySelectorAll('.select_all')].indexOf(e.target)
+
+                            if (typeof selectAllIndexes[index] === 'undefined') selectAllIndexes[index] = false
+
+                            selectAllIndexes[index] = !selectAllIndexes[index]
+
+                            next.querySelectorAll('input[type=checkbox]').
+                            forEach(element => element.checked = selectAllIndexes[index])
+
+                        }
+
+                    }
+
+                })
+
+            }
+
+        })
+
+    }
 
 }
 
