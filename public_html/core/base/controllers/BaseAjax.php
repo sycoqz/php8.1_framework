@@ -11,7 +11,7 @@ class BaseAjax extends BaseController
     /**
      * @throws DbException
      */
-    public function route(): void
+    public function route()
     {
 
         $route = Settings::get('routes');
@@ -20,7 +20,11 @@ class BaseAjax extends BaseController
 
         $data = $this->isPost() ? $_POST : $_GET;
 
-        if (isset($data['ADMIN_MODE'])) {
+        $httpReferer = str_replace('/', '\/', $_SERVER['REQUEST_SCHEME'] .
+            '://' . $_SERVER['SERVER_NAME'] . PATH . $route['admin']['alias']);
+
+        if (isset($data['ADMIN_MODE']) ||
+            preg_match('/^' . $httpReferer . '(\/?|$)/', $_SERVER['HTTP_REFERER'])) {
 
             unset($data['ADMIN_MODE']);
 
@@ -32,16 +36,14 @@ class BaseAjax extends BaseController
 
         $ajax = new $controller;
 
-        $ajax->createAjaxData($data);
+        $ajax->ajaxData = $data;
 
-        $ajax->ajax();
+        $result = $ajax->ajax();
 
-    }
+        if (is_array($result) || is_object($result)) $result = json_encode($result);
+        elseif (is_int($result)) $result = (float) $result;
 
-    protected function createAjaxData(array $data): void
-    {
-
-        $this->data = $data;
+        return $result;
 
     }
 
