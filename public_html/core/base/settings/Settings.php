@@ -62,6 +62,8 @@ class Settings
     private string $defaultTable = 'goods';
 
     private array $projectTables = [
+        'articles' => ['name' => 'Статьи'],
+        'pages' => ['name' => 'Страницы'],
         'goods' => ['name' => 'Товары', 'img' => 'pages.png'],
         'filters' => ['name' => 'Фильтры']
     ];

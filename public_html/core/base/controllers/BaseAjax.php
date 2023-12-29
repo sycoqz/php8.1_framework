@@ -11,7 +11,7 @@ class BaseAjax extends BaseController
     /**
      * @throws DbException
      */
-    public function route(): void
+    public function route()
     {
 
         $route = Settings::get('routes');
@@ -36,16 +36,14 @@ class BaseAjax extends BaseController
 
         $ajax = new $controller;
 
-        $ajax->data = $data;
+        $ajax->ajaxData = $data;
 
-        $ajax->ajax();
+        $result = $ajax->ajax();
 
-    }
+        if (is_array($result) || is_object($result)) $result = json_encode($result);
+        elseif (is_int($result)) $result = (float) $result;
 
-    protected function createAjaxData(array $data): void
-    {
-
-        $this->data = $data;
+        return $result;
 
     }
 

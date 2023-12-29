@@ -120,3 +120,11 @@ function isEmpty(arr) {
     return true;
 
 }
+
+function errorAlert() {
+
+    alert('Произошла внутренняя ошибка')
+
+    return false
+
+}
