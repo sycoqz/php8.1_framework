@@ -372,3 +372,114 @@ function blockParameters() {
 
 }
 
+showHideMenuSearch()
+
+function showHideMenuSearch() {
+
+    document.querySelector('#hideButton').addEventListener('click', () => {
+
+        document.querySelector('.vg-carcass').classList.toggle('vg-hide')
+
+    })
+
+    let searchButton = document.querySelector('#searchButton')
+
+    let searchInput = searchButton.querySelector('input[type=text]')
+
+    searchButton.addEventListener('click', () => {
+
+        searchButton.classList.add('vg-search-reverse')
+
+        searchInput.focus()
+
+    })
+
+    // Закрытие поиска
+    searchInput.addEventListener('blur', () => {
+
+        searchButton.classList.remove('vg-search-reverse')
+
+    })
+
+}
+
+// Самозамыкающаяся функция
+let searchResultHover = (() => {
+
+    let searchResult = document.querySelector('.search_res')
+
+    let searchInput = document.querySelector('#searchButton input[type=text]')
+
+    let defaultInputValue = null
+
+    // Обработка переходов между запросами через стрелочки
+    function searchKeyArrows(e) {
+
+        if (!(document.querySelector('#searchButton').classList.contains('vg-search-reverse')) ||
+            (e.key !== 'ArrowUp' && e.key !== 'ArrowDown')) return;
+
+        let children = [...searchResult.children]
+
+        if (children.length) {
+
+            e.preventDefault()
+
+            let activeItem = searchResult.querySelector('.search_act')
+
+            let activeIndex = activeItem ? children.indexOf(activeItem) : -1
+
+            if (e.key === 'ArrowUp')
+                activeIndex = activeIndex <= 0 ? children.length - 1 : --activeIndex
+            else
+                activeIndex = activeIndex === children.length - 1 ? 0 : ++activeIndex
+
+            children.forEach(item => item.classList.remove('search_act'))
+
+            children[activeIndex].classList.add('search_act')
+
+            searchInput.value = children[activeIndex].innerText
+
+        }
+
+    }
+
+    function setDefaultValue() {
+
+        searchInput.value = defaultInputValue
+
+    }
+
+    searchResult.addEventListener('mouseleave', setDefaultValue)
+
+    window.addEventListener('keydown', searchKeyArrows)
+
+    return () => {
+
+        defaultInputValue = searchInput.value
+
+        if (searchResult.children.length) {
+
+            let children = [...searchResult.children]
+
+            children.forEach(item => {
+
+                item.addEventListener('mouseover', () => {
+
+                    children.forEach(element => element.classList.remove('search_act'))
+
+                    item.classList.add('search_act')
+
+                    searchInput.value = item.innerText
+
+                })
+
+            })
+
+        }
+
+    }
+
+})()
+
+searchResultHover()
+

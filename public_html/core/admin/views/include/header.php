@@ -31,11 +31,17 @@
                     <div>
                         <img src="<?=PATH . ADMIN_TEMPLATE?>img/search.png" alt="">
                     </div>
-                    <form method="post" action="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>search" autocomplete="off">
+                    <form method="post" action="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/search" autocomplete="off">
                         <label>
                             <input type="text" name="search" class="vg-input vg-text">
                         </label>
-                        <div class="vg-element vg-firm-background-color4 vg-box-shadow search_links search_res"></div>
+                        <div class="vg-element vg-firm-background-color4 vg-box-shadow search_links search_res">
+                            <a href="">href1</a>
+                            <a href="">href2</a>
+                            <a href="">href3</a>
+                            <a href="">href4</a>
+                            <a href="">href5</a>
+                        </div>
                     </form>
                 </div>
             </div>
