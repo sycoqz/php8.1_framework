@@ -483,3 +483,16 @@ let searchResultHover = (() => {
 
 searchResultHover()
 
+let galleries = document.querySelectorAll('.gallery_container')
+
+if (galleries.length) {
+
+    galleries.forEach(item => {
+
+        item.sortable({
+
+        })
+
+    })
+
+}
