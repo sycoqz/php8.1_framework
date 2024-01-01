@@ -176,3 +176,143 @@ Element.prototype.slideToggle = function (time, callback) {
     }
 
 }
+
+Element.prototype.sortable = (function () {
+
+    let dragElement, nextElement
+
+    // Делаем всех детей перетаскиваемыми
+    function _unDraggable(elements) {
+
+        if (elements && elements.length) {
+
+            for (let i = 0; i < elements.length; i++) {
+
+                if (!elements[i].hasAttribute('draggable')) {
+
+                    elements[i].draggable = false
+
+                    _unDraggable(elements[i].children)
+
+                }
+
+            }
+
+        }
+
+    }
+
+    function _onDragStart(e) {
+
+        // Блокировка всплытия события
+
+        e.stopPropagation()
+
+        this.tempTarget = null
+
+        // Перетаскиваемый элемент
+        dragElement = e.target
+
+        nextElement = dragElement.nextSibling
+
+        e.dataTransfer.dropEffect = 'move'
+
+        // Подпись событий. Так как прототип элемента, то событие передаётся через this
+        this.addEventListener('dragover', _onDragOver, false)
+
+        this.addEventListener('dragend', _onDragEnd, false)
+
+    }
+
+    function _onDragOver(e) {
+
+        e.preventDefault()
+
+        e.stopPropagation()
+
+        e.dataTransfer.dropEffect = 'move'
+
+        let target
+
+        if (e.target !== this.tempTarget) {
+
+            // Элемент, над которым перетаскивают
+            this.tempTarget = e.target
+
+            target = e.target.closest('[draggable=true]')
+
+        }
+
+        if (target && target !== dragElement && target.parentElement === this) {
+
+            let rect = target.getBoundingClientRect()
+
+            // Координаты Y - верхние координаты элемента, над которым перетаскивают / высоту элемента
+            let next = (e.clientY - rect.top) / (rect.bottom - rect.top) > .5
+
+            this.insertBefore(dragElement, next && target.nextSibling || target)
+
+        }
+
+    }
+
+    function _onDragEnd(e) {
+
+        e.preventDefault()
+
+        // Удаление подписи событий.
+        this.removeEventListener('dragover', _onDragOver, false)
+
+        this.removeEventListener('dragend', _onDragEnd, false)
+
+        if (nextElement !== dragElement.nextSibling) {
+
+            this.onDragUpdate && this.onDragUpdate(dragElement)
+
+        }
+
+    }
+
+    // Реализация замыкания
+    return function (options) {
+
+        options = options || {}
+
+        this.onDragUpdate = options.stop || null
+
+        let excludedElements = options.excludedElements && options.excludedElements.split(/,*\s+/) || null;
+
+        [...this.children].forEach(item => {
+
+            let draggable = true
+
+            if (excludedElements) {
+
+                for (let i in excludedElements) {
+
+                    // Если элемент находиться в списке элементов исключений (пустой элемент, кнопка)
+                    if (excludedElements.hasOwnProperty(i) && item.matches(excludedElements[i])) {
+
+                        draggable = false
+
+                        break
+
+                    }
+
+                }
+
+            }
+
+            item.draggable = draggable
+
+            _unDraggable(item.children)
+
+        })
+
+        this.removeEventListener('dragstart', _onDragStart, false)
+
+        this.addEventListener('dragstart', _onDragStart, false)
+
+    }
+
+})()
