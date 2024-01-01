@@ -490,9 +490,17 @@ if (galleries.length) {
     galleries.forEach(item => {
 
         item.sortable({
+            excludedElements: 'label .empty_container',
+            stop: function (dragElement) {
 
+                console.log(this)
+                console.log(dragElement)
+
+            }
         })
 
     })
 
 }
+
+document.querySelector('.vg-rows > div').sortable()
