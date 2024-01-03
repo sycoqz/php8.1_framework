@@ -92,7 +92,11 @@ function createFile () {
 
                             container[i].setAttribute(`data-deleteFileId-${attributeName}`, elementId)
 
-                            showImage(this.files[i], container[i])
+                            showImage(this.files[i], container[i], function () {
+
+                                parentContainer.sortable({excludedElements: 'label .empty_container'})
+
+                            })
 
                             deleteNewFiles(elementId, fileName, attributeName, container[i])
 
@@ -125,6 +129,12 @@ function createFile () {
         if (form) {
 
             form.onsubmit = function (e) {
+
+                createJsSortable(form)
+
+                e.preventDefault()
+
+                return false
 
                 if (!isEmpty(fileStore)) {
 
@@ -195,7 +205,7 @@ function createFile () {
 
         }
 
-        function showImage(item, container) {
+        function showImage(item, container, callback) {
 
             let reader = new FileReader()
 
@@ -210,6 +220,8 @@ function createFile () {
                 container.querySelector('img').setAttribute('src', e.target.result)
 
                 container.classList.remove('empty_container')
+
+                callback && callback()
 
             }
         }
@@ -504,3 +516,76 @@ if (galleries.length) {
 }
 
 document.querySelector('.vg-rows > div').sortable()
+
+function createJsSortable(form) {
+
+    if (form) {
+
+        let sortable = form.querySelectorAll('input[type=file][multiple]')
+
+        if (sortable.length) {
+
+            sortable.forEach(item => {
+
+                let container = item.closest('.gallery_container')
+
+                let name = item.getAttribute('name')
+
+                if (name && container) {
+
+                    name = name.replace(/\[\]/g,'')
+
+                    // Формирование массива отсортированных полей и создание input'a при отсутствии.
+                    let inputSorting = form.querySelector(`input[name="js-sorting[${name}]"]`)
+
+                    if (!inputSorting) {
+
+                        inputSorting = document.createElement('input')
+
+                        inputSorting.name = `js-sorting[${name}]`
+
+                        form.append(inputSorting)
+
+                    }
+
+                    let result = []
+
+                    for (let i  in container.children) {
+
+                        if (container.children.hasOwnProperty(i)) {
+
+                            // Проверка не участвующих элементов
+                            if (!container.children[i].matches('label')
+                                && !container.children[i].matches('.empty_container')) {
+
+                                // Уже сохранённые объекты и добавленные объекты соответственно
+                                if (container.children[i].tagName === 'A') {
+
+                                    result.push(container.children[i].querySelector('img').getAttribute('src'))
+
+                                } else {
+
+                                    result.push(container.children[i].getAttribute(`data-deletefileid-${name}`))
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    console.log(result)
+
+                    // Создание строки из массива/объекта
+                    inputSorting.value = JSON.stringify(result)
+
+                }
+
+            })
+
+        }
+
+    }
+
+}
