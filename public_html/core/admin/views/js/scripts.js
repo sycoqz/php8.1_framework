@@ -132,10 +132,6 @@ function createFile () {
 
                 createJsSortable(form)
 
-                e.preventDefault()
-
-                return false
-
                 if (!isEmpty(fileStore)) {
 
                     e.preventDefault()

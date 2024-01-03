@@ -32,7 +32,7 @@ class FileEdit
 
                         $resultName = $this->createFile($fileArr);
 
-                        if ($resultName) $this->imgArr[$key][] = $resultName;
+                        if ($resultName) $this->imgArr[$key][$i] = $resultName;
 
                     }
                 }
