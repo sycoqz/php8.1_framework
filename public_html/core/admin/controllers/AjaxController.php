@@ -41,6 +41,9 @@ class AjaxController extends BaseAdmin
 
                     return $this->changeParent();
 
+                case 'search':
+
+                    return $this->search();
             }
 
         }
@@ -49,10 +52,19 @@ class AjaxController extends BaseAdmin
 
     }
 
-    protected function changeParent()
+    protected function search()
     {
 
+        $data = $this->clearStr($this->ajaxData['data']);
 
+        $table = $this->clearStr($this->ajaxData['table']);
+
+        return $this->model->search($data, $table, 20);
+
+    }
+
+    protected function changeParent()
+    {
 
         return $this->model->read($this->ajaxData['table'], [
             'fields' => ['COUNT(*) as count'],

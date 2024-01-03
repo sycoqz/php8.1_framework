@@ -131,4 +131,32 @@ class Model extends BaseModel
 
     }
 
+    /**
+     * @throws DbException
+     */
+    public function search($data, $currentTable = false, $qty = false)
+    {
+
+        $dbTables = $this->showTables();
+
+        $data = addslashes($data);
+
+        $arr = preg_split('/(,|\.)?\s+/', $data, 0, PREG_SPLIT_NO_EMPTY);
+
+        $searchArr = [];
+
+        for (;;) {
+
+            if (!$arr) break;
+
+            $searchArr[] = implode(' ', $arr);
+
+            unset($arr[count($arr) - 1]);
+
+        }
+
+        $a = 1;
+
+    }
+
 }
