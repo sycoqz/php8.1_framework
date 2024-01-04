@@ -540,7 +540,7 @@ abstract class BaseAdmin extends BaseController
 
         $fileEdit = new FileEdit();
 
-        $this->fileArray = $fileEdit->addFile();
+        $this->fileArray = $fileEdit->addFile($this->table);
 
         if ($id) {
 

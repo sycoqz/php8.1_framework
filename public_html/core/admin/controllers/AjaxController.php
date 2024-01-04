@@ -4,6 +4,7 @@ namespace core\admin\controllers;
 
 use core\base\exceptions\DbException;
 use DOMException;
+use libraries\FileEdit;
 
 class AjaxController extends BaseAdmin
 {
@@ -12,7 +13,7 @@ class AjaxController extends BaseAdmin
      * @throws DOMException
      * @throws DbException
      */
-    public function ajax(): bool|string|null
+    public function ajax(): bool|string|null|array
     {
 
         if (isset($this->ajaxData['ajax'])) {
@@ -44,6 +45,17 @@ class AjaxController extends BaseAdmin
                 case 'search':
 
                     return $this->search();
+
+                case 'wyswyg_file':
+
+                    $fileEdit = new FileEdit();
+
+                    $fileEdit->setUniqueFile(false);
+
+                    $file = $fileEdit->addFile($this->clearStr($this->ajaxData['table']) . '/content_files/');
+
+                    return ['location' => PATH . UPLOAD_DIR . $file[key($file)]];
+
             }
 
         }

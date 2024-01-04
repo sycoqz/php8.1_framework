@@ -11,13 +11,12 @@
         <div class="vg-element vg-full vg-left" style="flex-wrap: wrap">
             <div style="width: 100%; margin-bottom: 10px">
                 <label>
-                    <input type="checkbox" class="tinyMceInit" style="display: inline" autocomplete="on">
-                    Визуальный режим
+                    <input type="checkbox" class="tinyMceInit" style="display: inline" autocomplete="on" <?=$class === 'vg-content' ? 'checked' : ''?>>Визуальный режим
+                </label>
+                <label>
+                    <textarea id="<?=$row?>" class="vg-input vg-text vg-full vg-firm-color1" style="width: 100%; margin-bottom: 10px"><?= isset($_SESSION['result'][$row]) ? htmlspecialchars($_SESSION['result'][$row]) : htmlspecialchars($this->data[$row] ?? '')?></textarea>
                 </label>
             </div>
-            <label>
-                <textarea name="<?=$row?>" class="vg-input vg-text vg-full vg-firm-color1"><?= isset($_SESSION['result'][$row]) ? htmlspecialchars($_SESSION['result'][$row]) : htmlspecialchars($this->data[$row] ?? '')?></textarea>
-            </label>
         </div>
     </div>
 </div>
