@@ -136,20 +136,20 @@ function createFile () {
 
                     e.preventDefault()
 
-                    let forData = new FormData(this)
+                    let formData = new FormData(this)
 
                     for (let i in fileStore) {
 
                         if (fileStore.hasOwnProperty(i)) {
 
-                            forData.delete(i)
+                            formData.delete(i)
 
                             //Получение чистого имени свойства
                             let rowName = i.replace(/[\[\]]/g, '')
 
                             fileStore[i].forEach((item, index) => {
 
-                                forData.append(`${rowName}[${index}]`, item)
+                                formData.append(`${rowName}[${index}]`, item)
 
                             })
 
@@ -157,12 +157,12 @@ function createFile () {
 
                     }
 
-                    forData.append('ajax', 'editData')
+                    formData.append('ajax', 'editData')
 
                     Ajax({
                         url: this.getAttribute('action'),
                         type: 'post',
-                        data: forData,
+                        data: formData,
                         processData: false,
                         contentType: false
                     }).then(result => {
