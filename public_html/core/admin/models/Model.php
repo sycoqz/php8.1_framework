@@ -4,7 +4,9 @@ namespace core\admin\models;
 
 use core\base\controllers\Singleton;
 use core\base\exceptions\DbException;
+use core\base\exceptions\RouteException;
 use core\base\models\BaseModel;
+use core\base\settings\Settings;
 
 class Model extends BaseModel
 {
@@ -128,6 +130,169 @@ class Model extends BaseModel
         else return;
 
         return $this->query($query, 'u');
+
+    }
+
+    /**
+     * @throws DbException
+     */
+    public function search($data, $currentTable = false, $qty = false)
+    {
+
+        $dbTables = $this->showTables();
+
+        $data = addslashes($data);
+
+        $arr = preg_split('/(,|\.)?\s+/', $data, 0, PREG_SPLIT_NO_EMPTY);
+
+        $searchArr = [];
+
+        $order = [];
+
+        for (;;) {
+
+            if (!$arr) break;
+
+            $searchArr[] = implode(' ', $arr);
+
+            unset($arr[count($arr) - 1]);
+
+        }
+
+        // Приоритет объектов
+        $correctCurrentTable = false;
+
+        $projectTables = Settings::get('projectTables');
+
+        if (!$projectTables) throw new RouteException('Ошибка поиска. Нет раздела админ панели.');
+
+        foreach ($projectTables as $table => $item) {
+
+            if (!in_array($table, $dbTables)) continue;
+
+            $searchRows = [];
+
+            $orderRows = ['name'];
+
+            $fields = [];
+
+            $columns = $this->showColumns($table);
+
+            $fields[] = $columns['id_row'] . ' as id';
+
+            $fieldName = isset($columns['name']) ? "CASE WHEN name <> '' THEN name " : '';
+
+            foreach ($columns as $col => $value) {
+
+                if ($col !== 'name' && stripos($col, 'name') !== false) {
+
+                    if (!$fieldName) $fieldName = 'CASE ';
+
+                    $fieldName .= "WHEN $col <> '' THEN $col ";
+
+                }
+
+                // Признак формирования
+                if (isset($value['Type']) && (stripos($value['Type'], 'char') !== false ||
+                        stripos($value['Type'], 'text') !== false)) {
+
+                        $searchRows[] = $col;
+
+                }
+
+            }
+
+            if ($fieldName) $fields[] = $fieldName . 'END as name';
+            else $fields[] = $columns['id_row'] . ' as name';
+
+            $fields[] = "('$table') AS table_name";
+
+            $result = $this->createWhereOrder($searchRows, $searchArr, $orderRows, $table);
+
+            $where = $result['where'];
+
+            !$order && $order = $result['order'];
+
+            if ($table === $currentTable) {
+
+                $correctCurrentTable = true;
+
+                $fields[] = "('current_table') AS current_table";
+
+            }
+
+            if (isset($where)) {
+
+                //$this->buildUnion();
+
+            }
+
+        }
+
+        $orderDirection = null;
+
+        if (isset($order)) {
+
+            $order = ($correctCurrentTable ? 'current_table DESC, ' : '') . '(' . implode('+', $order) . ')';
+
+            $orderDirection = 'DESC';
+
+        }
+
+    }
+
+    protected function createWhereOrder(array $searchRows, array $searchArr, array $orderRows, string $table): array
+    {
+
+        $where = '';
+
+        $order = [];
+
+        if ($searchRows && $searchArr) {
+
+            $columns = $this->showColumns($table);
+
+            if ($columns) {
+
+                $where = '(';
+
+                foreach ($searchRows as $row) {
+
+                    $where .= '(';
+
+                    foreach ($searchArr as $item) {
+
+                        if (in_array($row, $orderRows)) {
+
+                            $str = "($row LIKE '%$item%')";
+
+                            if (!in_array($str, $order)) {
+
+                                $order[] = $str;
+
+                            }
+
+                        }
+
+                        if (isset($columns[$row])) {
+
+                            $where .= "$row LIKE '%$item%' OR ";
+
+                        }
+
+                    }
+
+                    $where = preg_replace('/\)?\s*or\s*\(?$/i', '', $where) . ') OR ';
+
+                }
+
+                $where && $where = preg_replace('/\s*or\s*$/i', '', $where) . ')';
+
+            }
+
+        }
+
+        return compact('where', 'order');
 
     }
 

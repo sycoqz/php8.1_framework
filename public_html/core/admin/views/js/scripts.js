@@ -136,20 +136,20 @@ function createFile () {
 
                     e.preventDefault()
 
-                    let forData = new FormData(this)
+                    let formData = new FormData(this)
 
                     for (let i in fileStore) {
 
                         if (fileStore.hasOwnProperty(i)) {
 
-                            forData.delete(i)
+                            formData.delete(i)
 
                             //Получение чистого имени свойства
                             let rowName = i.replace(/[\[\]]/g, '')
 
                             fileStore[i].forEach((item, index) => {
 
-                                forData.append(`${rowName}[${index}]`, item)
+                                formData.append(`${rowName}[${index}]`, item)
 
                             })
 
@@ -157,12 +157,12 @@ function createFile () {
 
                     }
 
-                    forData.append('ajax', 'editData')
+                    formData.append('ajax', 'editData')
 
                     Ajax({
                         url: this.getAttribute('action'),
                         type: 'post',
-                        data: forData,
+                        data: formData,
                         processData: false,
                         contentType: false
                     }).then(result => {
@@ -491,6 +491,40 @@ let searchResultHover = (() => {
 
 searchResultHover()
 
+search()
+
+function search() {
+
+    let searchInput = document.querySelector('input[name=search]')
+
+    console.log(searchInput)
+
+    if (searchInput) {
+
+        searchInput.oninput = () => {
+
+            if (searchInput.value.length > 1) {
+
+                Ajax(
+                    {
+                        data:{
+                            data:searchInput.value,
+                            table:document.querySelector('input[name="search_table"]').value,
+                            ajax:'search'
+                        }
+                    }
+                ).then(result => {
+                    console.log(result)
+                })
+
+            }
+
+        }
+
+    }
+
+}
+
 let galleries = document.querySelectorAll('.gallery_container')
 
 if (galleries.length) {
@@ -510,8 +544,6 @@ if (galleries.length) {
     })
 
 }
-
-document.querySelector('.vg-rows > div').sortable()
 
 function createJsSortable(form) {
 
