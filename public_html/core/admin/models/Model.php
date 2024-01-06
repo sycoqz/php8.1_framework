@@ -223,7 +223,11 @@ class Model extends BaseModel
 
             if (isset($where)) {
 
-                //$this->buildUnion();
+                $this->buildUnion($table, [
+                    'fields' => $fields,
+                    'where' => $where,
+                    'no_concat' => true
+                ]);
 
             }
 
@@ -239,8 +243,21 @@ class Model extends BaseModel
 
         }
 
+        $result = $this->getUnion([
+            //'type' => 'all',
+            //'pagination' => [],
+            //'limit' => 3,
+            'order' => $order,
+            'order_direction' => $orderDirection
+        ]);
+
+        $a = 1;
+
     }
 
+    /**
+     * @throws DbException
+     */
     protected function createWhereOrder(array $searchRows, array $searchArr, array $orderRows, string $table): array
     {
 

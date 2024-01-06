@@ -11,6 +11,8 @@ abstract class BaseModelMethods
 
     protected array $tableRows = [];
 
+    protected array $union = [];
+
     /**
      * @throws DbException
      */
@@ -80,7 +82,15 @@ abstract class BaseModelMethods
 
                 }
 
-                if ($field) {
+                if ($field || $field === null) {
+
+                    if ($field === null) {
+
+                        $fields .= 'NULL,';
+
+                        continue;
+
+                    }
 
                     if ($join && $join_structure) {
 
