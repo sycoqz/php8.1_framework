@@ -134,9 +134,10 @@ class Model extends BaseModel
     }
 
     /**
+     * @throws RouteException
      * @throws DbException
      */
-    public function search($data, $currentTable = false, $qty = false)
+    public function search($data, $currentTable = false, $qty = false): int|bool|array|string
     {
 
         $dbTables = $this->showTables();
@@ -180,7 +181,7 @@ class Model extends BaseModel
 
             $fields[] = $columns['id_row'] . ' as id';
 
-            $fieldName = isset($columns['name']) ? "CASE WHEN name <> '' THEN name " : '';
+            $fieldName = isset($columns['name']) ? "CASE WHEN {$table}.name <> '' THEN {$table}.name " : '';
 
             foreach ($columns as $col => $value) {
 
@@ -188,7 +189,7 @@ class Model extends BaseModel
 
                     if (!$fieldName) $fieldName = 'CASE ';
 
-                    $fieldName .= "WHEN $col <> '' THEN $col ";
+                    $fieldName .= "WHEN {$table}.$col <> '' THEN {$table}.$col ";
 
                 }
 
@@ -223,7 +224,11 @@ class Model extends BaseModel
 
             if (isset($where)) {
 
-                //$this->buildUnion();
+                $this->buildUnion($table, [
+                    'fields' => $fields,
+                    'where' => $where,
+                    'no_concat' => true
+                ]);
 
             }
 
@@ -239,8 +244,36 @@ class Model extends BaseModel
 
         }
 
+        $searchResult = $this->getUnion([
+            //'type' => 'all',
+            //'pagination' => [],
+            //'limit' => 3,
+            'order' => $order,
+            'order_direction' => $orderDirection
+        ]);
+
+
+        if (isset($searchResult)) {
+
+            foreach ($searchResult as $index => $item) {
+
+                $searchResult[$index]['name'] .= '(' .
+                    ($projectTables[$item['table_name']]['name'] ?? $projectTables[$item['table_name']]) . ')';
+
+                $searchResult[$index]['alias'] = PATH . Settings::get('routes')['admin']['alias'] . '/edit/' .
+                    $item['table_name'] . '/' . $item['id'];
+
+            }
+
+        }
+
+        return $searchResult ?: [];
+
     }
 
+    /**
+     * @throws DbException
+     */
     protected function createWhereOrder(array $searchRows, array $searchArr, array $orderRows, string $table): array
     {
 
@@ -276,7 +309,7 @@ class Model extends BaseModel
 
                         if (isset($columns[$row])) {
 
-                            $where .= "$row LIKE '%$item%' OR ";
+                            $where .= "{$table}.$row LIKE '%$item%' OR ";
 
                         }
 

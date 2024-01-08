@@ -402,8 +402,11 @@ function showHideMenuSearch() {
 
     })
 
-    // Закрытие поиска
-    searchInput.addEventListener('blur', () => {
+    // Закрытие поиска. Переход на страницу редактирования искомого объекта
+    searchInput.addEventListener('blur', e => {
+
+        if (e.relatedTarget && e.relatedTarget.tagName === 'A')
+            return
 
         searchButton.classList.remove('vg-search-reverse')
 
@@ -445,7 +448,7 @@ let searchResultHover = (() => {
 
             children[activeIndex].classList.add('search_act')
 
-            searchInput.value = children[activeIndex].innerText
+            searchInput.value = children[activeIndex].innerText.replace(/\(.+?\)\s*$/, '')
 
         }
 
@@ -497,8 +500,6 @@ function search() {
 
     let searchInput = document.querySelector('input[name=search]')
 
-    console.log(searchInput)
-
     if (searchInput) {
 
         searchInput.oninput = () => {
@@ -514,7 +515,37 @@ function search() {
                         }
                     }
                 ).then(result => {
-                    console.log(result)
+
+                    try {
+
+                        result = JSON.parse(result)
+
+                        let resultBlock = document.querySelector('.search_res')
+
+                        let counter = result.length > 20 ? 20 : result.length
+
+                        if (resultBlock) {
+
+                            resultBlock.innerHTML = '';
+
+                            for (let i = 0; i < counter; i++) {
+
+                                resultBlock.insertAdjacentHTML('beforeend',
+                                    `<a href="${result[i]['alias']}">${result[i]['name']}</a>`)
+
+                            }
+
+                            searchResultHover()
+
+                        }
+
+                    }
+                    catch (e) {
+
+                        console.log(e)
+                        alert('Ошибка в системе поиска по административной панели')
+
+                    }
                 })
 
             }
