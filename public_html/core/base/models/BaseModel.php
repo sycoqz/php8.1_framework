@@ -415,7 +415,7 @@ abstract class BaseModel extends BaseModelMethods
     /**
      * @throws DbException
      */
-    public function getUnion($set = []): array|bool|int|string|null
+    public function getUnion(array $set = []): array|bool|int|string|null
     {
 
         if (!$this->union) return false;

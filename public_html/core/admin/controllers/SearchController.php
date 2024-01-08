@@ -12,6 +12,16 @@ class SearchController extends BaseAdmin
 
         if (!isset($this->userID)) $this->executeBase();
 
+        $text = $this->clearStr($_GET['search']);
+
+        $table = $_GET['search_table'];
+
+        $this->data = $this->model->search($text, $table);
+
+        $this->template = ADMIN_TEMPLATE . 'show';
+
+        return $this->extension();
+
     }
 
 }
