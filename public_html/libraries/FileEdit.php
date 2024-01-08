@@ -7,12 +7,16 @@ class FileEdit
 
     protected array $imgArr = [];
     protected string $directory;
+    protected bool $uniqueFile = true;
 
-    public function addFile(string|bool $directory = false): array
+    public function addFile(string $directory = ''): array
     {
 
-        if (!$directory) $this->directory = $_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR;
-        else $this->directory = $directory;
+        $directory = trim($directory, ' /');
+
+        $directory .= '/';
+
+        $this->setDirectory($directory);
 
         foreach ($_FILES as $key => $file) {
 
@@ -32,7 +36,7 @@ class FileEdit
 
                         $resultName = $this->createFile($fileArr);
 
-                        if ($resultName) $this->imgArr[$key][$i] = $resultName;
+                        if ($resultName) $this->imgArr[$key][$i] = $directory . $resultName;
 
                     }
                 }
@@ -43,7 +47,7 @@ class FileEdit
 
                     $resultName = $this->createFile($file);
 
-                    if ($resultName) $this->imgArr[$key] = $resultName;
+                    if ($resultName) $this->imgArr[$key] = $directory . $resultName;
 
                 }
             }
@@ -79,7 +83,7 @@ class FileEdit
 
         } else {
 
-            return  false;
+            return false;
 
         }
     }
@@ -96,11 +100,27 @@ class FileEdit
     protected function checkFile(string $fileName, string $fileExtension, string|bool $fileLastName = false): string
     {
 
-        if (!file_exists($this->directory . $fileName . $fileLastName))
+        if (!file_exists($this->directory . $fileName . $fileLastName) || !$this->uniqueFile)
             return $fileName . $fileLastName . '.' . $fileExtension;
 
         return $this->checkFile($fileName, $fileExtension,
             '_' . hash('crc32', time() . mt_rand(1, 1000)));
+
+    }
+
+    public function setUniqueFile($value): void
+    {
+
+        $this->uniqueFile = (bool)$value;
+
+    }
+
+    public function setDirectory(string $directory): void
+    {
+
+        $this->directory = $_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $directory;
+
+        if (!file_exists($this->directory)) mkdir($this->directory, 0777, true);
 
     }
 

@@ -136,20 +136,20 @@ function createFile () {
 
                     e.preventDefault()
 
-                    let forData = new FormData(this)
+                    let formData = new FormData(this)
 
                     for (let i in fileStore) {
 
                         if (fileStore.hasOwnProperty(i)) {
 
-                            forData.delete(i)
+                            formData.delete(i)
 
                             //Получение чистого имени свойства
                             let rowName = i.replace(/[\[\]]/g, '')
 
                             fileStore[i].forEach((item, index) => {
 
-                                forData.append(`${rowName}[${index}]`, item)
+                                formData.append(`${rowName}[${index}]`, item)
 
                             })
 
@@ -157,12 +157,12 @@ function createFile () {
 
                     }
 
-                    forData.append('ajax', 'editData')
+                    formData.append('ajax', 'editData')
 
                     Ajax({
                         url: this.getAttribute('action'),
                         type: 'post',
-                        data: forData,
+                        data: formData,
                         processData: false,
                         contentType: false
                     }).then(result => {
@@ -402,8 +402,11 @@ function showHideMenuSearch() {
 
     })
 
-    // Закрытие поиска
-    searchInput.addEventListener('blur', () => {
+    // Закрытие поиска. Переход на страницу редактирования искомого объекта
+    searchInput.addEventListener('blur', e => {
+
+        if (e.relatedTarget && e.relatedTarget.tagName === 'A')
+            return
 
         searchButton.classList.remove('vg-search-reverse')
 
@@ -445,7 +448,7 @@ let searchResultHover = (() => {
 
             children[activeIndex].classList.add('search_act')
 
-            searchInput.value = children[activeIndex].innerText
+            searchInput.value = children[activeIndex].innerText.replace(/\(.+?\)\s*$/, '')
 
         }
 
@@ -491,6 +494,68 @@ let searchResultHover = (() => {
 
 searchResultHover()
 
+search()
+
+function search() {
+
+    let searchInput = document.querySelector('input[name=search]')
+
+    if (searchInput) {
+
+        searchInput.oninput = () => {
+
+            if (searchInput.value.length > 1) {
+
+                Ajax(
+                    {
+                        data:{
+                            data:searchInput.value,
+                            table:document.querySelector('input[name="search_table"]').value,
+                            ajax:'search'
+                        }
+                    }
+                ).then(result => {
+
+                    try {
+
+                        result = JSON.parse(result)
+
+                        let resultBlock = document.querySelector('.search_res')
+
+                        let counter = result.length > 20 ? 20 : result.length
+
+                        if (resultBlock) {
+
+                            resultBlock.innerHTML = '';
+
+                            for (let i = 0; i < counter; i++) {
+
+                                resultBlock.insertAdjacentHTML('beforeend',
+                                    `<a href="${result[i]['alias']}">${result[i]['name']}</a>`)
+
+                            }
+
+                            searchResultHover()
+
+                        }
+
+                    }
+                    catch (e) {
+
+                        console.log(e)
+                        alert('Ошибка в системе поиска по административной панели')
+
+                    }
+                })
+
+            }
+
+        }
+
+    }
+
+}
+
 let galleries = document.querySelectorAll('.gallery_container')
 
 if (galleries.length) {
@@ -510,8 +575,6 @@ if (galleries.length) {
     })
 
 }
-
-document.querySelector('.vg-rows > div').sortable()
 
 function createJsSortable(form) {
 

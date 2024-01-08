@@ -17,7 +17,7 @@ abstract class BaseAdmin extends BaseController
 
     protected object $model;
 
-    protected string $table;
+    protected string|null $table = null;
 
     protected array $columns = [];
 
@@ -148,7 +148,7 @@ abstract class BaseAdmin extends BaseController
      */
     protected function extension(array $args = [], $settings = false): mixed
     {
-        $filename = explode('_', $this->table);
+        $filename = explode('_', $this->table ?? '');
         $className = '';
 
         foreach ($filename as $item) $className .= ucfirst($item);
@@ -540,7 +540,7 @@ abstract class BaseAdmin extends BaseController
 
         $fileEdit = new FileEdit();
 
-        $this->fileArray = $fileEdit->addFile();
+        $this->fileArray = $fileEdit->addFile($this->table);
 
         if ($id) {
 
