@@ -468,16 +468,16 @@ abstract class BaseAdmin extends BaseController
 
         $except = $this->checkExceptFields();
 
-        $resultId = $this->model->$method($this->table,[
+        $result_id = $this->model->$method($this->table,[
             'files' => $this->fileArray,
             'where' => $where,
-            'returnId' => true,
+            'return_id' => true,
             'except' => $except
         ]);
 
         if (empty($id) && $method === 'create') {
 
-            $_POST[$this->columns['id_row']] = $resultId;
+            $_POST[$this->columns['id_row']] = $result_id;
             $answerSuccess = $this->messages['addSuccess'];
             $answerFail = $this->messages['addFail'];
 
@@ -494,7 +494,7 @@ abstract class BaseAdmin extends BaseController
 
         $result = $this->checkAlias($_POST[$this->columns['id_row']] ?? '');
 
-        if ($resultId) {
+        if ($result_id) {
 
             $_SESSION['result']['answer'] = '<div class="success">' . $answerSuccess . '</div>';
 
