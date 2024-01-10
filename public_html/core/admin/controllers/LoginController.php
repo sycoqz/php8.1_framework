@@ -136,7 +136,7 @@ class LoginController extends BaseController
 
             $_SESSION['result']['answer'] = $success ?
                 '<div class="success">Добро пожаловать ' . ($userData[0]['name'] ?? '') . '</div>' :
-                preg_split('/\s*\-/', $error, 2, PREG_SPLIT_NO_EMPTY)[0];
+                preg_split('/\s*-/', $error, 2, PREG_SPLIT_NO_EMPTY)[0];
 
             $this->writeLog($error, 'user_log.txt', 'Access user');
 
