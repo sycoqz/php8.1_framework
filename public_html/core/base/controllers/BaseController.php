@@ -30,7 +30,7 @@ abstract class BaseController
     protected array $styles;
     protected array $scripts;
 
-    protected string|int $userID;
+    protected string|int|bool|array $userID;
 
     protected array $ajaxData;
 

@@ -41,23 +41,24 @@ class LoginController extends BaseController
 
         }
 
-        $timeClean = (new DateTime())->modify('-' . BLOCK_TIME . ' hours')->format('Y-m-d H:i:s');
-
-        // Удаление всех записей о пользователе из БД, при условии, что time меньше чем текущие время
-        $this->model->delete($this->model->getBlockedTable(), [
-           'where' => ['time' => $timeClean],
-           'operand' => ['<']
-        ]);
-
         if ($this->isPost()) {
 
+            // Проверка наличия токена
             if (empty($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
 
                 exit('Cookie ERROR');
 
             }
 
-            // Получение имени пользователя
+            $timeClean = (new DateTime())->modify('-' . BLOCK_TIME . ' hours')->format('Y-m-d H:i:s');
+
+            // Удаление всех записей о пользователе из БД, при условии, что time меньше чем текущие время
+            $this->model->delete($this->model->getBlockedTable(), [
+                'where' => ['time' => $timeClean],
+                'operand' => ['<']
+            ]);
+
+            // Получение ip пользователя
             $ipUser = filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP) ?:
                 (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP) ?: @$_SERVER['REMOTE_ADDR']);
 
@@ -91,9 +92,9 @@ class LoginController extends BaseController
 
                     if ($trying) {
 
-                        $method = 'edit';
+                        $method = 'update';
 
-                        $where['id'] = $ipUser;
+                        $where['ip'] = $ipUser;
 
                     }
 
@@ -122,7 +123,10 @@ class LoginController extends BaseController
 
             } elseif ($trying >= 3) {
 
-                $error = 'Превышено максимальное количество попыток ввода пароля - ' . $ipUser;
+                // Удаление Cookie
+                $this->model->logout();
+
+                $error = 'Превышено максимальное количество попыток авторизации - ' . $ipUser;
 
             } else {
 
@@ -131,7 +135,7 @@ class LoginController extends BaseController
             }
 
             $_SESSION['result']['answer'] = $success ?
-                '<div class="success">Добро пожаловать ' . $userData['name'] . '</div>' :
+                '<div class="success">Добро пожаловать ' . ($userData[0]['name'] ?? '') . '</div>' :
                 preg_split('/\s*\-/', $error, 2, PREG_SPLIT_NO_EMPTY)[0];
 
             $this->writeLog($error, 'user_log.txt', 'Access user');
@@ -140,6 +144,7 @@ class LoginController extends BaseController
 
             $success && $path = PATH . Settings::get('routes')['admin']['alias'];
 
+            // Перенаправление в админ панель
             $this->redirect($path);
 
         }

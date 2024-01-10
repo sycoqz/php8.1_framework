@@ -18,7 +18,7 @@ class UserModel extends BaseModel
 
     private string $cookieName = 'identifier';
 
-    private string $cookieAdminName = 'framework';
+    private string $cookieAdminName = 'frameworkCache';
 
     private array $userData = [];
 
