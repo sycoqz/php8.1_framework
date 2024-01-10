@@ -64,6 +64,9 @@ abstract class BaseAdmin extends BaseController
 
         }
 
+        // Проверка авторизации
+        $this->checkAuth(true);
+
         $this->init(true);
 
         $this->title = 'php 8.1 Framework';

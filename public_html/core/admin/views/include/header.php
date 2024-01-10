@@ -54,7 +54,7 @@
                         <span class="vg-firm-color5">admin</span>
                     </div>
                 </div>
-                <a href="/login/admin/logout/1" class="vg-element vg-half vg-center">
+                <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/login/logout/" class="vg-element vg-half vg-center">
                     <div>
                         <img src="<?=PATH . ADMIN_TEMPLATE?>img/out.png" alt="">
                     </div>
