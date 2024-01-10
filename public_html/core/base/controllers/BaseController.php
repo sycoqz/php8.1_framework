@@ -4,6 +4,7 @@ namespace core\base\controllers;
 
 use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
+use core\base\models\UserModel;
 use core\base\settings\Settings;
 use JetBrains\PhpStorm\NoReturn;
 use ReflectionClass;
@@ -29,7 +30,7 @@ abstract class BaseController
     protected array $styles;
     protected array $scripts;
 
-    protected string|int $userID;
+    protected string|int|bool|array $userID;
 
     protected array $ajaxData;
 
@@ -142,6 +143,30 @@ abstract class BaseController
             echo $this->page;
         }
         exit();
+
+    }
+
+    // Метод для проверки авторизации
+
+    /**
+     * @throws DbException
+     */
+    protected function checkAuth(bool $type = false): void
+    {
+
+        if (!($this->userID = UserModel::instance()->checkUser(false, $type))) {
+
+            // Если админ
+            $type && $this->redirect(PATH);
+
+        }
+
+        // Формирование модели пользователя
+        if (property_exists($this, 'userModel')) {
+
+            $this->userModel = UserModel::instance();
+
+        }
 
     }
 

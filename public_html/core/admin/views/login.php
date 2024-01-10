@@ -51,12 +51,25 @@
             border: 1px solid black;
         }
 
+        input[type=submit]:hover {
+            background: rgba(33,42,55,0.36);
+        }
+
     </style>
 
 </head>
 <body>
 
     <div>
+
+        <?php if (!empty($_SESSION['result']['answer'])) {
+
+            echo '<p style="color: red;text-align: center">' . $_SESSION['result']['answer'] . '</p>';
+
+            unset($_SESSION['result']);
+
+        }?>
+
         <h1>Авторизации</h1>
         <form action="<?=PATH . $adminPath?>/login" method="post">
             <label for="login">Логин</label>

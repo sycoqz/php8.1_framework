@@ -18,7 +18,7 @@ class UserModel extends BaseModel
 
     private string $cookieName = 'identifier';
 
-    private string $cookieAdminName = 'identifier';
+    private string $cookieAdminName = 'frameworkCache';
 
     private array $userData = [];
 
@@ -55,7 +55,7 @@ class UserModel extends BaseModel
 
         $this->userTable = $this->adminTable;
 
-        // Создание таблиц
+        // Создание таблиц при их отсутствие в БД
 
         if (!in_array($this->userTable, $this->showTables())) {
 
@@ -119,7 +119,7 @@ class UserModel extends BaseModel
 
             $this->userData['id'] = $id;
 
-            $method = 'set';
+            $method = 'setCookie';
 
         }
 
