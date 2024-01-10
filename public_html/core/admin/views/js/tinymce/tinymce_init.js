@@ -2,7 +2,7 @@
 function MCEInit(element, height = 400) {
 
     tinymce.init({
-        selector: `textarea#${element || tinyMceDefaultAreas}`,
+        selector: `textarea[id="${element || tinyMceDefaultAreas}"]`,
         placeholder: 'Печатать...',
         height: height,
         language: 'ru',
