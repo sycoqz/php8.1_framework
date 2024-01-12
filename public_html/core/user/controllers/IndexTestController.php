@@ -4,15 +4,23 @@ namespace core\user\controllers;
 
 use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
-class IndexController extends BaseUser
+class IndexTestController extends BaseUser
 {
 
+    protected string $name;
+
+    /**
+     * @throws RouteException
+     * @throws DbException
+     */
     protected function inputData()
     {
 
         parent::inputData();
 
-        $result = $this->img();
+        echo $this->getController();
+
+        exit();
 
     }
 

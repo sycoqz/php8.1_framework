@@ -16,7 +16,7 @@ abstract class BaseController
 
     use BaseMethods;
 
-    protected string $controller;
+    protected string $controller = '';
     protected ?string $inputMethod = null;
     protected ?string $outputMethod = null;
     protected ?array $parameters = null;

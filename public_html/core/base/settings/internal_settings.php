@@ -8,6 +8,8 @@ const TEMPLATE = 'templates/default/';
 const ADMIN_TEMPLATE = 'core/admin/views/';
 const UPLOAD_DIR = 'userfiles/';
 
+const DEFAULT_IMG_DIRECTORY = 'default_images';
+
 const COOKIE_VERSION = '1.0.0';
 const CRYPT_KEY = 'zwwGMi2ARnb7FYap+nqvaLYpbSVahvoRRj+oKltu/AMv0Jpp9I7Eyg/P5mJxof0dgDB48SkzMmdQJTZ3WhmezX2MNShfAi3Zly9OwtOr7C5JUS+j+k9FvsPCIH5XGqk6FkAn+5Mm1HGHXVpzlQrR9zZ4iwv1DPa85wTIc3kFpDdsWdHCEnDaxmHLbmsYLAR6';
 const COOKIE_TIME = 60;

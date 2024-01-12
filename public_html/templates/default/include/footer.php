@@ -4,7 +4,7 @@
         <div class="footer__wrapper">
             <div class="footer__top">
                 <div class="footer__top_logo">
-                    <img src="assets/img/Logo.svg" alt="">
+                    <img src="../assets/img/Logo.svg" alt="">
                 </div>
                 <div class="footer__top_menu">
                     <ul>
@@ -36,7 +36,7 @@
                     </ul>
                 </div>
                 <div class="footer__top_contacts">
-                    <div><a href="mailto:test@test.ru">test@test.ru</a></div>
+                    <div><a href="../../../index.php">test@test.ru</a></div>
                     <div><a href="tel:+74842750204">+7 (4842) 75-02-04</a></div>
                     <div><a class="js-callback">Связаться с нами</a></div>
                 </div>
