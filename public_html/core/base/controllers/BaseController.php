@@ -27,8 +27,8 @@ abstract class BaseController
     protected string|bool $footer;
     protected string|bool $template = '';
     protected string|bool $errors;
-    protected array $styles;
-    protected array $scripts;
+    protected array $styles = [];
+    protected array $scripts = [];
 
     protected string|int|bool|array $userID;
 
@@ -89,19 +89,28 @@ abstract class BaseController
     {
         if (!$admin) {
             if (USER_CSS_JS['styles']) {
-                foreach (USER_CSS_JS['styles'] as $item) $this->styles[] = PATH . TEMPLATE . trim($item, '/');
+                foreach (USER_CSS_JS['styles'] as $item)
+                    // Подкидка, если нет протокола
+                    $this->styles[] = (!preg_match('/^\s*https?:\/\//i', $item) ? PATH . TEMPLATE : '')
+                        . trim($item, '/');
             }
 
             if (USER_CSS_JS['scripts']) {
-                foreach (USER_CSS_JS['scripts'] as $item) $this->scripts[] = PATH . TEMPLATE . trim($item, '/');
+                foreach (USER_CSS_JS['scripts'] as $item)
+                    $this->scripts[] = (!preg_match('/^\s*https?:\/\//i', $item) ? PATH . TEMPLATE : '')
+                        . trim($item, '/');
             }
         } else {
             if (ADMIN_CSS_JS['styles']) {
-                foreach (ADMIN_CSS_JS['styles'] as $item) $this->styles[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
+                foreach (ADMIN_CSS_JS['styles'] as $item)
+                    $this->styles[] = (!preg_match('/^\s*https?:\/\//i', $item) ? PATH . ADMIN_TEMPLATE : '')
+                        . trim($item, '/');
             }
 
             if (ADMIN_CSS_JS['scripts']) {
-                foreach (ADMIN_CSS_JS['scripts'] as $item) $this->scripts[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
+                foreach (ADMIN_CSS_JS['scripts'] as $item)
+                    $this->scripts[] = (!preg_match('/^\s*https?:\/\//i', $item) ? PATH . ADMIN_TEMPLATE : '')
+                        . trim($item, '/');
             }
         }
     }
