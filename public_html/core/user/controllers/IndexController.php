@@ -10,9 +10,9 @@ class IndexController extends BaseUser
 
         parent::inputData();
 
-        $alias = '';
+        $res = $this->alias();
 
-        $res = $this->alias(['catalog' => 'auto', 'vendor' => 'chevrolet'], ['page' => 1, 'order' => 'desc']);
+        $test = 1;
 
     }
 

@@ -63,7 +63,7 @@ abstract class BaseUser extends BaseController
 
         }
 
-        if ($img) {
+        if (!empty($img)) {
 
             $path = PATH . UPLOAD_DIR . $img;
 
@@ -81,12 +81,12 @@ abstract class BaseUser extends BaseController
 
     }
 
-    protected function alias(string|array $alias = '', string|array $queryString = '')
+    protected function alias(string|array $alias = '', string|array $queryString = ''): array|string|null
     {
 
         $str = '';
 
-        if (isset($queryString)) {
+        if (!empty($queryString)) {
 
             if (is_array($queryString)) {
 
