@@ -2,8 +2,6 @@
 
 namespace core\user\controllers;
 
-use core\base\exceptions\DbException;
-use core\base\exceptions\RouteException;
 class IndexController extends BaseUser
 {
 
@@ -12,7 +10,9 @@ class IndexController extends BaseUser
 
         parent::inputData();
 
-        $result = $this->img();
+        $alias = '';
+
+        $res = $this->alias(['catalog' => 'auto', 'vendor' => 'chevrolet'], ['page' => 1, 'order' => 'desc']);
 
     }
 

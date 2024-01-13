@@ -15,6 +15,7 @@ const CRYPT_KEY = 'zwwGMi2ARnb7FYap+nqvaLYpbSVahvoRRj+oKltu/AMv0Jpp9I7Eyg/P5mJxo
 const COOKIE_TIME = 60;
 const BLOCK_TIME = 3;
 
+const END_SLASH = '/';
 const QTY = 8;
 const QTY_LINKS = 3;
 
