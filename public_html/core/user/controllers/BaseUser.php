@@ -49,7 +49,7 @@ abstract class BaseUser extends BaseController
 
     }
 
-    protected function img(string $img = '')
+    protected function img(string $img = '', bool $tag = false): string
     {
 
         if (!$img && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . DEFAULT_IMG_DIRECTORY)) {
@@ -59,11 +59,109 @@ abstract class BaseUser extends BaseController
             $imgArr = preg_grep('/' . $this->getController() .'\./i', $dir)
                 ?: preg_grep('/default\./i', $dir);
 
-            $imgArr && $img = array_shift($imgArr);
+            $imgArr && $img = DEFAULT_IMG_DIRECTORY . '/' . array_shift($imgArr);
 
         }
 
-        return  $img;
+        if ($img) {
+
+            $path = PATH . UPLOAD_DIR . $img;
+
+            if (!$tag) {
+
+                return $path;
+
+            }
+
+            echo '<img src="' . $path . '" alt="image" title="image">';
+
+        }
+
+        return  '';
 
     }
+
+    protected function alias(string|array $alias = '', string|array $queryString = '')
+    {
+
+        $str = '';
+
+        if (isset($queryString)) {
+
+            if (is_array($queryString)) {
+
+                foreach ($queryString as $key => $item) {
+
+                    $str .= (!$str ? '?' : '&');
+
+                    if (is_array($item)) {
+
+                        $key .= '[]';
+
+                        foreach ($item as $value) {
+
+                            $str .= $key . '=' . $value;
+
+                        }
+
+                    } else {
+
+                        $str .= $key . '=' . $item;
+
+                    }
+
+                }
+
+            } else {
+
+                if (!str_contains($queryString, '?')) {
+
+                    $str = '?' . $str;
+
+                }
+
+                $str .= $queryString;
+
+            }
+
+        }
+
+        if (is_array($alias)) {
+
+            $aliasStr = '';
+
+            foreach ($alias as $key => $item) {
+
+                if (!is_numeric($key) && $item) {
+
+                    $aliasStr .= $key . '/' . $item . '/';
+
+                } elseif ($item) {
+
+                    $aliasStr .= $item . '/';
+
+                }
+
+            }
+
+            $alias = trim($aliasStr, '/');
+
+        }
+
+        if (!$alias || $alias === '/') {
+
+            return PATH . $str;
+
+        }
+
+        if (preg_match('/^\s*https?:\/\//i', $alias)) {
+
+            return $alias . $str;
+
+        }
+
+        return preg_replace('/\/{2,}/', '/', PATH . $alias . END_SLASH . $str);
+
+    }
+
 }

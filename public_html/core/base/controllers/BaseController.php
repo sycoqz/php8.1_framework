@@ -133,7 +133,7 @@ abstract class BaseController
             if ($space === $routes['user']['path']) $template = TEMPLATE;
                 else $template = ADMIN_TEMPLATE;
 
-            $path = $template . explode('controller', strtolower($class->getShortName()))[0]; // Если путь не указан.
+            $path = $template . $this->getController(); // Если путь не указан.
         }
 
         ob_start(); // Открывает буфер обмена
