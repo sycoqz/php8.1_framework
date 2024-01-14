@@ -102,7 +102,7 @@ if (mceElements.length) {
 
             let textArea = item.closest('.vg-element').querySelector('textarea')
 
-            let textAreaName = textArea.getAttribute('id')
+            let textAreaName = textArea.getAttribute('name')
 
             if (textAreaName) {
 
@@ -112,7 +112,7 @@ if (mceElements.length) {
 
                 } else {
 
-                    tinymce.remove(`[id="${textAreaName}"]`)
+                    tinymce.remove(`[name="${textAreaName}"]`)
 
                     if (!blockContent) textArea.value = textArea.value.replace(/<\/?[^>]+(>|$)/g, '')
 
