@@ -2,19 +2,17 @@
 
 namespace core\user\controllers;
 
-use core\admin\models\Model;
-use core\base\controllers\BaseController;
-use core\base\exceptions\DbException;
-use core\base\models\crypt;
-use JetBrains\PhpStorm\NoReturn;
-
-class IndexController extends BaseController
+class IndexController extends BaseUser
 {
 
-    protected string $name;
-
-    protected function inputData(): void
+    protected function inputData()
     {
+
+        parent::inputData();
+
+        $res = $this->alias();
+
+        $test = 1;
 
     }
 

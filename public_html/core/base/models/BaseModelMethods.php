@@ -268,7 +268,7 @@ abstract class BaseModelMethods
 
                 } else {
 
-                    if (str_starts_with($item, 'SELECT')) {
+                    if (str_starts_with(isset($item), 'SELECT')) {
 
                         $where .= $table . $key . $operand . ' (' . $item . ") $condition";
 
