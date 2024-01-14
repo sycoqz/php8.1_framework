@@ -1143,7 +1143,7 @@ abstract class BaseAdmin extends BaseController
     protected function createForeignProperty(array $arr, array $rootItems): void
     {
 
-        $where = '';
+        $where = [];
         $operand = [];
 
         if (in_array($this->table, $rootItems['tables'])) {

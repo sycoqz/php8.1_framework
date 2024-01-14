@@ -41,16 +41,6 @@ class Settings
         ]
     ];
 
-    private array $templateArr = [
-        'text' => ['name'],
-        'textarea' => ['keywords', 'content'],
-        'radio' => ['visibility'],
-        'checkboxlist' => ['filters'],
-        'select' => ['menu_position', 'parent_id'],
-        'img' => ['img', 'main_img'],
-        'gallery_img' => ['gallery_img', 'new_gallery_img']
-    ];
-
     private array $fileTemplates = ['img', 'gallery_img'];
 
     private string $extension = 'core/admin/extension/';
@@ -62,16 +52,40 @@ class Settings
     private string $defaultTable = 'goods';
 
     private array $projectTables = [
-        'articles' => ['name' => 'Статьи'],
-        'pages' => ['name' => 'Страницы'],
+        'catalog' => ['name' => 'Каталог'],
         'goods' => ['name' => 'Товары', 'img' => 'pages.png'],
-        'filters' => ['name' => 'Фильтры']
+        'filters' => ['name' => 'Фильтры'],
+        'articles' => ['name' => 'Статьи'],
+        'information' => ['name' => 'Информация'],
+        'social_networks' => ['name' => 'Социальные сети'],
+        'settings' => ['name' => 'Настройки системы']
+    ];
+
+    private array $templateArr = [
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias'],
+        'textarea' => ['keywords', 'content', 'address', 'description'],
+        'radio' => ['visibility', 'show_top_menu'],
+        'checkboxlist' => ['filters'],
+        'select' => ['menu_position', 'parent_id'],
+        'img' => ['img', 'main_img'],
+        'gallery_img' => ['gallery_img', 'new_gallery_img']
     ];
 
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
-        'content' => []
+        'img' => ['Изображение'],
+        'gallery_img' => ['Галерея изображений'],
+        'visibility' => ['Видимость объекта'],
+        'menu_position' => ['Позиция объекта в списке'],
+        'content' => ['Описание'],
+        'description' => ['SEO описание'],
+        'phone' => ['Телефон'],
+        'email' => ['Электронная почта'],
+        'address' => ['Адрес'],
+        'alias' => ['Ссылка ЧПУ'],
+        'show_top_menu' => ['Показывать в верхнем меню'],
+        'external_alias' => ['Внешняя ссылка']
     ];
 
     private array $manyToMany = [
@@ -86,11 +100,12 @@ class Settings
 
     private array $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles', 'filters']
+        'tables' => ['articles', 'filters', 'catalog']
     ];
 
     private array $radio = [
-        'visibility' => ['Нет', 'Да', 'default' => 'Да']
+        'visibility' => ['Нет', 'Да', 'default' => 'Да'],
+        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да']
     ];
 
     private array $validation = [

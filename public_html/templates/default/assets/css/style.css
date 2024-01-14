@@ -878,7 +878,8 @@ input[type='search'], input[type='text'], input[type='email'] {
 	position: fixed;
 	top: 0;
 	right: 0;
-	z-index: 900
+	z-index: 900;
+	background: #335252;
 }
 
 @media screen and (max-width: 1600px) {
@@ -7260,7 +7261,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	}
 
 	.basket-btn:last-child{
-		margin-left: 0px;
+		margin-left: 0;
 	}
 
 }
@@ -7273,7 +7274,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 
 	.basket-btn{
 		width: 100%;
-		margin: 10px 0px 0px 0px;
+		margin: 10px 0 0 0;
 	}
 }
 
