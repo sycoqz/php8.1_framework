@@ -57,11 +57,12 @@ class Settings
         'filters' => ['name' => 'Фильтры'],
         'articles' => ['name' => 'Статьи'],
         'information' => ['name' => 'Информация'],
+        'social_networks' => ['name' => 'Социальные сети'],
         'settings' => ['name' => 'Настройки системы']
     ];
 
     private array $templateArr = [
-        'text' => ['name', 'phone', 'email', 'alias'],
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias'],
         'textarea' => ['keywords', 'content', 'address', 'description'],
         'radio' => ['visibility', 'show_top_menu'],
         'checkboxlist' => ['filters'],
@@ -73,13 +74,18 @@ class Settings
     private array $warningUser = [
         'name' => ['Название', 'Не более 100 символов'],
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
+        'img' => ['Изображение'],
+        'gallery_img' => ['Галерея изображений'],
+        'visibility' => ['Видимость объекта'],
+        'menu_position' => ['Позиция объекта в списке'],
         'content' => ['Описание'],
         'description' => ['SEO описание'],
         'phone' => ['Телефон'],
         'email' => ['Электронная почта'],
         'address' => ['Адрес'],
         'alias' => ['Ссылка ЧПУ'],
-        'show_top_menu' => ['Показывать в верхнем меню']
+        'show_top_menu' => ['Показывать в верхнем меню'],
+        'external_alias' => ['Внешняя ссылка']
     ];
 
     private array $manyToMany = [

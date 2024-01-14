@@ -18,6 +18,10 @@ abstract class BaseUser extends BaseController
 
     protected array $menu = [];
 
+    /* Проектные свойства */
+    protected array $social_networks = [];
+    /* Проектные свойства */
+
     /**
      * @throws DbException
      */
@@ -43,6 +47,11 @@ abstract class BaseUser extends BaseController
 
         $this->menu['information'] = $this->model->read('information', [
             'where' => ['visibility' => 1, 'show_top_menu' => 1],
+            'order' => ['menu_position']
+        ]);
+
+        $this->social_networks = $this->model->read('social_networks', [
+            'where' => ['visibility' => 1],
             'order' => ['menu_position']
         ]);
 
