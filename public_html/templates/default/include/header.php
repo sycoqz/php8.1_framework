@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, shrink-to-fit=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Index</title>
+    <title>Трёшка</title>
     <?php $this->getStyles()?>
 
 </head>
@@ -16,67 +16,54 @@
         <div class="header__wrapper">
 
             <div class="header__logo">
-                <a href="../../../index.php"><img src="../templates/default/assets/img/Logo.svg" alt="магазин инженерной сантехники"></a>
-                <span>АвтоЗапчасти</span>
+                <a href="<?=$this->alias()?>"><img src="<?=$this->img($this->set['img'])?>" alt="<?=$this->set['name']?>"></a>
+                <span><?=$this->set['name']?></span>
             </div>
             <div class="header__topbar">
                 <div class="header__contacts">
-                    <div><a href="../../../index.php">test@test.ru</a></div>
-                    <div><a href="tel:+74842750204">+7 (4842) 75-02-04</a></div>
+                    <div><a href="mailto:<?=$this->set['email']?>"><?=$this->set['email']?></a></div>
+                    <div><a href="tel:<?=preg_replace('/[^+\d]/', '', $this->set['phone'])?>"><?=$this->set['phone']?></a></div>
                     <div><a class="js-callback">Связаться с нами</a></div>
                 </div>
                 <nav class="header__nav">
                     <ul class="header__nav-list">
 
+                    <?php if (!empty($this->menu['catalog'])):?>
                         <li class="header__nav-parent">
-                            <a href="http://somesite.ru/catalog/"><span>Каталог</span></a>
+                            <a href="<?=$this->alias('catalog')?>"><span>Каталог</span></a>
                             <ul class="header__nav-sublist">
-                                <li>
-                                    <a href="http://somesite.ru/for-clients/"><span>item-1</span></a>
-                                </li>
-
-                                <li>
-                                    <a href="http://somesite.ru/for-installers/"><span>item-2</span></a>
-                                </li>
-
-                                <li>
-                                    <a href="http://somesite.ru/for-stores/"><span>item-3</span></a>
-                                </li>
-
-                                <li>
-                                    <a href="http://somesite.ru/for-builders/"><span>item-4</span></a>
-                                </li>
+                                <?php foreach ($this->menu['catalog'] as $item):?>
+                                    <li class="">
+                                        <a href="<?=$this->alias(['catalog' => $item['alias']])?>"><span><?=$item['name']?></span></a>
+                                    </li>
+                                <?php endforeach;?>
                             </ul>
                         </li>
+                    <?php endif;?>
 
-                        <li class="">
-                            <a href="http://somesite.ru/delivery/"><span>Оплата и доставка</span></a>
+                    <?php if (!empty($this->menu['information'])):?>
+                        <?php foreach ($this->menu['information'] as $item):?>
+                        <li class="header__nav-parent">
+                            <a href="<?=$this->alias(['information' => $item['alias']])?>"><span><?=$item['name']?></span></a>
                             <ul class="header__nav-sublist">
 
                             </ul>
                         </li>
+                        <?php endforeach;?>
+                    <?php endif;?>
 
-                        <li class="">
-                            <a href="http://somesite.ru/actions/"><span>Акции и скидки</span></a>
+                        <li class="header__nav-parent">
+                            <a href="<?=$this->alias('news')?>"><span>Новости</span></a>
                             <ul class="header__nav-sublist">
 
                             </ul>
                         </li>
-
-                        <li class="">
-                            <a href="http://somesite.ru/news/"><span>Новости</span></a>
+                        <li class="header__nav-parent">
+                            <a href="<?=$this->alias('contacts')?>"><span>Контакты</span></a>
                             <ul class="header__nav-sublist">
 
                             </ul>
                         </li>
-
-                        <li class="">
-                            <a href="http://somesite.ru/contacts/"><span>Контакты</span></a>
-                            <ul class="header__nav-sublist">
-
-                            </ul>
-                        </li>
-
                     </ul>
                 </nav>
             </div>

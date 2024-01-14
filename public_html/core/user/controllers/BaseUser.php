@@ -14,6 +14,10 @@ abstract class BaseUser extends BaseController
 
     protected string|null $table = null;
 
+    protected array $set = [];
+
+    protected array $menu = [];
+
     /**
      * @throws DbException
      */
@@ -23,6 +27,24 @@ abstract class BaseUser extends BaseController
         $this->init();
 
         if (!isset($this->model)) $this->model = Model::instance(); // !$this->model && $this->model = Model::instance();
+
+        $this->set = $this->model->read('settings', [
+            'order' => ['id'],
+            'limit' => 1
+        ]);
+
+        $this->set && $this->set = $this->set[0];
+
+        // Сборка меню
+        $this->menu['catalog'] = $this->model->read('catalog', [
+            'where' => ['visibility' => 1, 'parent_id' => null],
+            'order' => ['menu_position']
+        ]);
+
+        $this->menu['information'] = $this->model->read('information', [
+            'where' => ['visibility' => 1, 'show_top_menu' => 1],
+            'order' => ['menu_position']
+        ]);
 
     }
 
