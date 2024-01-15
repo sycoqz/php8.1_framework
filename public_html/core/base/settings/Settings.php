@@ -56,18 +56,19 @@ class Settings
         'goods' => ['name' => 'Товары', 'img' => 'pages.png'],
         'filters' => ['name' => 'Фильтры'],
         'articles' => ['name' => 'Статьи'],
+        'sales' => ['name' => 'Акции'],
         'information' => ['name' => 'Информация'],
         'social_networks' => ['name' => 'Социальные сети'],
         'settings' => ['name' => 'Настройки системы']
     ];
 
     private array $templateArr = [
-        'text' => ['name', 'phone', 'email', 'alias', 'external_alias'],
-        'textarea' => ['keywords', 'content', 'address', 'description'],
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years'],
+        'textarea' => ['keywords', 'content', 'address', 'description', 'short_content'],
         'radio' => ['visibility', 'show_top_menu'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
-        'img' => ['img', 'main_img'],
+        'img' => ['img', 'main_img', 'img_years'],
         'gallery_img' => ['gallery_img', 'new_gallery_img']
     ];
 
@@ -85,7 +86,11 @@ class Settings
         'address' => ['Адрес'],
         'alias' => ['Ссылка ЧПУ'],
         'show_top_menu' => ['Показывать в верхнем меню'],
-        'external_alias' => ['Внешняя ссылка']
+        'external_alias' => ['Внешняя ссылка'],
+        'sub_title' => ['Подзаголовок'],
+        'short_content' => ['Краткое описание'],
+        'img_years' => ['Изображение количество лет на рынке'],
+        'number_of_years' => ['Количество лет на рынке'],
     ];
 
     private array $manyToMany = [
@@ -94,7 +99,7 @@ class Settings
 
     private array $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img', 'gallery_img', 'main_img'],
+        'vg-img' => ['img', 'gallery_img', 'main_img', 'img_years', 'number_of_years'],
         'vg-content' => ['content']
     ];
 

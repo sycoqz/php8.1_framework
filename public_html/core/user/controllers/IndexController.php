@@ -10,9 +10,12 @@ class IndexController extends BaseUser
 
         parent::inputData();
 
-        $res = $this->alias();
+        $sales = $this->model->read('sales', [
+            'where' => ['visibility' => 1],
+            'order' => ['menu_position']
+        ]);
 
-        $test = 1;
+        return compact('sales');
 
     }
 
