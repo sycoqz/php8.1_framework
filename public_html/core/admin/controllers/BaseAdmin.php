@@ -634,7 +634,7 @@ abstract class BaseAdmin extends BaseController
 
         if (isset($this->columns['alias'])) {
 
-            if (!isset($_POST['alias'])) {
+            if (!isset($_POST['alias']) || $_POST['alias'] === "") {
 
                 if (isset($_POST['name'])) {
 

@@ -1,97 +1,69 @@
+<?php if (!empty($sales)):?>
 <section class="slider">
     <div class="slider__container swiper-container">
 
         <div class="slider__wrapper swiper-wrapper">
-            <div class="slider__item swiper-slide">
-                <div class="slider__item-description">
-                    <div class="slider__item-prev-text">Продажа</div>
-                    <div class="slider__item-header"><span>Интернет-магазин</span>
-                        <span>Автозапчастей</span></div>
-                    <div class="slider__item-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Ut quisquam eos rem quod ratione. Quam odit dolor, aperiam labore neque quis adipisci dicta non, rem recusandae tempore quia id quas voluptates ea vel atque doloribus explicabo maxime velit harum, accusantium.
-                    </div>
-                    <div class="slider__item-logos">
-                        <div class="slider__item-15yrs">
-                            <img src="assets/img/slider/15.svg" alt="">
-                            <p><span>Лет</span>на рынке</p>
+            <?php foreach ($sales as $item):?>
+                <a href="<?=$this->alias($item['external_alias'])?>" class="slider__item swiper-slide" style="text-decoration: none">
+                    <div class="slider__item-description">
+                        <div class="slider__item-prev-text"><?=$item['sub_title']?></div>
+                        <div class="slider__item-header">
+                            <?php foreach (preg_split('/\s+/', $item['name'], 0, PREG_SPLIT_NO_EMPTY) as $value):?>
+                                <span><?=$value?></span>
+                            <?php endforeach;?>
+                        </div>
+                        <div class="slider__item-text">
+                            <?=$this->clearStr($item['short_content'])?>
+                        </div>
+                        <div class="slider__item-logos">
+                            <?php if (!empty($this->set['img_years']) && !empty($this->set['number_of_years'])):?>
+                                <div class="slider__item-15yrs">
+                                    <img src="<?=$this->img($this->set['img_years'])?>" alt="">
+                                    <p><span><?=$this->wordsForCounter($this->set['number_of_years'])?></span>на рынке</p>
+                                </div>
+                            <?php endif;?>
                         </div>
                     </div>
-                </div>
-                <div class="slider__item-image">
-                    <img src="assets/img/slider/slide1.png" alt="">
-                </div>
-            </div>
-
-            <div class="slider__item swiper-slide">
-                <div class="slider__item-description">
-                    <div class="slider__item-prev-text">Продажа</div>
-                    <div class="slider__item-header"><span>Интернет-магазин</span>
-                        <span>Автозапчастей</span></div>
-                    <div class="slider__item-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Ut quisquam eos rem quod ratione. Quam odit dolor, aperiam labore neque quis adipisci dicta non, rem recusandae tempore quia id quas voluptates ea vel atque doloribus explicabo maxime velit harum, accusantium.
+                    <div class="slider__item-image">
+                        <img src="<?=$this->img($item['img'])?>" alt="">
                     </div>
-                    <div class="slider__item-logos">
-                        <div class="slider__item-15yrs">
-                            <img src="assets/img/slider/15.svg" alt="">
-                            <p><span>Лет</span>на рынке</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider__item-image">
-                    <img src="assets/img/slider/slide1.png" alt="">
-                </div>
-            </div>
-
-            <div class="slider__item swiper-slide">
-                <div class="slider__item-description">
-                    <div class="slider__item-prev-text">Продажа</div>
-                    <div class="slider__item-header"><span>Интернет-магазин</span>
-                        <span>Автозапчастей</span></div>
-                    <div class="slider__item-text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Ut quisquam eos rem quod ratione. Quam odit dolor, aperiam labore neque quis adipisci dicta non, rem recusandae tempore quia id quas voluptates ea vel atque doloribus explicabo maxime velit harum, accusantium.
-                    </div>
-                    <div class="slider__item-logos">
-                        <div class="slider__item-15yrs">
-                            <img src="assets/img/slider/15.svg" alt="">
-                            <p><span>Лет</span>на рынке</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider__item-image">
-                    <img src="assets/img/slider/slide1.png" alt="">
-                </div>
-            </div>
+                </a>
+            <?php endforeach;?>
         </div>
 
         <div class="slider__pagination swiper-pagination"></div>
         <div class="slider__controls controls _prev swiper-button-prev">
             <svg>
-                <use xlink:href="assets/img/icons.svg#arrow"></use>
+                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#arrow"></use>
             </svg>
         </div>
         <div class="slider__controls controls _next swiper-button-next">
             <svg>
-                <use xlink:href="assets/img/icons.svg#arrow"></use>
+                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#arrow"></use>
             </svg>
         </div>
 </section>
+<?php endif;?>
 
+<?php if (!empty($this->menu['catalog'])):?>
 <section class="catalog">
     <div class="division-internal__items">
+        <?php foreach ($this->menu['catalog'] as $item):?>
+            <a href="<?=$this->alias(['catalog' => $item['alias']])?>" class="division-internal-item">
+                  <span class="division-internal-item__title">
+                    <?=$item['name']?>
+                  </span>
+                <span class="division-internal-item__arrow-stat">
+                <svg>
+                  <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#arrow-right"></use>
+                </svg>
+              </span>
+                            <span class="division-internal-item__arrow">
+                <img src="<?=PATH . TEMPLATE?>assets/img/divisions/devision-arrow.png" alt="">
+              </span>
+            </a>
+        <?php endforeach;?>
 
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Запчасти
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
 
         <a href="division-internal.html#" class="division-internal-item">
   <span class="division-internal-item__title">
@@ -165,7 +137,7 @@
 
     </div>
 </section>
-
+<?php endif;?>
 <section class="offers">
     <div class="offers__tabs">
         <ul class="offers__tabs_header">
