@@ -15,6 +15,8 @@ class IndexController extends BaseUser
             'order' => ['menu_position']
         ]);
 
+        $goods = $this->model->getGoods();
+
         return compact('sales');
 
     }
