@@ -63,9 +63,9 @@ class Settings
     ];
 
     private array $templateArr = [
-        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years'],
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years', 'price', 'discount'],
         'textarea' => ['keywords', 'content', 'address', 'description', 'short_content'],
-        'radio' => ['visibility', 'show_top_menu'],
+        'radio' => ['visibility', 'show_top_menu', 'hit', 'sale', 'new', 'hot'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
         'img' => ['img', 'main_img', 'img_years'],
@@ -91,6 +91,12 @@ class Settings
         'short_content' => ['Краткое описание'],
         'img_years' => ['Изображение количество лет на рынке'],
         'number_of_years' => ['Количество лет на рынке'],
+        'price' => ['Цена товара'],
+        'discount' => ['Скидка'],
+        'hit' => ['Хит продаж'],
+        'sale' => ['Акция'],
+        'new' => ['Новинка'],
+        'hot' => ['Горячее предложение'],
     ];
 
     private array $manyToMany = [
@@ -110,12 +116,17 @@ class Settings
 
     private array $radio = [
         'visibility' => ['Нет', 'Да', 'default' => 'Да'],
-        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да']
+        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да'],
+        'hit' => ['Нет', 'Да', 'default' => 'Нет'],
+        'sale' => ['Нет', 'Да', 'default' => 'Нет'],
+        'new' => ['Нет', 'Да', 'default' => 'Нет'],
+        'hot' => ['Нет', 'Да', 'default' => 'Нет'],
     ];
 
     private array $validation = [
         'name' => ['empty' => true, 'trim' => true],
         'price' => ['int' => true],
+        'discount' => ['int' => true],
         'login' => ['empty' => true, 'trim' => true],
         'password' => ['crypt' => true, 'empty' => true],
         'keywords' => ['count' => 70, 'trim' => true],
