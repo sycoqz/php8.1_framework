@@ -1240,7 +1240,7 @@ abstract class BaseAdmin extends BaseController
 
                 } else {
                     // Запрос внешних ключей
-                    $parent = $this->model->showForeignKeys($this->table, 'parent_id')[0];
+                    $parent = $this->model->showForeignKeys($this->table, 'parent_id')[0] ?? null;
 
                     if (isset($parent)) {
 

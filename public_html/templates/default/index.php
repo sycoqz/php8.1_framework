@@ -63,78 +63,6 @@
               </span>
             </a>
         <?php endforeach;?>
-
-
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Аккумуляторы и принадлежности
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
-
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Автокосметика и автохимия
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
-
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Масла
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
-
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Автолампы
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
-
-        <a href="division-internal.html#" class="division-internal-item">
-  <span class="division-internal-item__title">
-    Аксессуары
-  </span>
-            <span class="division-internal-item__arrow-stat">
-    <svg>
-      <use xlink:href="assets/img/icons.svg#arrow-right"></use>
-    </svg>
-  </span>
-            <span class="division-internal-item__arrow">
-    <img src="assets/img/divisions/devision-arrow.png" alt="">
-  </span>
-        </a>
-
     </div>
 </section>
 <?php endif;?>
@@ -143,13 +71,13 @@
         <ul class="offers__tabs_header">
             <li class="active">
                 <div class="icon-offer"><svg>
-                        <use xlink:href="assets/img/icons.svg#hit"></use>
+                        <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                     </svg></div>Хиты продаж
             </li>
             <li>
                 <div class="icon-offer">
                     <svg>
-                        <use xlink:href="assets/img/icons.svg#hot"></use>
+                        <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hot"></use>
                     </svg>
                 </div>
                 Горячие предложения
@@ -170,7 +98,7 @@
 
                     <div class="offers__tabs_card swiper-slide">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -233,14 +161,14 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hit"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                             </svg>
                         </div>
                     </div>
 
                     <div class="offers__tabs_card swiper-slide">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -300,14 +228,14 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hit"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                             </svg>
                         </div>
                     </div>
 
                     <div class="offers__tabs_card swiper-slide">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -367,14 +295,14 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hit"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                             </svg>
                         </div>
                     </div>
 
                     <div class="offers__tabs_card swiper-slide">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -434,14 +362,14 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hit"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                             </svg>
                         </div>
                     </div>
 
                     <div class="offers__tabs_card swiper-slide">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -501,7 +429,7 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hit"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hit"></use>
                             </svg>
                         </div>
                     </div>
@@ -518,7 +446,7 @@
                 <div class="offers__tabs_wrapper swiper-wrapper">
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -578,13 +506,13 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hot"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hot"></use>
                             </svg>
                         </div>
                     </div>
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -644,13 +572,13 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hot"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hot"></use>
                             </svg>
                         </div>
                     </div>
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -710,14 +638,14 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hot"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hot"></use>
                             </svg>
                         </div>
                     </div>
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -777,7 +705,7 @@
                         <button class="offers__btn">купить сейчас</button>
                         <div class="icon-offer">
                             <svg>
-                                <use xlink:href="assets/img/icons.svg#hot"></use>
+                                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#hot"></use>
                             </svg>
                         </div>
                     </div>
@@ -794,7 +722,7 @@
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -858,7 +786,7 @@
                     </div>
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -922,7 +850,7 @@
                     </div>
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -987,7 +915,7 @@
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -1061,7 +989,7 @@
                 <div class="offers__tabs_wrapper swiper-wrapper">
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -1126,7 +1054,7 @@
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -1191,7 +1119,7 @@
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -1256,7 +1184,7 @@
                     <div class="offers__tabs_card">
                         <div class="offers__tabs_image">
 
-                            <img src="assets/img/offers.png" alt="">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/offers.png" alt="">
                         </div>
                         <div class="offers__tabs_description">
                             <div class="offers__tabs_name">
@@ -1324,12 +1252,12 @@
         </div>
         <div class="offers__controls controls _prev">
             <svg>
-                <use xlink:href="assets/img/icons.svg#arrow"></use>
+                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#arrow"></use>
             </svg>
         </div>
         <div class="offers__controls controls _next">
             <svg>
-                <use xlink:href="assets/img/icons.svg#arrow"></use>
+                <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#arrow"></use>
             </svg>
         </div>
     </div>
@@ -1347,7 +1275,7 @@
                 <a href="index.html" class="about__description_readmore readmore">Читать подробнее</a>
             </div>
             <div class="about__image">
-                <img src="assets/img/about.png" alt="">
+                <img src="<?=PATH . TEMPLATE?>assets/img/about.png" alt="">
             </div>
         </section>
 
@@ -1357,34 +1285,34 @@
                 <div class="advantages__row advantages__row_left">
                     <div class="advantages__item">
                         <div class="advantages__item_header">Опыт работы свыше 14 лет</div>
-                        <img src="assets/img/advantages/adv1.png" class="advantages__item_image" alt="">
+                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv1.png" class="advantages__item_image" alt="">
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__item_header">Комплексный подход</div>
-                        <img src="assets/img/advantages/adv2.png" class="advantages__item_image" alt="">
+                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv2.png" class="advantages__item_image" alt="">
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__item_header">Квалифицированные сотрудники</div>
-                        <img src="assets/img/advantages/adv3.png" class="advantages__item_image" alt="">
+                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv3.png" class="advantages__item_image" alt="">
                     </div>
                 </div>
                 <div class="advantages__row advantages__row_right">
                     <div class="advantages__item">
                         <div class="advantages__item_header">Долгосрочное сотрудничество</div>
                         <div class="advantages__item_image">
-                            <img src="assets/img/advantages/adv4.png" alt="" class="advantages__item_image">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv4.png" alt="" class="advantages__item_image">
                         </div>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__item_header">Работаем со всеми современными системами</div>
                         <div class="advantages__item_image">
-                            <img src="assets/img/advantages/adv5.png" alt="" class="advantages__item_image">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv5.png" alt="" class="advantages__item_image">
                         </div>
                     </div>
                     <div class="advantages__item">
                         <div class="advantages__item_header">Гарантия качества</div>
                         <div class="advantages__item_image">
-                            <img src="assets/img/advantages/adv6.png" alt="" class="advantages__item_image">
+                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv6.png" alt="" class="advantages__item_image">
                         </div>
                     </div>
                 </div>
@@ -1465,7 +1393,7 @@
 <div class="search ">
     <button>
         <svg class="inline-svg-icon svg-search">
-            <use xlink:href="assets/img/icons.svg#search"></use>
+            <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#search"></use>
         </svg>
     </button>
     <input type="search" placeholder="Поиск по каталогу">

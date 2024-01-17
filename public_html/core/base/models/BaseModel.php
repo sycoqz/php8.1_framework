@@ -119,6 +119,7 @@ abstract class BaseModel extends BaseModelMethods
 
         $query = "SELECT $fields FROM $table $join $where $order $limit";
 
+        // Возврат запроса
         if (!empty($set['return_query'])) return $query;
 
         $result = $this->query($query);
