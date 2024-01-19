@@ -231,4 +231,19 @@ abstract class BaseUser extends BaseController
 
     }
 
+    /**
+     * @throws RouteException
+     * @throws DbException
+     */
+    protected function showGoods(array $data, array $parameters, string $template = 'goodsItem'): void
+    {
+
+        if (!empty($data)) {
+
+            echo $this->render(TEMPLATE . 'include/' . $template, compact('data', 'parameters'));
+
+        }
+
+    }
+
 }
