@@ -4,7 +4,7 @@
         <div class="footer__wrapper">
             <div class="footer__top">
                 <div class="footer__top_logo">
-                    <img src="../assets/img/Logo.svg" alt="">
+                    <img src="<?=PATH . TEMPLATE?>/assets/img/Logo.svg" alt="">
                 </div>
                 <div class="footer__top_menu">
                     <ul>

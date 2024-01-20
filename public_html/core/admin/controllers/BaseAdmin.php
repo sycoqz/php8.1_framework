@@ -634,7 +634,7 @@ abstract class BaseAdmin extends BaseController
 
         if (isset($this->columns['alias'])) {
 
-            if (!isset($_POST['alias'])) {
+            if (!isset($_POST['alias']) || $_POST['alias'] === "") {
 
                 if (isset($_POST['name'])) {
 
@@ -1240,7 +1240,7 @@ abstract class BaseAdmin extends BaseController
 
                 } else {
                     // Запрос внешних ключей
-                    $parent = $this->model->showForeignKeys($this->table, 'parent_id')[0];
+                    $parent = $this->model->showForeignKeys($this->table, 'parent_id')[0] ?? null;
 
                     if (isset($parent)) {
 

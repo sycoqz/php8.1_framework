@@ -138,7 +138,7 @@ abstract class BaseController
 
         ob_start(); // Открывает буфер обмена
 
-        if (!@include_once $path . '.php') throw new RouteException('Отсутствует шаблон - '.$path);
+        if (!include $path . '.php') throw new RouteException('Отсутствует шаблон - '.$path);
 
         return ob_get_clean(); // Возвращает данные из буфера обмена (в переменную $template) и закроет буфер обмена (отчистит)
 

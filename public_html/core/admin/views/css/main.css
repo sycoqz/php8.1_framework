@@ -486,12 +486,15 @@ textarea {
 }
 
 .img_show {
-    display: block;
-    height: 300px;
+    width:100%;
 }
 
 .img_show:hover {
     background: lightgray;
+}
+
+.img_show>img {
+    width:100%;
 }
 
 .mce-tinymce.mce-container.mce-panel, .tox-tinymce {
