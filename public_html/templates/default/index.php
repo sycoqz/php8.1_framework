@@ -95,7 +95,7 @@
                             }?>
                         </div>
                     </div>
-                    <a href="index.html" class="offers__readmore readmore">Смотреть каталог</a>
+                    <a href="<?=$this->alias('catalog')?>" class="offers__readmore readmore">Смотреть каталог</a>
                 </div>
             <?php endif;?>
         <?php endforeach;?>
@@ -113,62 +113,46 @@
 </section>
 <?php endif;?>
 
+
 <div class="horizontal">
     <div class="horizontal__wrapper">
         <section class="about">
             <div class="about__description">
-                <div class="about__description_name subheader">Интернет-магазин АвтоЗапчасти</div>
+                <div class="about__description_name subheader"><?=$this->set['name']?></div>
                 <div class="about__description_text">
-                    <p>начал свою работу в 1999 году. С самого начала главной целью было предложить нашим клиентам самый широкий спектр автомобильных запасных частей и аксессуаров, а развитие интернет–технологий дало возможность максимально упростить и ускорить процесс покупки.</p>
-                    <p>Компания быстро росла, и сегодня, занимая одну из ведущих позиции на этом рынке, мы не стоим на месте. В основе проекта АвтоЗапчасти : самые современные информационные технологии, собственные программные разработки, накопленная за годы работы аналитическая и статистическая информация по рынку, высококвалифицированный коллектив — мы делаем все для того, чтобы Вы были довольны нашей работой.</p>
+                    <?=$this->set['short_content']?>
                 </div>
-                <a href="index.html" class="about__description_readmore readmore">Читать подробнее</a>
+                <a href="<?=$this->alias('about')?>" class="about__description_readmore readmore">Читать подробнее</a>
             </div>
             <div class="about__image">
-                <img src="<?=PATH . TEMPLATE?>assets/img/about.png" alt="">
+                <img src="<?=$this->img($this->set['promo_img'])?>" alt="<?=$this->set['name']?>">
             </div>
         </section>
+        <?php if (!empty($advantages)):?>
+            <section class="advantages">
+                <div class="advantages__name subheader">Наши преимущества</div>
+                <div class="advantages__wrapper">
+                    <?php $counter = 0?>
+                    <?php foreach ($advantages as $item):?>
+                        <?php if (!($counter % 3)):?>
+                            <div class="advantages__row <?=!$counter ? 'advantages__row_left' : 'advantages__row_right'?>">
+                        <?php endif;?>
+                        <?php $counter++?>
+                            <div class="advantages__item">
+                                <div class="advantages__item_header"><?=$item['name']?></div>
+                                <img src="<?=$this->img($item['img'])?>" class="advantages__item_image" alt="">
+                            </div>
+                        <?php if (!($counter % 3)):?>
+                            </div>
+                        <?php endif;?>
+                    <?php endforeach;?>
 
-        <section class="advantages">
-            <div class="advantages__name subheader">Наши преимущества</div>
-            <div class="advantages__wrapper">
-                <div class="advantages__row advantages__row_left">
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Опыт работы свыше 14 лет</div>
-                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv1.png" class="advantages__item_image" alt="">
-                    </div>
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Комплексный подход</div>
-                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv2.png" class="advantages__item_image" alt="">
-                    </div>
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Квалифицированные сотрудники</div>
-                        <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv3.png" class="advantages__item_image" alt="">
-                    </div>
+                    <?php if ($counter % 3):?>
+                        </div>
+                    <?php endif;?>
                 </div>
-                <div class="advantages__row advantages__row_right">
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Долгосрочное сотрудничество</div>
-                        <div class="advantages__item_image">
-                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv4.png" alt="" class="advantages__item_image">
-                        </div>
-                    </div>
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Работаем со всеми современными системами</div>
-                        <div class="advantages__item_image">
-                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv5.png" alt="" class="advantages__item_image">
-                        </div>
-                    </div>
-                    <div class="advantages__item">
-                        <div class="advantages__item_header">Гарантия качества</div>
-                        <div class="advantages__item_image">
-                            <img src="<?=PATH . TEMPLATE?>assets/img/advantages/adv6.png" alt="" class="advantages__item_image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+            </section>
+        <?php endif;?>
     </div>
 </div>
 
@@ -193,52 +177,20 @@
     </form>
 </section>
 
-<section class="news">
+<?php if (!empty($news)):?>
+    <section class="news">
     <div class="news__name subheader">Новости</div>
     <div class="news__wrapper">
 
-        <div class="news__item">
-            <div class="news__item_date">
-                <span class="bigtext">24</span>
-                <span>июня<br>
-      2019</span>
-            </div>
-            <div class="news__item_main">
-                <div class="news__item_header">В каталог аксессуаров добавлены модели: Chery Exeed TXL</div>
-                <div class="news__item_text">Рады сообщить, что в нашем интернет-магазине для заказа стали доступны аксессуары для Chery Exeed TXL</div>
-                <div class="news__item_readmore readmore-underline"><a href="index.html">Читать подробрнее</a></div>
-            </div>
-        </div>
+        <?php foreach ($news as $item) {
 
-        <div class="news__item">
-            <div class="news__item_date">
-                <span class="bigtext">24</span>
-                <span>июня<br>
-      2019</span>
-            </div>
-            <div class="news__item_main">
-                <div class="news__item_header">В каталог аксессуаров добавлены модели: Chery Exeed TXL</div>
-                <div class="news__item_text">Рады сообщить, что в нашем интернет-магазине для заказа стали доступны аксессуары для Chery Exeed TXL</div>
-                <div class="news__item_readmore readmore-underline"><a href="index.html">Читать подробрнее</a></div>
-            </div>
-        </div>
+            $this->showGoods($item, [], 'newsItem');
 
-        <div class="news__item">
-            <div class="news__item_date">
-                <span class="bigtext">24</span>
-                <span>июня<br>
-      2019</span>
-            </div>
-            <div class="news__item_main">
-                <div class="news__item_header">В каталог аксессуаров добавлены модели: Chery Exeed TXL</div>
-                <div class="news__item_text">Рады сообщить, что в нашем интернет-магазине для заказа стали доступны аксессуары для Chery Exeed TXL</div>
-                <div class="news__item_readmore readmore-underline"><a href="index.html">Читать подробрнее</a></div>
-            </div>
-        </div>
-
+        }?>
     </div>
-    <a href="index.html" class="news__reasdmore readmore">Смотреть все</a>
+    <a href="<?=$this->alias('news')?>" class="news__reasdmore readmore">Смотреть все</a>
 </section>
+<?php endif;?>
 
 <div class="search ">
     <button>
