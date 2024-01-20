@@ -91,4 +91,65 @@ trait BaseMethods
 
     }
 
+    /**
+     * @throws \Exception
+     */
+    protected function dateFormat(string $date): array|string
+    {
+
+        if (!$date) {
+
+            return $date;
+
+        }
+
+        $daysArr = [
+            'Sunday' => 'Воскресенье',
+            'Monday' => 'Понедельник',
+            'Tuesday' => 'Вторник',
+            'Wednesday' => 'Среда',
+            'Thursday' => 'Четверг',
+            'Friday' => 'Пятница',
+            'Saturday' => 'Суббота'
+        ];
+
+        $monthsArr = [
+            1 => 'Январь',
+            2 => 'Февраль',
+            3 => 'Март',
+            4 => 'Апрель',
+            5 => 'Май',
+            6 => 'Июль',
+            7 => 'Июнь',
+            8 => 'Август',
+            9 => 'Сентябрь',
+            10 => 'Октябрь',
+            11 => 'Ноябрь',
+            12 => 'Декабрь'
+        ];
+
+        $dateArr = [];
+
+        $dateData = new DateTime($date);
+
+        $dateArr['year'] = $dateData->format('Y');
+
+        $dateArr['month'] = $monthsArr[$this->clearNum($dateData->format('m'))];
+
+        $dateArr['monthFormat'] = preg_match('/т$/u', $dateArr['month']) ? $dateArr['month'] . 'а'
+            : preg_replace('/[ьй]/u', 'я', $dateArr['month']);
+
+        $dateArr['weekDay'] = $daysArr[$dateData->format('l')];
+
+        $dateArr['day'] = $dateData->format('d');
+
+        $dateArr['time'] = $dateData->format('H:i:s');
+
+        $dateArr['format'] = mb_strtolower($dateArr['day'] . ' ' . $dateArr['monthFormat'] . ' ' .
+            $dateArr['year']);
+
+        return $dateArr;
+
+    }
+
 }

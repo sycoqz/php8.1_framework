@@ -15,6 +15,19 @@ class IndexController extends BaseUser
             'order' => ['menu_position']
         ]);
 
+        $advantages = $this->model->read('advantages', [
+            'where' => ['visibility' => 1],
+            'order' => ['menu_position'],
+            'limit' => 6
+        ]);
+
+        $news = $this->model->read('news', [
+            'where' => ['visibility' => 1],
+            'order' => ['date'],
+            'order_direction' => ['DESC'],
+            'limit' => 3
+        ]);
+
         $arrHits = [
             'hit' => [
                 'name' => 'Хиты продаж',
@@ -45,7 +58,7 @@ class IndexController extends BaseUser
 
         }
 
-        return compact('sales', 'arrHits', 'goods');
+        return compact('sales', 'arrHits', 'goods', 'advantages', 'news');
 
     }
 
