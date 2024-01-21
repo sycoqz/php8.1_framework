@@ -5,8 +5,8 @@
             <span class="vg-header ui-sortable-handle"><?=$this->warningUser[$row][0] ?: $row?></span>
             <?php endif;?>
         </div>
-        <?php if (isset($row)) {
-            if ($this->foreignData[$row]):?>
+        <?php if (isset($row)):?>
+            <?php if ($this->foreignData[$row]):?>
                 <?php foreach ($this->foreignData[$row] as $name => $value):?>
                     <?php if (isset($value['sub'])):?>
                         <div class="vg-element vg-full vg-input vg-relative vg-space-between select_wrap">
@@ -24,7 +24,7 @@
                         </div>
                     <?php endif;?>
                 <?php endforeach;?>
-            <?php endif;
-        } ?>
+            <?php endif;?>
+        <?php endif;?>
     </div>
 </div>
