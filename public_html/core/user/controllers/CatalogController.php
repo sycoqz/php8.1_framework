@@ -17,11 +17,6 @@ class CatalogController extends BaseUser
     {
         parent::inputData();
 
-        $order = [
-            'price' => 'Цене',
-            'name' => 'Названию',
-        ];
-
         $data = [];
 
         if (!empty($this->parameters['alias'])) {
@@ -55,13 +50,60 @@ class CatalogController extends BaseUser
 
         }
 
-        $catalogFilters = $catalogPrices = null;
+        $catalogFilters = $catalogPrices = $orderDb = null;
+
+        $order = $this->createCatalogOrder($orderDb);
 
         $goods = $this->model->getGoods([
-            'where' => $where
+            'where' => $where,
+            'order' => $orderDb['order'],
+            'order_direction' => $orderDb['order_direction']
         ], $catalogFilters, $catalogPrices);
 
-        return compact('data', 'goods', 'catalogFilters', 'catalogPrices');
+        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order');
+
+    }
+
+    protected function createCatalogOrder(array|null &$orderDb): array
+    {
+
+        $order = [
+            'Цена' => 'price_asc',
+            'Название' => 'name_asc'
+        ];
+
+        $orderDb = ['order' => null, 'order_direction' => null];
+
+        if (!empty($_GET['order'])) {
+
+            $orderArr = preg_split('/_+/', $_GET['order'], 0, PREG_SPLIT_NO_EMPTY);
+
+            if (!empty($this->model->showColumns('goods')[$orderArr[0]])) {
+
+                $orderDb['order'] = $orderArr[0];
+
+                $orderDb['order_direction'] = $orderArr[1] ?? null;
+
+                // Выбор сортировки
+                foreach ($order as $key => $item) {
+
+                    if (str_contains($item, $orderDb['order'])) {
+
+                        $direction = $orderDb['order_direction'] === 'asc' ? 'desc' : 'asc';
+
+                        $order[$key] = $orderDb['order'] . '_' . $direction;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return $order;
 
     }
 
