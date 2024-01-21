@@ -93,31 +93,31 @@ class RouteController extends BaseController
 
                             $replacement = '$1/';
 
+                            }
+
                         } else {
 
-                            if (preg_match('/\/(\?|$)/', $address_str)) {
+                        if (preg_match('/\/(\?|$)/', $address_str)) {
 
-                                $pattern = '/(^.*?)\/(\?.*)?$/';
+                            $pattern = '/(^.*?)\/(\?.*)?$/';
 
-                                $replacement = '$1';
-
-                            }
+                            $replacement = '$1';
 
                         }
 
-                        if ($pattern) {
+                    }
 
-                            $address_str = preg_replace($pattern, $replacement, $address_str);
+                    if ($pattern) {
 
-                            if (!empty($_SERVER['QUERY_STRING'])) {
+                        $address_str = preg_replace($pattern, $replacement, $address_str);
 
-                                $address_str .= '?' . $_SERVER['QUERY_STRING'];
+                        if (!empty($_SERVER['QUERY_STRING'])) {
 
-                            }
-
-                            $this->redirect($address_str, 301);
+                            $address_str .= '?' . $_SERVER['QUERY_STRING'];
 
                         }
+
+                        $this->redirect($address_str, 301);
 
                     }
 
