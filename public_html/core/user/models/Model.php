@@ -135,13 +135,14 @@ class Model extends BaseModel
 
                 }
 
+                // Подсчёт товаров в каждом фильтре
                 if ($filters) {
 
                     $filtersIds = implode(',', array_unique(array_column($filters, 'id')));
 
                     $goodsIds = implode(',', array_unique(array_column($filters, 'goods_id')));
 
-                    $query = "SELECT 'filters_id' as id, COUNT(goods_id) as count FROM goods_filters 
+                    $query = "SELECT filters_id as id, COUNT(goods_id) as count FROM goods_filters 
                                 WHERE filters_id IN ($filtersIds) AND goods_id IN ($goodsIds) GROUP BY filters_id";
 
                     $goodsCountDb = $this->query($query);
