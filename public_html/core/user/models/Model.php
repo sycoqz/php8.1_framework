@@ -224,7 +224,7 @@ class Model extends BaseModel
 
     }
 
-    public function applyDiscount(array|null &$data, float $discount): void
+    public function applyDiscount(array|null &$data, float|null $discount): void
     {
 
         if ($discount) {

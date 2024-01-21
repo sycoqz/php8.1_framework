@@ -18,6 +18,8 @@ abstract class BaseUser extends BaseController
 
     protected array $menu = [];
 
+    protected string $breadcrumbs;
+
     /* Проектные свойства */
     protected array $social_networks = [];
     /* Проектные свойства */
@@ -64,10 +66,12 @@ abstract class BaseUser extends BaseController
     protected function outputData(): bool|string
     {
 
-        if (!isset($this->content)) {
+        $args = func_get_arg(0);
+        $vars = $args ?: [];
 
-            $args = func_get_arg(0);
-            $vars = $args ?: [];
+        $this->breadcrumbs = $this->render(TEMPLATE . 'include/breadcrumbs');
+
+        if (!isset($this->content)) {
 
             $this->content = $this->render($this->template, $vars);
 
@@ -235,7 +239,7 @@ abstract class BaseUser extends BaseController
      * @throws RouteException
      * @throws DbException
      */
-    protected function showGoods(array $data, array $parameters, string $template = 'goodsItem'): void
+    protected function showGoods(array $data, array $parameters = [], string $template = 'goodsItem'): void
     {
 
         if (!empty($data)) {
