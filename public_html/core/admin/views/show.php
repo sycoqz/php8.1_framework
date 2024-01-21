@@ -13,7 +13,7 @@
     <?php if ($this->data):?>
         <?php foreach ($this->data as $data):?>
             <div class="vg-element vg-fourth">
-                <a href="<?=empty($data['alias']) ?: $this->adminPath . 'edit/' . $this->table . '/' . $data['id']?>"
+                <a href="<?=$data['alias'] ?? $this->adminPath . 'edit/' . $this->table . '/' . $data['id']?>"
                    class="vg-wrap vg-element vg-full vg-firm-background-color4 vg-box-shadow show_element">
                     <div class="vg-element vg-half vg-center">
                         <?php if (!empty($data['img'])):?>
