@@ -91,17 +91,6 @@
                     </div>
                     <?php endforeach;?>
                 <?php endif;?>
-
-                <div class="header__sidebar_btn"><a href="../../../index.php">
-                        <svg class="inline-svg-icon svg-vk">
-                            <use xlink:href="assets/img/icons.svg#vk"></use>
-                        </svg>
-                    </a></div>
-                <div class="header__sidebar_btn"><a href="../../../index.php">
-                        <svg class="inline-svg-icon svg-facebook">
-                            <use xlink:href="assets/img/icons.svg#facebook"></use>
-                        </svg>
-                    </a></div>
             </div>
             <div class="header__menu _hidden">
                 <div class="header__menu_close close_modal"></div>
@@ -184,7 +173,7 @@
     <div class="search search-internal">
         <button>
             <svg class="inline-svg-icon svg-search">
-                <use xlink:href="/assets/img/icons.svg#search"></use>
+                <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#search"></use>
             </svg>
         </button>
         <label>

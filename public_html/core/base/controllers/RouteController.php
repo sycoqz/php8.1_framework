@@ -26,32 +26,19 @@ class RouteController extends BaseController
 
         $address_str = $_SERVER['REQUEST_URI'];
 
-        //Проверка на наличие параметров в $_SERVER['QUERY_STRING']
-        if (!empty($_SERVER['QUERY_STRING'])) {
-
-            //Поиск подстроки 'QUERY_STRING' в строке $address_str.
-            $address_str = substr($address_str, 0, strpos($address_str, $_SERVER['QUERY_STRING']) - 1);
-        }
-
         $path = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], 'index.php'));
 
         if ($path === PATH) {
-
-            if (strrpos($address_str, '/') === strlen($address_str) - 1 &&
-                strrpos($address_str, '/') !== strlen(PATH) - 1) {
-
-                $this->redirect(rtrim($address_str, '/'), 301);
-            }
 
             $this->routes = Settings::get('routes');
 
             if (!$this->routes) throw new RouteException('Отсутствуют маршруты в базовых настройках.', 1);
 
-            $url = explode('/', substr($address_str, strlen(PATH)));
+            $url = preg_split('/(\/)|(\?.*)/', $address_str, 0, PREG_SPLIT_NO_EMPTY);
 
             // Проверка на наличие первого элемента и строго равен подстроке Админ
 
-            if ($url[0] && $url[0] === $this->routes['admin']['alias']) { // Административная часть
+            if (isset($url[0]) && $url[0] === $this->routes['admin']['alias']) { // Административная часть
 
                 array_shift($url); // Выкидывает первый элемент из массива, а затем пересортировывает массив
 
@@ -91,6 +78,50 @@ class RouteController extends BaseController
                 }
 
             } else { // Пользовательская часть
+
+                if (!$this->isPost()) {
+
+                    $pattern = '';
+
+                    $replacement = '';
+
+                    if (END_SLASH) {
+
+                        if (!preg_match('/\/(\?|$)/', $address_str)) {
+
+                            $pattern = '/(^.*?)(\?.*)?$/';
+
+                            $replacement = '$1/';
+
+                        } else {
+
+                            if (preg_match('/\/(\?|$)/', $address_str)) {
+
+                                $pattern = '/(^.*?)\/(\?.*)?$/';
+
+                                $replacement = '$1';
+
+                            }
+
+                        }
+
+                        if ($pattern) {
+
+                            $address_str = preg_replace($pattern, $replacement, $address_str);
+
+                            if (!empty($_SERVER['QUERY_STRING'])) {
+
+                                $address_str .= '?' . $_SERVER['QUERY_STRING'];
+
+                            }
+
+                            $this->redirect($address_str, 301);
+
+                        }
+
+                    }
+
+                }
 
                 $hrUrl = $this->routes['user']['hrUrl'];
 
