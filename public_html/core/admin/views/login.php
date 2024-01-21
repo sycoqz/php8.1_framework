@@ -71,13 +71,15 @@
         }?>
 
         <h1>Авторизации</h1>
-        <form action="<?=PATH . $adminPath?>/login" method="post">
-            <label for="login">Логин</label>
-            <input type="text" name="login" id="login">
-            <label for="password">Пароль</label>
-            <input type="password" name="password" id="password">
-            <input type="submit" value="Войти">
-        </form>
+        <?php if (isset($adminPath)):?>
+            <form action="<?=PATH . $adminPath?>/login" method="post">
+                <label for="login">Логин</label>
+                <input type="text" name="login" id="login">
+                <label for="password">Пароль</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Войти">
+            </form>
+        <?php endif;?>
     </div>
 
     <script src="<?=PATH . ADMIN_TEMPLATE?>js/frameworkfunctions.js"></script>
