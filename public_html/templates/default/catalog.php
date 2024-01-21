@@ -92,15 +92,18 @@
                     <section class="catalog-section catalog-section__four">
                         <div class="catalog-section-top">
                             <div class="catalog-section-top-items">
-                                <div class="catalog-section-top-items__title catalog-section-top-items__unit">
-                                    Сортировать по:
-                                </div>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Названию
-                                </div>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Цене
-                                </div>
+                                <?php if (!empty($order)):?>
+                                    <div class="catalog-section-top-items__title catalog-section-top-items__unit">
+                                        Сортировать по:
+                                    </div>
+                                    <?php $GET = $_GET ?? []?>
+                                    <?php foreach ($order as $name => $item):?>
+                                        <a href="<?=$this->alias('catalog/' . ($this->parameters['alias'] ?? '') . '/', array_merge($GET, ['order' => $item]))?>"
+                                           class="catalog-section-top-items__unit catalog-section-top-items__toggle <?= str_ends_with($item, '_desc') ? 'order-desc' : ''?>">
+                                            <?=$name?>
+                                        </a>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                                 <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
                                     Показывать по:
                                 </div>

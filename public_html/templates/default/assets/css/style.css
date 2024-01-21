@@ -6366,6 +6366,11 @@ input[type='search'], input[type='text'], input[type='email'] {
 	transition: .3s
 }
 
+.order-desc::before{
+	transform: rotate(-315deg);
+	top: calc(50% - 1px);
+}
+
 @media screen and (max-width: 1024px) {
 	.catalog-section-top-items__toggle::before {
 		width: 8px;
