@@ -54,18 +54,24 @@ class CatalogController extends BaseUser
 
         $catalogFilters = $catalogPrices = $orderDb = null;
 
-        $operand = $this->checkFilters($where);
-
         $order = $this->createCatalogOrder($orderDb);
+
+        $operand = $this->checkFilters($where);
 
         $goods = $this->model->getGoods([
             'where' => $where,
             'operand' => $operand,
             'order' => $orderDb['order'],
-            'order_direction' => $orderDb['order_direction']
+            'order_direction' => $orderDb['order_direction'],
+            'pagination' => [
+                'qty' => $_SESSION['quantities'] ?? QTY,
+                'page' => $this->clearNum($_GET['page'] ?? 1) ?: 1
+            ]
         ], $catalogFilters, $catalogPrices);
 
-        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order', 'quantities');
+        $pages = $this->model->getPagination();
+
+        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order', 'quantities', 'pages');
 
     }
 

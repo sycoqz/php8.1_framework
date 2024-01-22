@@ -7,6 +7,12 @@ use core\base\exceptions\DbException;
 abstract class BaseModelMethods
 {
 
+    protected int $postNumber;
+    protected int $linksNumber;
+    protected int $numberPages;
+    protected int $page;
+    protected int $totalCount;
+
     protected array $sqlFunc = ['NOW()', 'RAND()'];
 
     protected array $tableRows = [];
@@ -623,6 +629,82 @@ abstract class BaseModelMethods
         }
 
         return $arr;
+
+    }
+
+    protected function getTotalCount(string $table, string $where)
+    {
+
+        return $this->query("SELECT COUNT(*) as count FROM $table $where")[0]['count'];
+
+    }
+
+    public function getPagination()
+    {
+
+        if (!$this->numberPages || $this->numberPages === 1 || $this->page > $this->numberPages) {
+
+            return false;
+
+        }
+
+        $result = [];
+
+        if ($this->page !== 1) {
+
+            $result['first'] = 1;
+
+            $result['back'] = $this->page - 1;
+
+        }
+
+        if ($this->page > $this->linksNumber + 1) {
+
+            for ($i = $this->page - $this->linksNumber; $i < $this->page; $i++) {
+
+                $result['previous'][] = $i;
+
+            }
+
+        } else {
+
+            for ($i = 1; $i < $this->page; $i++) {
+
+                $result['previous'][] = $i;
+
+            }
+
+        }
+
+        $result['current'] = $this->page;
+
+        if ($this->page + $this->linksNumber < $this->numberPages) {
+
+            for ($i = $this->page + 1; $i <= $this->page + $this->linksNumber; $i++) {
+
+                $result['next'][] = $i;
+
+            }
+
+        } else {
+
+            for ($i = $this->page + 1; $i <= $this->numberPages; $i++) {
+
+                $result['next'][] = $i;
+
+            }
+
+        }
+
+        if ($this->page !== $this->numberPages) {
+
+            $result['forward'] = $this->page + 1;
+
+            $result['last'] = $this->numberPages;
+
+        }
+
+        return $result;
 
     }
 
