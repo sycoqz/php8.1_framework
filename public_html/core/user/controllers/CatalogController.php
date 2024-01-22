@@ -91,17 +91,19 @@ class CatalogController extends BaseUser
 
         }
 
-        if (!empty($_GET['filters'])) {
+        if (!empty($_GET['filters']) && is_array($_GET['filters'])) {
 
-            // Формирование запроса
-            $dbWhere['id'] = $this->model->read('goods_filters', [
-                'fields' => ['goods_id'],
-                'where' => ['filters_id' => implode(',', $_GET['filters'])],
-                'operand' => ['IN'],
-                'return_query' => true
-            ]);
+            // Подзапрос
+            $subFiltersQuery = $this->setFilters();
 
-            $dbOperand[] = 'IN';
+            if ($subFiltersQuery) {
+
+                // Формирование запроса
+                $dbWhere['id'] = $subFiltersQuery;
+
+                $dbOperand[] = 'IN';
+
+            }
 
         }
 
@@ -110,6 +112,119 @@ class CatalogController extends BaseUser
         $dbOperand[] = '=';
 
         return $dbOperand;
+
+    }
+
+    protected function setFilters(): string
+    {
+        // Обработка данных
+        foreach ($_GET['filters'] as $key => $filterId) {
+
+            $_GET['filters'][$key] = $this->clearNum($filterId);
+
+            if (!$_GET['filters'][$key]) {
+
+                unset($_GET['filters'][$key]);
+
+                continue;
+
+            }
+
+            $other = array_search($_GET['filters'][$key], $_GET['filters']);
+
+            if ($other !== false && $other !== $key) unset($_GET['filters'][$key]);
+
+        }
+
+        $result = $this->model->read('filters', [
+            'where' => ['id' => 'SELECT DISTINCT parent_id FROM filters WHERE id IN(' . implode(',', $_GET['filters']) . ')'],
+            'operand' => ['IN'],
+            'join' => [
+                'filters f_val' => [
+                    'where' => ['id' => implode(',', $_GET['filters'])],
+                    'operand' => ['IN'],
+                    'fields' => ['id'],
+                    'on' => ['id', 'parent_id']
+                ]
+            ],
+            'join_structure' => true,
+        ]);
+
+        if ($result) {
+
+            $arr = [];
+
+            $counter = 0;
+
+            foreach ($result as $item) {
+
+                if (isset($item['join']['f_val'])) {
+
+                    $arr[$counter] = array_column($item['join']['f_val'], 'id');
+
+                    $counter++;
+
+                }
+
+            }
+
+            $resultArr = $this->crossDiffArr($arr);
+
+            if ($resultArr) {
+
+                $queryStr = '';
+
+                $filtersCount = 0;
+
+                foreach ($resultArr as $key => $item) {
+
+                    !$filtersCount && $filtersCount = count($item);
+
+                    $queryStr .= ' filters_id IN(' . implode(',', $item) . ')' . (isset($resultArr[$key + 1]) ? ' OR ' : '');
+
+                }
+
+                return 'SELECT goods_id FROM goods_filters WHERE ' . $queryStr .
+                    ' GROUP BY goods_id HAVING COUNT(goods_id) >= ' . $filtersCount;
+
+            }
+
+        }
+
+        return '';
+
+    }
+
+    protected function crossDiffArr(array $arr, int $counter = 0): mixed
+    {
+
+        if (count($arr) === 1) {
+
+            return array_chunk(array_shift($arr), 1);
+
+        }
+
+        if ($counter === count($arr) - 1) {
+
+            return $arr[$counter];
+
+        }
+
+        $buffer = $this->crossDiffArr($arr, $counter + 1);
+
+        $result = [];
+
+        foreach ($arr[$counter] as $a) {
+
+            foreach ($buffer as $b) {
+
+                $result[] = is_array($b) ? array_merge([$a], $b) : [$a, $b];
+
+            }
+
+        }
+
+        return $result;
 
     }
 
