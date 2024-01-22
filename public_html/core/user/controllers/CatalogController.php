@@ -17,6 +17,8 @@ class CatalogController extends BaseUser
     {
         parent::inputData();
 
+        $quantities = [3,5,10];
+
         $data = [];
 
         if (!empty($this->parameters['alias'])) {
@@ -63,7 +65,7 @@ class CatalogController extends BaseUser
             'order_direction' => $orderDb['order_direction']
         ], $catalogFilters, $catalogPrices);
 
-        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order');
+        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order', 'quantities');
 
     }
 

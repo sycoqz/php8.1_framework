@@ -104,9 +104,16 @@
                                         </a>
                                     <?php endforeach;?>
                                 <?php endif;?>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Показывать по:
+                                <?php if (!empty($quantities)):?>
+                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle" onclick="this.querySelector('.qtyItems').classList.toggle('opened')">
+                                    Показывать по: <span><?=$_SESSION['quantities'] ?? ''?></span>
+                                    <div class="qtyItems">
+                                        <?php foreach ($quantities as $item):?>
+                                            <a href="#" style="display: block"><?=$item?></a>
+                                        <?php endforeach;?>
+                                    </div>
                                 </div>
+                                <?php endif;?>
                             </div>
                         </div>
                         <div class="catalog-section__wrapper">
