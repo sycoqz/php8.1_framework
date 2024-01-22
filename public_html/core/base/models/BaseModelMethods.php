@@ -238,7 +238,7 @@ abstract class BaseModelMethods
                         $in_str = $item;
                     } else {
                         if (is_array($item)) $temp_item = $item;
-                        else $temp_item = explode(',', $item);
+                        else $temp_item = explode(',', $item ?? '');
 
                         $in_str = '';
 
