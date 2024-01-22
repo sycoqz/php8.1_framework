@@ -192,4 +192,26 @@ $(function () {
         $('.search').addClass(['animated', 'bounceInLeft']);
         $('.header__sidebar').addClass(['animated', 'bounceInUp']);
     }
+
+    $('.qtyItems a').on('click', function (e) {
+
+        e.preventDefault();
+
+        let qty = +$(this).text()
+
+        if (qty && !isNaN(qty)) {
+
+            $(this).closest('.catalog-section-top-items__toggle').children('span').html(qty)
+
+            $.ajax({
+                url:'/',
+                data:{
+                    qty: qty,
+                    ajax: 'catalog_quantities'
+                }
+            })
+
+        }
+
+    })
 });
