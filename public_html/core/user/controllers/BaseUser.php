@@ -133,9 +133,9 @@ abstract class BaseUser extends BaseController
 
                         $key .= '[]';
 
-                        foreach ($item as $value) {
+                        foreach ($item as $filterId => $value) {
 
-                            $str .= $key . '=' . $value;
+                            $str .= $key . '=' . $value . (!empty($item[$filterId+1]) ? '&' : '');
 
                         }
 
@@ -245,6 +245,137 @@ abstract class BaseUser extends BaseController
         if (!empty($data)) {
 
             echo $this->render(TEMPLATE . 'include/' . $template, compact('data', 'parameters'));
+
+        }
+
+    }
+
+    protected function pagination(array $pages): void
+    {
+
+        $str = $_SERVER['REQUEST_URI'];
+
+        if (preg_match('/page=\d+/i', $str)) {
+
+            $str = preg_replace('/page=\d+/i', '', $str);
+
+        }
+
+        if (preg_match('/(\?&)|(\?amp;)/i', $str)) {
+
+            $str = preg_replace('/(\?&)|(\?amp;)/i', '?', $str);
+
+        }
+
+        $basePageStr = $str;
+
+        if (preg_match('/\?(.)?/i', $str,  $matches)) {
+
+            if (!str_ends_with($str, '&') && !empty($matches[1])) {
+
+                $str .= '&';
+
+            } else {
+
+                $basePageStr = preg_replace('/(\?$)|(&$)/', '', $str);
+
+            }
+
+        } else {
+
+            $str .= '?';
+
+        }
+
+        $str .= 'page=';
+
+        //SEO page 1
+        $firstPageStr = !empty($pages['first']) ? ($pages['first'] === 1 ? $basePageStr : $str . $pages['first']) : '';
+
+        $backPageStr = !empty($pages['back']) ? ($pages['back'] === 1 ? $basePageStr : $str . $pages['back']) : '';
+
+        if (!empty($pages['first'])) {
+
+            echo <<<HEREDOC
+                <a href="$firstPageStr" class="catalog-section-pagination__item">
+                    <<
+                </a>
+            HEREDOC;
+
+        }
+
+        if (!empty($pages['back'])) {
+
+            echo <<<HEREDOC
+                <a href="$backPageStr" class="catalog-section-pagination__item">
+                    <
+                </a>
+            HEREDOC;
+
+        }
+
+        if (!empty($pages['previous'])) {
+
+            foreach ($pages['previous'] as $item) {
+
+                $href = $item === 1 ? $basePageStr : $str . $item;
+
+                echo <<<HEREDOC
+                    <a href="$href" class="catalog-section-pagination__item">
+                        $item
+                    </a>
+                HEREDOC;
+
+            }
+
+        }
+
+        if (!empty($pages['current'])) {
+
+            echo <<<HEREDOC
+                <a href="" class="catalog-section-pagination__item pagination-current">
+                    {$pages['current']}
+                </a>
+            HEREDOC;
+
+        }
+
+        if (!empty($pages['next'])) {
+
+            foreach ($pages['next'] as $item) {
+
+                $href = $str . $item;
+                echo <<<HEREDOC
+                    <a href="$href" class="catalog-section-pagination__item">
+                        $item
+                    </a>
+                HEREDOC;
+
+            }
+
+        }
+
+        if (!empty($pages['forward'])) {
+
+            $href = $str . $pages['forward'];
+
+            echo <<<HEREDOC
+                <a href="$href" class="catalog-section-pagination__item">
+                    >
+                </a>
+            HEREDOC;
+
+        }
+
+        if (!empty($pages['last'])) {
+
+            $href = $str . $pages['last'];
+
+            echo <<<HEREDOC
+                <a href="$href" class="catalog-section-pagination__item">
+                    >>
+                </a>
+            HEREDOC;
 
         }
 

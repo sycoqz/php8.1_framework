@@ -6366,6 +6366,11 @@ input[type='search'], input[type='text'], input[type='email'] {
 	transition: .3s
 }
 
+.order-desc::before{
+	transform: rotate(-315deg);
+	top: calc(50% - 1px);
+}
+
 @media screen and (max-width: 1024px) {
 	.catalog-section-top-items__toggle::before {
 		width: 8px;
@@ -6460,7 +6465,8 @@ input[type='search'], input[type='text'], input[type='email'] {
 	letter-spacing: .16px;
 	transition: .3s;
 	margin-right: 24px;
-	text-decoration: none
+	text-decoration: none;
+	padding: 3px 4px;
 }
 
 @media screen and (max-width: 600px) {
@@ -7517,4 +7523,30 @@ input[type='search'], input[type='text'], input[type='email'] {
 	.card-main-indfo_toggle{
 		max-width: 100%;
 	}
+}
+
+.qtyItems {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	z-index: 1;
+	background: white;
+	border: 1px solid #D4DDE1;
+	padding: 5px;
+	display: none;
+}
+
+.qtyItems.opened{
+	display: block;
+}
+
+.qtyItems a{
+	color: black;
+	text-decoration: none;
+}
+
+.pagination-current {
+	border-radius: 90%;
+	background: #D4DDE1;
 }
