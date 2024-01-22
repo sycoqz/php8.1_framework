@@ -133,9 +133,9 @@ abstract class BaseUser extends BaseController
 
                         $key .= '[]';
 
-                        foreach ($item as $value) {
+                        foreach ($item as $filterId => $value) {
 
-                            $str .= $key . '=' . $value;
+                            $str .= $key . '=' . $value . (!empty($item[$filterId+1]) ? '&' : '');
 
                         }
 

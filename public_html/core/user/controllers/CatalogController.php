@@ -52,15 +52,64 @@ class CatalogController extends BaseUser
 
         $catalogFilters = $catalogPrices = $orderDb = null;
 
+        $operand = $this->checkFilters($where);
+
         $order = $this->createCatalogOrder($orderDb);
 
         $goods = $this->model->getGoods([
             'where' => $where,
+            'operand' => $operand,
             'order' => $orderDb['order'],
             'order_direction' => $orderDb['order_direction']
         ], $catalogFilters, $catalogPrices);
 
         return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order');
+
+    }
+
+    protected function checkFilters(array|null &$where): array
+    {
+
+        $dbWhere = [];
+
+        $dbOperand = [];
+
+        // Наличие минимальной цены
+        if (isset($_GET['min_price'])) {
+
+            $dbWhere['price'] = $this->clearNum($_GET['min_price']);
+
+            $dbOperand[] = '>=';
+
+        }
+
+        if (isset($_GET['max_price'])) {
+
+            $dbWhere[' price'] = $this->clearNum($_GET['max_price']);
+
+            $dbOperand[] = '<=';
+
+        }
+
+        if (!empty($_GET['filters'])) {
+
+            // Формирование запроса
+            $dbWhere['id'] = $this->model->read('goods_filters', [
+                'fields' => ['goods_id'],
+                'where' => ['filters_id' => implode(',', $_GET['filters'])],
+                'operand' => ['IN'],
+                'return_query' => true
+            ]);
+
+            $dbOperand[] = 'IN';
+
+        }
+
+        $where = array_merge($dbWhere, $where);
+
+        $dbOperand[] = '=';
+
+        return $dbOperand;
 
     }
 
