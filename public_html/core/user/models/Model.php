@@ -14,7 +14,7 @@ class Model extends BaseModel
     /**
      * @throws DbException
      */
-    public function getGoods(array $set = [], array|null &$catalogFilters = null, array|null &$catalogPrices = null): string|array|bool|int|null
+    public function getGoods(array $set = [], array|bool|null &$catalogFilters = null, array|bool|null &$catalogPrices = null): string|array|bool|int|null
     {
 
         if (empty($set['join_structure'])) {
@@ -53,6 +53,16 @@ class Model extends BaseModel
         // Если пришли товары
         if (isset($goods)) {
 
+            if (!empty($this->showColumns('goods')['discount'])) {
+
+                foreach ($goods as $key => $item) {
+
+                    $this->applyDiscount($goods[$key], $item['discount']);
+
+                }
+
+            }
+
             unset($set['join'], $set['join_structure'], $set['pagination']);
 
             if ($catalogPrices !== false && !empty($this->showColumns('goods')['price'])) {
@@ -68,6 +78,8 @@ class Model extends BaseModel
                 }
 
             }
+
+
 
             if ($catalogFilters !== false && in_array('filters', $this->showTables())) {
 
@@ -125,16 +137,6 @@ class Model extends BaseModel
                         ]
                     ],
                 ]);
-
-                if (!empty($this->showColumns('goods')['discount'])) {
-
-                    foreach ($goods as $key => $item) {
-
-                        $this->applyDiscount($goods[$key], $item['discount']);
-
-                    }
-
-                }
 
                 // Подсчёт товаров в каждом фильтре
                 if ($filters) {

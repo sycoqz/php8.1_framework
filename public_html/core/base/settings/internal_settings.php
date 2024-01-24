@@ -19,6 +19,8 @@ const END_SLASH = '/';
 const QTY = 8;
 const QTY_LINKS = 3;
 
+const CART = 'cookie';
+
 const ADMIN_CSS_JS = [
     'styles' => ['css/main.css'],
     'scripts' => ['js/frameworkfunctions.js', 'js/scripts.js', 'js/tinymce/tinymce.min.js',

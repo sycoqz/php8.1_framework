@@ -7550,3 +7550,20 @@ input[type='search'], input[type='text'], input[type='email'] {
 	border-radius: 90%;
 	background: #D4DDE1;
 }
+
+.cart-btn-wrap [data-totalQty]{
+	width: 16px;
+	height: 16px;
+	border: 1px solid white;
+	background: white;
+	border-radius: 50%;
+	position: absolute;
+	right: calc(50% - 18px);
+	bottom: calc(50% - 18px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	font-size: 10px;
+	text-decoration: none;
+}
