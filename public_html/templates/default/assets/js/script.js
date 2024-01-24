@@ -327,6 +327,13 @@ function addToCart() {
                     },
                     success: result => {
                         console.log(result)
+
+                        try {
+                            result = JSON.parse(result)
+                            console.log(result)
+                        } catch (e) {
+                            alert('Ошибка добавления в корзину')
+                        }
                     }
                 })
 
