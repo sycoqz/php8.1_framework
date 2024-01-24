@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                <div class="card-main-info">
+                <div class="card-main-info" data-productContainer>
                     <div class="card-main-info__description">
                         <div class="card-main-info-price">
                             <div class="card-main-info-price__text">
@@ -120,14 +120,14 @@
                             Количество:
                           </span>
                                 <span class="card-main-info-size__body">
-                            <span class="card-main-info-size__control button card-main-info-size__control_minus js-counterDecrement"></span>
-                            <span class="card-main-info-size__count js-counterShow">1</span>
-                            <span class="card-main-info-size__control button card-main-info-size__control_plus js-counterIncrement"></span>
+                            <span class="card-main-info-size__control button card-main-info-size__control_minus js-counterDecrement" data-quantityMinus></span>
+                            <span class="card-main-info-size__count js-counterShow" data-quantity ><?=$this->cart['goods'][$data['id']]['qty'] ?? 1?></span>
+                            <span class="card-main-info-size__control button card-main-info-size__control_plus js-counterIncrement" data-quantityPlus></span>
                           </span>
                             </label>
                         </div>
                         <div class="card-main-info__buttons">
-                            <a data-addToCart="<?=$data['id']?>" href="#" class="card-main-info__button button-basket button-blue button-big button">
+                            <a data-addToCart="<?=$data['id']?>" <?=!empty($this->cart['goods'][$data['id']]) ? 'data-toCartAdded' : ''?> href="#" class="card-main-info__button button-basket button-blue button-big button">
                                 <svg>
                                     <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                 </svg>
@@ -217,7 +217,7 @@
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -230,7 +230,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
 
@@ -242,14 +242,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -262,7 +262,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
 
@@ -274,14 +274,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -294,7 +294,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
                                 </button>
@@ -305,14 +305,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -325,7 +325,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
                                 </button>
@@ -336,14 +336,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -356,7 +356,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
                                 </button>
@@ -367,14 +367,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -387,7 +387,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
                                 </button>
@@ -398,14 +398,14 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
 
                             <div class="card-item swiper-slide ">
                                 <div class="card-item__tabs_image">
-                                    <img src="assets/img/additional_offer.png" alt="">
+                                    <img src="<?=PATH . TEMPLATE?>assets/img/additional_offer.png" alt="">
                                 </div>
                                 <div class="card-item__tabs_description">
                                     <div class="card-item__tabs_name">
@@ -418,7 +418,7 @@
                                 </div>
                                 <button class="card-item__btn">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#basket"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                     </svg>
                                     <span>в корзину</span>
                                 </button>
@@ -429,7 +429,7 @@
                       </span>
                                 <div class="icon-offer">
                                     <svg>
-                                        <use xlink:href="/assets/img/icons.svg#hot"></use>
+                                        <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#hot"></use>
                                     </svg>
                                 </div>
                             </div>
