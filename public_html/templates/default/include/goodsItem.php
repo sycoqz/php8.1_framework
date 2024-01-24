@@ -6,7 +6,7 @@ $mainClass = $parameters['mainClass'] ?? 'offers__tabs_card swiper-slide';
 $classPrefix = $parameters['prefix'] ?? 'offers';
 
 ?>
-    <a href="<?=$this->alias(['product' => $data['alias']])?>" class="<?=$mainClass?>" style="color: black">
+    <a href="<?=$this->alias(['product' => $data['alias']])?>" class="<?=$mainClass?>" style="color: black" data-productContainer>
     <div class="<?=$classPrefix?>__tabs_image">
         <img src="<?=$this->img($data['img'] ?? '')?>" alt="<?=$data['name']?>">
     </div>
