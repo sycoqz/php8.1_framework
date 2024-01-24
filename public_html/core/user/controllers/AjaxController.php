@@ -34,8 +34,6 @@ class AjaxController extends BaseUser
 
                     return $this->_addToCart();
 
-                    break;
-
             }
 
         }

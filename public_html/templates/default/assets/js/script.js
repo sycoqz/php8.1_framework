@@ -326,13 +326,41 @@ function addToCart() {
                         console.error(result)
                     },
                     success: result => {
+
                         console.log(result)
 
                         try {
+
                             result = JSON.parse(result)
-                            console.log(result)
+
+                            if (typeof result.current === 'undefined') {
+
+                                throw new Error('')
+
+                            }
+
+                            item.setAttribute('data-toCartAdded', true);
+
+                            ['data-totalQty', 'data-totalSum', 'data-totalOldSum'].forEach(attr => {
+
+                                let cartAttr = attr.replace(/data-/, '').replace(/([^A-Z])([A-Z])/g, '$1_$2').toLowerCase()
+
+                                document.querySelectorAll(`[${attr}]`).forEach(element => {
+
+                                    if (typeof result[cartAttr] !== 'undefined') {
+
+                                        element.innerHTML = result[cartAttr]
+
+                                    }
+
+                                })
+
+                            })
+
                         } catch (e) {
+
                             alert('Ошибка добавления в корзину')
+
                         }
                     }
                 })

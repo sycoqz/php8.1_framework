@@ -70,10 +70,11 @@
             <div class="overlay"></div>
             <div class="header__sidebar">
                 <div class="header__sidebar_btn">
-                    <a href="<?=$this->alias('cart')?>">
+                    <a href="<?=$this->alias('cart')?>" class="cart-btn-wrap">
                         <svg class="inline-svg-icon svg-basket">
                             <use href="<?=PATH . TEMPLATE?>assets/img/icons.svg#basket"></use>
                         </svg>
+                        <span data-totalQty><?=$this->cart['total_qty'] ?? 0?></span>
                     </a>
                 </div>
                 <div class="header__sidebar_btn burger-menu">

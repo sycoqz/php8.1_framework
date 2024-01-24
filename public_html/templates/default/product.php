@@ -121,13 +121,13 @@
                           </span>
                                 <span class="card-main-info-size__body">
                             <span class="card-main-info-size__control button card-main-info-size__control_minus js-counterDecrement" data-quantityMinus></span>
-                            <span class="card-main-info-size__count js-counterShow" data-quantity>1</span>
+                            <span class="card-main-info-size__count js-counterShow" data-quantity ><?=$this->cart['goods'][$data['id']]['qty'] ?? 1?></span>
                             <span class="card-main-info-size__control button card-main-info-size__control_plus js-counterIncrement" data-quantityPlus></span>
                           </span>
                             </label>
                         </div>
                         <div class="card-main-info__buttons">
-                            <a data-addToCart="<?=$data['id']?>" href="#" class="card-main-info__button button-basket button-blue button-big button">
+                            <a data-addToCart="<?=$data['id']?>" <?=!empty($this->cart['goods'][$data['id']]) ? 'data-toCartAdded' : ''?> href="#" class="card-main-info__button button-basket button-blue button-big button">
                                 <svg>
                                     <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#basket"></use>
                                 </svg>

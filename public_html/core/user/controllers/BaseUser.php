@@ -41,6 +41,12 @@ abstract class BaseUser extends BaseController
             'limit' => 1
         ]);
 
+        if (!$this->isAjax() &&  !$this->isPost()) {
+
+            $this->getCartData();
+
+        }
+
         $this->set && $this->set = $this->set[0];
 
         // Сборка меню
