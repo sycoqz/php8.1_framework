@@ -35,7 +35,16 @@ class ProductController extends BaseUser
 
         $data = array_shift($data);
 
-        return compact('data');
+        $deliveryInfo = $this->model->read('information', [
+            'where' => ['visibility' => 1, 'name' => 'доставка', 'name' => 'оплата'],
+            'operand' => ['=', '%LIKE%'],
+            'condition' => ['AND', 'OR'],
+            'limit' => 1
+        ]);
+
+        $deliveryInfo && $deliveryInfo = $deliveryInfo[0];
+
+        return compact('data', 'deliveryInfo');
     }
 
 }
