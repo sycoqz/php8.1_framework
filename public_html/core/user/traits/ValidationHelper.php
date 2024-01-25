@@ -53,7 +53,7 @@ trait ValidationHelper
 
         if (!preg_match('/^[\w\-\.]+@[\w\-]+\.[\w\-]+/', $value)) {
 
-            $this->sendError('Некорректный формат поля' . $answer);
+            $this->sendError('Некорректный формат поля ' . $answer);
 
         }
 

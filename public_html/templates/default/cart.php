@@ -1,7 +1,7 @@
 <main class="main-internal">
     <div class="container">
         <nav class="breadcrumbs">
-            <ul class="breadcrumbs__list" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul class="breadcrumbs__list" itemscope="" itemtype="https://schema.org/BreadcrumbList">
                 <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a class="breadcrumbs__link" itemprop="item" href="<?=PATH?>">
                         <span itemprop="name">Главная</span>
@@ -103,7 +103,7 @@
                             <div class="order-registration-radio">
                                 <?php foreach ($this->payment as $key => $item):?>
                                     <label class="order-registration-radio-item">
-                                        <input class="order-registration-rad-inp" type="radio" name="payment_id" <?=!$key ? 'checked' : ''?>>
+                                        <input class="order-registration-rad-inp" type="radio" name="payment_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
                                         <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                     </label>
                                 <?php endforeach;?>
@@ -116,7 +116,7 @@
                         <div class="order-registration-radio">
                             <?php foreach ($this->delivery as $key => $item):?>
                                 <label class="order-registration-radio-item">
-                                    <input class="order-registration-rad-inp" type="radio" name="delivery_id" <?=!$key ? 'checked' : ''?>>
+                                    <input class="order-registration-rad-inp" type="radio" name="delivery_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
                                     <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                 </label>
                             <?php endforeach;?>
