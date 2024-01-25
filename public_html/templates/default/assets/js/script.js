@@ -349,7 +349,7 @@ function addToCart() {
 
                                     if (typeof result[cartAttr] !== 'undefined') {
 
-                                        element.innerHTML = result[cartAttr]
+                                        element.innerHTML = result[cartAttr] + (attr === 'data-totalQty' ? '' : ' руб.');
 
                                     }
 

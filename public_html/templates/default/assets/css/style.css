@@ -7218,7 +7218,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .basket-btn{
-	display: block;
+	display: flex;
 	width: 280px;
 	text-transform: uppercase;
     min-height: 50px;
@@ -7228,6 +7228,9 @@ input[type='search'], input[type='text'], input[type='email'] {
     font-weight: 700;
     transition: .3s;
     cursor: pointer;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
 }
 
 .basket-btn:last-child{
