@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Смещение контейнера
                 item.parentElement.style.transition = '0.3s'
 
-                item.parentElement.style.transform = `translate3d(0px, ${start}px, 0px`
+                item.parentElement.style.transform = `translate3d(0px, ${start}px, 0px)`
 
             })
 
@@ -288,6 +288,36 @@ document.addEventListener('DOMContentLoaded', () => {
     changeQty()
 
     addToCart()
+
+    document.querySelectorAll('[data-popup]').forEach(item => {
+
+        if (item.getAttribute('data-popup')) {
+
+            let popupElement = document.querySelector(`.${item.getAttribute('data-popup')}`)
+
+            if (popupElement) {
+
+                item.addEventListener('click', () => {
+
+                    popupElement.classList.add('open')
+
+                })
+
+                popupElement.addEventListener('click', e => {
+
+                    if (e.target === popupElement) {
+
+                        popupElement.classList.remove('open')
+
+                    }
+
+                })
+
+            }
+
+        }
+
+    })
 
 })
 

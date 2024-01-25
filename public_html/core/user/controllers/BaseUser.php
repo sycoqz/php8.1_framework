@@ -587,4 +587,23 @@ abstract class BaseUser extends BaseController
 
     }
 
+    protected function deleteCartData(int $id): void
+    {
+
+        $id = $this->clearNum($id);
+
+        if ($id) {
+
+            $cart = &$this->getCart();
+
+            unset($cart[$id]);
+
+            $this->updateCart();
+
+            $this->getCartData(true);
+
+        }
+
+    }
+
 }
