@@ -35,7 +35,7 @@ const USER_CSS_JS = [
         'https://unpkg.com/swiper/swiper-bundle.min.css',
         'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css',
         'assets/css/animate.css',
-        'assets/css/style.css'
+        'assets/css/style.css',
     ],
     'scripts' => [
         'https://code.jquery.com/jquery-3.4.1.min.js',
@@ -54,6 +54,7 @@ const USER_CSS_JS = [
         'assets/js/bodyscrolllock/bodyScrollLock.min.js',
         'assets/js/app.js',
         'assets/js/script.js',
+        'assets/js/showMessage.js',
     ]
 ];
 

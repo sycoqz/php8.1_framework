@@ -51,7 +51,7 @@ trait ValidationHelper
         // Подготовка поля с электронной почтой
         $value = $this->clearStr($value);
 
-        if (!preg_match('/^[\w\-\.]+@[\w\-]+\.[\w\-]+/', $value)) {
+        if (!preg_match('/^[\w\-.]+@[\w\-]+\.[\w\-]+/', $value)) {
 
             $this->sendError('Некорректный формат поля ' . $answer);
 
@@ -64,7 +64,7 @@ trait ValidationHelper
     protected function sendError(string $text, string $class = 'error'): void
     {
 
-        $_SESSION['result']['answer'] = '<div class=""' . $class . '">' . $text . '</div>';
+        $_SESSION['result']['answer'] = '<div class="' . $class . '">' . $text . '</div>';
 
         if ($class === 'error') {
 
