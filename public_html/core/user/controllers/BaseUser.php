@@ -513,11 +513,13 @@ abstract class BaseUser extends BaseController
 
             $this->cart['total_sum'] += round($item['qty'] * $item['price'], 2);
 
-            if (!empty($item['old_price'])) {
+            $this->cart['total_old_sum'] += round($item['qty'] * ($item['old_price'] ?? $item['price']), 2);
 
-                $this->cart['total_old_sum'] += round($item['qty'] * $item['old_price'], 2);
+        }
 
-            }
+        if ($this->cart['total_sum'] === $this->cart['total_old_sum']) {
+
+            unset($this->cart['total_old_sum']);
 
         }
 
