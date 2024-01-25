@@ -20,6 +20,8 @@ abstract class BaseUser extends BaseController
 
     protected array $cart = [];
 
+    protected array $userData = [];
+
     protected string $breadcrumbs;
 
     /* Проектные свойства */
@@ -386,6 +388,15 @@ abstract class BaseUser extends BaseController
             HEREDOC;
 
         }
+
+    }
+
+    protected function setFormValues(string $key, string $property = null, array $arr = [])
+    {
+
+        !$arr && $arr = $_SESSION['result'] ?? [];
+
+        return $arr[$key] ?? ($this->$property[$key] ?? '');
 
     }
 
