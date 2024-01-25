@@ -2,7 +2,6 @@
 
 namespace core\user\controllers;
 
-use core\user\controllers\BaseUser;
 use core\user\traits\ValidationHelper;
 
 class OrderController extends BaseUser
@@ -14,7 +13,7 @@ class OrderController extends BaseUser
 
     protected array $payment = [];
 
-    protected function inputData()
+    protected function inputData(): void
     {
         parent::inputData();
 

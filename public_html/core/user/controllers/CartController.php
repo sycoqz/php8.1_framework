@@ -11,7 +11,7 @@ class CartController extends BaseUser
 
     protected array $payment;
 
-    protected function inputData()
+    protected function inputData(): void
     {
         parent::inputData();
 
