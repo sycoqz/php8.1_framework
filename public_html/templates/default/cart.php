@@ -1,7 +1,7 @@
 <main class="main-internal">
     <div class="container">
         <nav class="breadcrumbs">
-            <ul class="breadcrumbs__list" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul class="breadcrumbs__list" itemscope="" itemtype="https://schema.org/BreadcrumbList">
                 <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a class="breadcrumbs__link" itemprop="item" href="<?=PATH?>">
                         <span itemprop="name">Главная</span>
@@ -96,14 +96,14 @@
 
         <section class="order-registration">
             <div class="container">
-                <form class="order-registration-form">
+                <form class="order-registration-form" method="post" action="<?=$this->alias('order')?>">
                     <?php if (!empty($this->payment)):?>
                         <div class="order-registration-payment">
                             <div class="order-registration-titel">Оплата</div>
                             <div class="order-registration-radio">
                                 <?php foreach ($this->payment as $key => $item):?>
                                     <label class="order-registration-radio-item">
-                                        <input class="order-registration-rad-inp" type="radio" name="payment_id" <?=!$key ? 'checked' : ''?>>
+                                        <input class="order-registration-rad-inp" type="radio" name="payment_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
                                         <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                     </label>
                                 <?php endforeach;?>
@@ -116,7 +116,7 @@
                         <div class="order-registration-radio">
                             <?php foreach ($this->delivery as $key => $item):?>
                                 <label class="order-registration-radio-item">
-                                    <input class="order-registration-rad-inp" type="radio" name="delivery_id" <?=!$key ? 'checked' : ''?>>
+                                    <input class="order-registration-rad-inp" type="radio" name="delivery_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
                                     <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                 </label>
                             <?php endforeach;?>
@@ -131,9 +131,9 @@
                     <div class="order-popup">
                         <label class="order-popup__inner">
                             <h2>Оформление заказа</h2>
-                            <input type="text" name="name" required placeholder="Ваше имя">
-                            <input type="tel" name="phone" required placeholder="Номер телефона">
-                            <input type="email" name="email" required placeholder="Электронная почта">
+                            <input type="text" name="name" required placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
+                            <input type="tel" name="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone', 'userData')?>">
+                            <input type="email" name="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email', 'userData')?>">
                             <textarea name="address" rows="5" placeholder="Адрес"></textarea>
                             <label class="amount-pay-wrapp">
                                 Сумма к оплате:

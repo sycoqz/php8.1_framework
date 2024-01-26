@@ -20,6 +20,8 @@ abstract class BaseUser extends BaseController
 
     protected array $cart = [];
 
+    protected string|int|bool|array $userData = [];
+
     protected string $breadcrumbs;
 
     /* Проектные свойства */
@@ -34,6 +36,8 @@ abstract class BaseUser extends BaseController
 
         $this->init();
 
+        $this->checkAuth();
+
         if (!isset($this->model)) $this->model = Model::instance(); // !$this->model && $this->model = Model::instance();
 
         $this->set = $this->model->read('settings', [
@@ -41,7 +45,7 @@ abstract class BaseUser extends BaseController
             'limit' => 1
         ]);
 
-        if (!$this->isAjax() &&  !$this->isPost()) {
+        if (!$this->isAjax()) {
 
             $this->getCartData();
 
@@ -386,6 +390,15 @@ abstract class BaseUser extends BaseController
             HEREDOC;
 
         }
+
+    }
+
+    protected function setFormValues(string $key, string $property = null, array $arr = [])
+    {
+
+        !$arr && $arr = $_SESSION['result'] ?? [];
+
+        return $arr[$key] ?? ($this->$property[$key] ?? '');
 
     }
 

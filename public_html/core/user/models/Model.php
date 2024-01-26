@@ -228,8 +228,17 @@ class Model extends BaseModel
 
     }
 
+    /**
+     * @throws DbException
+     */
     public function applyDiscount(array|null &$data, float|null $discount): void
     {
+
+        if (!empty($this->showColumns('goods')['discount'])) {
+
+            $data['old_price'] = null;
+
+        }
 
         if ($discount) {
 
