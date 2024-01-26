@@ -2,7 +2,10 @@
 
 namespace core\user\controllers;
 
+use core\base\exceptions\DbException;
+use core\base\models\UserModel;
 use core\user\traits\ValidationHelper;
+use JetBrains\PhpStorm\NoReturn;
 
 class OrderController extends BaseUser
 {
@@ -29,7 +32,10 @@ class OrderController extends BaseUser
 
     }
 
-    protected function order()
+    /**
+     * @throws DbException
+     */
+    #[NoReturn] protected function order(): void
     {
 
         if (empty($this->cart['goods']) || empty($_POST)) {
@@ -63,37 +69,129 @@ class OrderController extends BaseUser
 
         $order = [];
 
-        $visitior = [];
+        $visitor = [];
 
         $columnsOrders = $this->model->showColumns('orders');
 
         $columnsVisitors = $this->model->showColumns('visitors');
 
-        foreach ($_POST as $key => $item) {
+        foreach ($_POST as $FormField => $item) {
 
-            if (!empty($validation[$key]['methods'])) {
+            if (!empty($validation[$FormField]['methods'])) {
 
-                foreach ($validation[$key]['methods'] as $method) {
+                foreach ($validation[$FormField]['methods'] as $method) {
 
-                    $_POST[$key] = $item = $this->$method($item, $validation[$key]['translate'] ?? $key);
+                    $_POST[$FormField] = $item = $this->$method($item, $validation[$FormField]['translate'] ?? $FormField);
 
                 }
 
             }
 
-            if (!empty($columnsOrders[$key])) {
+            if (!empty($columnsOrders[$FormField])) {
 
-                $order[$key] = $item;
+                $order[$FormField] = $item;
 
             }
 
-            if (!empty($columnsVisitors[$key])) {
+            if (!empty($columnsVisitors[$FormField])) {
 
-                $visitior[$key] = $item;
+                $visitor[$FormField] = $item;
 
             }
 
         }
+
+        if (empty($visitor['email']) && empty($visitor['phone'])) {
+
+            $this->sendError('Отсутствуют данные пользователя для оформления заказа');
+
+        }
+
+        $visitorsWhere = $visitorsCondition = [];
+
+        if (!empty($visitor['email']) && !empty($visitor['phone'])) {
+
+            $visitorsWhere = [
+                'email' => $visitor['email'],
+                'phone' => $visitor['phone'],
+            ];
+
+            $visitorsCondition = ['OR'];
+
+        } else {
+
+            $visitorsKey = !empty($visitor['email']) ? 'email' : 'phone';
+
+            $visitorsWhere[$visitorsKey] = $visitor[$visitorsKey];
+
+        }
+
+        $resultVisitor = $this->model->read('visitors', [
+            'where' => $visitorsWhere,
+            'condition' => $visitorsCondition,
+            'limit' => 1
+        ]);
+
+        if ($resultVisitor) {
+
+            $resultVisitor = $resultVisitor[0];
+
+            $order['visitors_id'] = $resultVisitor['id'];
+
+        } else {
+
+            $order['visitors_id'] = $this->model->create('visitors',  [
+                'fields' => $visitor,
+                'return_id' => true
+            ]);
+
+        }
+
+        $order['total_sum'] = $this->cart['total_sum'];
+
+        $order['total_qty'] = $this->cart['total_qty'];
+
+        $order['total_old_sum'] = $this->cart['total_old_sum'] ?? null;
+
+        $baseStatus = $this->model->read('orders_statuses', [
+            'fields' => ['id'],
+            'order' => ['menu_position'],
+            'limit' => 1
+        ]);
+
+        $baseStatus && $order['orders_statuses_id'] = $baseStatus[0]['id'];
+
+        $order['id'] = $this->model->create('orders', [
+            'fields' => $order,
+            'return_id' => true,
+        ]);
+
+        if (!$order['id']) {
+
+            $this->sendError('Ошибка сохранения заказа. Свяжитесь с администрацией сайта по телефону  - ' . $this->set['phone']);
+
+        }
+
+        if (!$resultVisitor) {
+
+            UserModel::instance()->checkUser($order['visitors_id']);
+
+        }
+
+        $this->sendSuccess('Спасибо за заказ! Наши менеджеры свяжутся с вами в ближайшие время для уточнения деталей заказа');
+
+        $this->sendOrderEmail(['order' => $order, 'visitor' => $visitor]);
+
+        $this->clearCart();
+
+        $this->redirect();
+
+    }
+
+    protected function sendOrderEmail(array $orderData)
+    {
+
+
 
     }
 
