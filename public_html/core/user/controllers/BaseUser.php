@@ -20,7 +20,7 @@ abstract class BaseUser extends BaseController
 
     protected array $cart = [];
 
-    protected array $userData = [];
+    protected string|int|bool|array $userData = [];
 
     protected string $breadcrumbs;
 
@@ -35,6 +35,8 @@ abstract class BaseUser extends BaseController
     {
 
         $this->init();
+
+        $this->checkAuth();
 
         if (!isset($this->model)) $this->model = Model::instance(); // !$this->model && $this->model = Model::instance();
 
