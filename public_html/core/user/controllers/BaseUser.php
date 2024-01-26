@@ -20,6 +20,8 @@ abstract class BaseUser extends BaseController
 
     protected array $cart = [];
 
+    protected string|int|bool|array $userData = [];
+
     protected string $breadcrumbs;
 
     /* Проектные свойства */
@@ -34,6 +36,8 @@ abstract class BaseUser extends BaseController
 
         $this->init();
 
+        $this->checkAuth();
+
         if (!isset($this->model)) $this->model = Model::instance(); // !$this->model && $this->model = Model::instance();
 
         $this->set = $this->model->read('settings', [
@@ -41,7 +45,7 @@ abstract class BaseUser extends BaseController
             'limit' => 1
         ]);
 
-        if (!$this->isAjax() &&  !$this->isPost()) {
+        if (!$this->isAjax()) {
 
             $this->getCartData();
 
@@ -389,6 +393,15 @@ abstract class BaseUser extends BaseController
 
     }
 
+    protected function setFormValues(string $key, string $property = null, array $arr = [])
+    {
+
+        !$arr && $arr = $_SESSION['result'] ?? [];
+
+        return $arr[$key] ?? ($this->$property[$key] ?? '');
+
+    }
+
     protected function addToCart(int|null $id, int $qty): bool|array
     {
 
@@ -513,11 +526,13 @@ abstract class BaseUser extends BaseController
 
             $this->cart['total_sum'] += round($item['qty'] * $item['price'], 2);
 
-            if (!empty($item['old_price'])) {
+            $this->cart['total_old_sum'] += round($item['qty'] * ($item['old_price'] ?? $item['price']), 2);
 
-                $this->cart['total_old_sum'] += round($item['qty'] * $item['old_price'], 2);
+        }
 
-            }
+        if ($this->cart['total_sum'] === $this->cart['total_old_sum']) {
+
+            unset($this->cart['total_old_sum']);
 
         }
 
@@ -580,6 +595,25 @@ abstract class BaseUser extends BaseController
             }
 
             return $_COOKIE['cart'];
+
+        }
+
+    }
+
+    protected function deleteCartData(int $id): void
+    {
+
+        $id = $this->clearNum($id);
+
+        if ($id) {
+
+            $cart = &$this->getCart();
+
+            unset($cart[$id]);
+
+            $this->updateCart();
+
+            $this->getCartData(true);
 
         }
 

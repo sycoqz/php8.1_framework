@@ -2,7 +2,6 @@
 
 namespace core\user\controllers;
 
-use core\admin\controllers\CreatesitemapController;
 use core\base\exceptions\DbException;
 
 class AjaxController extends BaseUser
@@ -11,7 +10,7 @@ class AjaxController extends BaseUser
     /**
      * @throws DbException
      */
-    public function ajax()
+    public function ajax(): bool|array|string
     {
 
         if (isset($this->ajaxData['ajax'])) {
@@ -42,7 +41,7 @@ class AjaxController extends BaseUser
 
     }
 
-    protected function _addToCart()
+    protected function _addToCart(): bool|array
     {
 
         return $this->addToCart($this->ajaxData['id'] ?? null, $this->ajaxData['qty'] ?? 1);

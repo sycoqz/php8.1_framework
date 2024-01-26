@@ -33,6 +33,7 @@ abstract class BaseController
     protected string|int|bool|array $userID;
 
     protected array $ajaxData;
+    protected string|int|bool|array $userData = [];
 
     /**
      * @throws RouteException
@@ -169,6 +170,8 @@ abstract class BaseController
             $type && $this->redirect(PATH);
 
         }
+
+        $this->userData = $this->userID;
 
         // Формирование модели пользователя
         if (property_exists($this, 'userModel')) {

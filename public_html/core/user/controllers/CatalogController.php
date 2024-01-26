@@ -4,7 +4,6 @@ namespace core\user\controllers;
 
 use core\base\exceptions\DbException;
 use core\base\exceptions\RouteException;
-use core\user\controllers\BaseUser;
 
 class CatalogController extends BaseUser
 {
@@ -44,7 +43,7 @@ class CatalogController extends BaseUser
 
         if ($data) {
 
-            $where = ['parent_id' => $data['id']];
+            $where['parent_id'] = $data['id'];
 
         } else {
 

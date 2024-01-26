@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Смещение контейнера
                 item.parentElement.style.transition = '0.3s'
 
-                item.parentElement.style.transform = `translate3d(0px, ${start}px, 0px`
+                item.parentElement.style.transform = `translate3d(0px, ${start}px, 0px)`
 
             })
 
@@ -288,6 +288,36 @@ document.addEventListener('DOMContentLoaded', () => {
     changeQty()
 
     addToCart()
+
+    document.querySelectorAll('[data-popup]').forEach(item => {
+
+        if (item.getAttribute('data-popup')) {
+
+            let popupElement = document.querySelector(`.${item.getAttribute('data-popup')}`)
+
+            if (popupElement) {
+
+                item.addEventListener('click', () => {
+
+                    popupElement.classList.add('open')
+
+                })
+
+                popupElement.addEventListener('click', e => {
+
+                    if (e.target === popupElement) {
+
+                        popupElement.classList.remove('open')
+
+                    }
+
+                })
+
+            }
+
+        }
+
+    })
 
 })
 
@@ -349,7 +379,7 @@ function addToCart() {
 
                                     if (typeof result[cartAttr] !== 'undefined') {
 
-                                        element.innerHTML = result[cartAttr]
+                                        element.innerHTML = result[cartAttr] + (attr === 'data-totalQty' ? '' : ' руб.');
 
                                     }
 
@@ -424,5 +454,104 @@ function changeQty() {
         })
 
     }
+
+}
+
+document.querySelectorAll('input[type="tel"]').forEach(item => phoneValidate(item))
+
+function phoneValidate(item) {
+
+    //+7(495)111-22-33
+    let countriesOptions = {
+
+        '+7': {
+            limit: 16,
+            firstDigits: '87',
+            formatChars: {
+                2: '(',
+                6: ')',
+                10: '-',
+                13: '-'
+            }
+        }
+    }
+
+    item.addEventListener('input', e => {
+
+        if (e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward') {
+
+            return false
+
+        }
+
+        item.value = item.value.replace(/\D/g,'')
+
+        if (item.value) {
+
+            //Формирование ключей
+            for (let code in countriesOptions) {
+
+                if (countriesOptions.hasOwnProperty(code) && countriesOptions[code].firstDigits) {
+
+                    let regExp = new RegExp(`^[${countriesOptions[code].firstDigits}]`)
+
+                    if (regExp.test(item.value)) {
+
+                        // Замена подданного значения на код (+7)
+                        item.value = item.value.replace(regExp, code)
+
+                        break
+
+                    }
+
+                }
+
+            }
+
+            if (!$(/^\+/).text(item.value)) {
+
+                item.value = '+' + item.value
+
+            }
+
+            for (let code in countriesOptions) {
+
+                if (countriesOptions.hasOwnProperty(code)  && countriesOptions[code].firstDigits) {
+
+                    let regExp = new RegExp(code.replace(/\+/g, '\\+'), 'g')
+
+                    if (regExp.test(item.value)) {
+
+                        for (let i in countriesOptions[code].formatChars) {
+
+                            let j = +i
+
+                            if (item.value[j] && (item.value[j] !== countriesOptions[code].formatChars[i])) {
+
+                                item.value = item.value.substring(0, j) + countriesOptions[code].formatChars[i] + item.value.substring(j)
+
+                            }
+
+                        }
+
+                        if (item.value[countriesOptions[code].limit]) {
+
+                            item.value = item.value.substring(0, countriesOptions[code].limit)
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    })
+
+    item.dispatchEvent(new Event('input'))
+
+    item.addEventListener('change', () => phoneValidate(item))
 
 }

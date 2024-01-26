@@ -314,21 +314,6 @@ abstract class BaseAdmin extends BaseController
 
     }
 
-    #[NoReturn] protected function addSessionData(array $arr = []): void
-    {
-
-        if (!isset($arr)) $arr = $_POST;
-
-        foreach ($arr as $key => $item) {
-
-            $_SESSION['result'][$key] = $item;
-
-        }
-
-        $this->redirect();
-
-    }
-
     protected function countChar(string $str, int $counter, $answer, array $arr): void
     {
         if (mb_strlen($str) > $counter) {
