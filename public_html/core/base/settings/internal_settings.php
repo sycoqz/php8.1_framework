@@ -71,3 +71,9 @@ function autoloadMainClasses($class_name): void
 }
 
 spl_autoload_register('autoloadMainClasses');
+
+if (is_readable('C:\OSPanel\domains\framework.my\vendor\autoload.php')) {
+
+    include 'C:\OSPanel\domains\framework.my\vendor\autoload.php';
+
+}
