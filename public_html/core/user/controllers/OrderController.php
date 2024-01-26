@@ -253,6 +253,9 @@ class OrderController extends BaseUser
 
     }
 
+    /**
+     * @throws DbException
+     */
     protected function sendOrderEmail(array $orderData): void
     {
 
@@ -309,6 +312,10 @@ class OrderController extends BaseUser
                 }
 
             }
+
+            $sender = new SendMailController();
+
+            $sender->setMailBody($templateArr)->send($orderData['visitor']['email']);
 
         }
 
