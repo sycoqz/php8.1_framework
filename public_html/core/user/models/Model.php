@@ -252,4 +252,20 @@ class Model extends BaseModel
 
     }
 
+    /**
+     * @throws DbException
+     */
+    public function searchGoodsIds(string $search): array
+    {
+
+        $query = "SELECT DISTINCT goods.id FROM goods WHERE name LIKE '%$search%' OR short_content
+                    LIKE '%$search%' OR content LIKE '%$search%' OR goods.id IN (SELECT goods_id FROM goods_filters
+                        INNER JOIN filters ON goods_filters.filters_id = filters.id AND filters.name LIKE '%$search%')";
+
+        $data = $this->query($query);
+
+        return $data ? array_column($data, 'id') : [];
+
+    }
+
 }

@@ -176,16 +176,16 @@
 </header>
 
 <?php if ($this->getController() !== 'index'):?>
-    <div class="search search-internal">
+    <form class="search search-internal" action="<?=$this->alias('search')?>">
         <button>
             <svg class="inline-svg-icon svg-search">
                 <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#search"></use>
             </svg>
         </button>
         <label class="search search-internal">
-            <input type="search" placeholder="Поиск по каталогу">
+            <input type="search" name="search" placeholder="Поиск по каталогу">
         </label>
-    </div>
+    </form>
 <?php endif;?>
 
 <main class="main">
