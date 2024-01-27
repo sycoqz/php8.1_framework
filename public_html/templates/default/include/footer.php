@@ -63,7 +63,7 @@
     <div class="login-popup">
         <div class="login-popup__inner">
             <h2><span>Регистрация</span><span>Вход</span></h2>
-            <form method="post" action="<?=$this->alias(['auth' => 'registration'])?>">
+            <form method="post" action="<?=$this->alias(['login' => 'registration'])?>">
                 <label>
                     <input type="text" name="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name')?>">
                     <input type="password" name="password" required placeholder="Ваш пароль">
@@ -75,7 +75,7 @@
                     <input class="execute-login_btn" type="submit" value="Зарегистрироваться">
                 </label>
             </form>
-            <form method="post" action="<?=$this->alias(['auth' => 'login'])?>" style="display: none;">
+            <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
                 <label>
                     <input type="text" name="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
                     <input type="password" name="confirm_password" required placeholder="Подтверждение пароля">
