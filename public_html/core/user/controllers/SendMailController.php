@@ -80,7 +80,7 @@ class SendMailController extends BaseUser
             $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('sycoqz@yandex.ru', 'Matchfixing soft inc. ' . $_SERVER['HTTP_HOST']);
+            $mail->setFrom('sycoqz@yandex.ru', 'Learning Project ' . $_SERVER['HTTP_HOST']);
 //            $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
             foreach ($to as $address) {
 
@@ -98,7 +98,7 @@ class SendMailController extends BaseUser
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $subject ?: 'Matchfixing soft inc. ' . $_SERVER['HTTP_HOST'];
+            $mail->Subject = $subject ?: 'Learning Project ' . $_SERVER['HTTP_HOST'];
             $mail->Body    = $this->_body;
 //            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

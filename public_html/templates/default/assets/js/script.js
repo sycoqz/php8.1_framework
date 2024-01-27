@@ -297,7 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (popupElement) {
 
-                item.addEventListener('click', () => {
+                item.addEventListener('click', e => {
+
+                    e.preventDefault()
 
                     popupElement.classList.add('open')
 
@@ -316,6 +318,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         }
+
+    })
+
+    let authVariants = document.querySelectorAll('.login-popup h2 span')
+
+    let authFormVariants = document.querySelectorAll('.login-popup form')
+
+    authVariants.forEach(item => {
+
+        item.addEventListener('click', () => {
+
+            let index = [...authVariants].indexOf(item)
+
+            authFormVariants[index].style.display = 'block'
+
+            authFormVariants[+!index].style.display = 'none'
+
+
+        })
 
     })
 

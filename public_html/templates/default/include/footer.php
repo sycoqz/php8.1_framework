@@ -59,6 +59,35 @@
     </svg>
 </div>
 
+<?php if (!$this->userData):?>
+    <div class="login-popup">
+        <div class="login-popup__inner">
+            <h2><span>Регистрация</span><span>Вход</span></h2>
+            <form method="post" action="<?=$this->alias(['auth' => 'registration'])?>">
+                <label>
+                    <input type="text" name="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name')?>">
+                    <input type="password" name="password" required placeholder="Ваш пароль">
+                    <input type="password" name="confirm_password" required placeholder="Подтверждение пароля">
+                    <input type="tel" name="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone')?>">
+                    <input type="email" name="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email')?>">
+                </label>
+                <label class="send-login">
+                    <input class="execute-login_btn" type="submit" value="Зарегистрироваться">
+                </label>
+            </form>
+            <form method="post" action="<?=$this->alias(['auth' => 'login'])?>" style="display: none;">
+                <label>
+                    <input type="text" name="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
+                    <input type="password" name="confirm_password" required placeholder="Подтверждение пароля">
+                </label>
+                <label class="send-login">
+                    <input class="execute-login_btn" type="submit" value="Вход">
+                </label>
+            </form>
+        </div>
+    </div>
+<?php endif;?>
+
 <?php $this->getScripts()?>
 
 <?php if (!empty($_SESSION['result']['answer'])):?>
