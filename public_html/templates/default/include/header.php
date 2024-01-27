@@ -83,11 +83,16 @@
                         <span class="burger-desc">меню</span>
                     </div>
                 </div>
+                <div class="header__sidebar_btn">
+                    <a href="<?=$this->userData ? $this->alias('person') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
+                        <img src="<?=PATH . TEMPLATE?>assets/img/user.png" alt="<?=$item['name'] ?? ''?>">
+                    </a>
+                </div>
                 <?php if (!empty($this->social_networks)):?>
                     <?php foreach ($this->social_networks as $item):?>
                     <div class="header__sidebar_btn">
                         <a href="<?=$this->alias($item['external_alias'])?>">
-                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>" height="32">
+                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
                         </a>
                     </div>
                     <?php endforeach;?>
@@ -177,7 +182,7 @@
                 <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#search"></use>
             </svg>
         </button>
-        <label>
+        <label class="search search-internal">
             <input type="search" placeholder="Поиск по каталогу">
         </label>
     </div>
