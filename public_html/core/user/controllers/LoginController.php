@@ -31,6 +31,12 @@ class LoginController extends BaseUser
 
                     break;
 
+                case 'login':
+
+                    $this->login();
+
+                    break;
+
             }
 
         }
@@ -59,6 +65,10 @@ class LoginController extends BaseUser
         if ($this->userData && !$_POST['password']) {
 
             unset($_POST['password']);
+
+        } elseif (!$this->userData && !trim($_POST['password'])) {
+
+            $this->sendError('Заполните поле - пароль');
 
         }
 
@@ -122,6 +132,12 @@ class LoginController extends BaseUser
 
         }
 
+        if (!empty($_POST['password'])) {
+
+            $_POST['password'] = md5($_POST['password']);
+
+        }
+
         $id = $this->model->create('visitors', [
             'return_id' => true
         ]);
@@ -137,6 +153,57 @@ class LoginController extends BaseUser
         }
 
         $this->sendError('Произошла внутренняя ошибка. Свяжитесь с администрацией сайта');
+
+    }
+
+    /**
+     * @throws DbException
+     */
+    protected function login(): void
+    {
+
+        $login = $this->clearStr($_POST['login'] ?? '');
+
+        $password = $this->clearNum($_POST['password'] ?? '');
+
+        if (!$login || !$password) {
+
+            $this->sendError('Заполните поля авторизации');
+
+        }
+
+        $password = md5($password);
+
+        if (preg_match('/@\w+\.\w+$/', $login)) {
+
+            $result = $this->model->read('visitors', [
+                'where' => ['email' => $login, 'password' => $password],
+                'limit' => 1
+            ]);
+
+        } else {
+
+            $result = $this->model->read('visitors', [
+                'where' => ['phone' => $login, 'password' => $password],
+                'limit' => 1
+            ]);
+
+        }
+
+        if (!$result) {
+
+            $this->sendError('Некорректные данные для входа');
+
+        }
+
+        if (UserModel::instance()->checkUser($result[0]['id'])) {
+
+            $this->sendSuccess('Добро пожаловать, ' . $result[0]['name']);
+
+        }
+
+        $this->sendError('Произошла ошибка авторизации. Свяжитесь с администрацией сайта');
+
 
     }
 

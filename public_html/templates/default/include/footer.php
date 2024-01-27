@@ -78,7 +78,7 @@
             <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
                 <label>
                     <input type="text" name="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
-                    <input type="password" name="confirm_password" required placeholder="Подтверждение пароля">
+                    <input type="password" name="password" required placeholder="Подтверждение пароля">
                 </label>
                 <label class="send-login">
                     <input class="execute-login_btn" type="submit" value="Вход">
