@@ -550,7 +550,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	padding: 15px 86px 0 0;
 	height: 153px;
 	display: flex;
-	z-index: 9999
+	z-index: 800
 }
 
 @media screen and (max-width: 1600px) {
@@ -7589,10 +7589,10 @@ input[type='search'], input[type='text'], input[type='email'] {
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 10;
 	justify-content: center;
 	align-items: center;
 	display: none;
+	z-index: 999;
 }
 
 .login-popup h2{

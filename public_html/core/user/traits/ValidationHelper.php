@@ -2,6 +2,8 @@
 
 namespace core\user\traits;
 
+use JetBrains\PhpStorm\NoReturn;
+
 trait ValidationHelper
 {
 
@@ -61,7 +63,7 @@ trait ValidationHelper
 
     }
 
-    protected function sendError(string $text, string $class = 'error'): void
+    #[NoReturn] protected function sendError(string $text, string $class = 'error'): void
     {
 
         $_SESSION['result']['answer'] = '<div class="' . $class . '">' . $text . '</div>';
@@ -71,6 +73,8 @@ trait ValidationHelper
             $this->addSessionData();
 
         }
+
+        $this->redirect();
 
     }
 
