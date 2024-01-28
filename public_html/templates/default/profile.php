@@ -32,7 +32,9 @@
 
                                         }
 
-                                        forms[0].querySelector('button[type="submit"]').value = 'Изменить данные'
+                                        console.log(forms[0].querySelector('button[type="submit"]').value)
+
+                                        forms[0].querySelector('button[type="submit"]').textContent = 'Изменить данные'
 
                                         popup.querySelector('h2')?.remove()
 

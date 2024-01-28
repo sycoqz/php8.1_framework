@@ -121,11 +121,10 @@ button {
 button[type="submit"] {
 	border: 1px solid #000;
 	background-color: transparent;
-	padding: 26px 80px 25px;
 	font-weight: 700;
 	font-size: 16px;
 	color: #2D3033;
-	transition: .3s;
+	transition: all .3s ease;
 	cursor: pointer;
 }
 
@@ -133,6 +132,10 @@ button[type="submit"]:hover {
 	border-color: #2D3033;
 	background: #335252;
 	color: #fff;
+}
+
+button:active {
+	transform: scale(0.96);
 }
 
 @media screen and (max-width: 1600px) {
@@ -4246,7 +4249,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	position: absolute;
 	height: 100%;
 	width: 39px;
-	background: url("../img/Checked.svg") no-repeat 0px 50%;
+	background: url("../img/Checked.svg") no-repeat 0 50%;
 	background-size: contain;
 	left: 0;
 	top: 0
@@ -5517,7 +5520,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .card-tabs__bottom-wrapper {
-	padding: 70px 102px 66px 0px
+	padding: 70px 102px 66px 0
 }
 
 @media screen and (max-width: 1540px) {
@@ -5584,7 +5587,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	position: absolute;
 	height: 25px;
 	width: 30px;
-	background: url("../img/Checked.svg") no-repeat 0px 50%;
+	background: url("../img/Checked.svg") no-repeat 0 50%;
 	background-size: contain;
 	left: -30px;
 	top: 5px;
@@ -7498,23 +7501,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	text-transform: uppercase;
     height: 60px;
     background: #D4DDE1;
-    color: #2D3033;
-    font-size: 18px;
-    font-weight: 700;
-    transition: .3s;
-    border: none;
-    cursor: pointer;
     margin: 40px 0 60px;
-}
-
-.execute-order_btn:hover{
-	background: #335252;
-	color: #fff;
-}
-
-.execute-login_btn:hover{
-	background: #335252;
-	color: #fff;
 }
 
 @media screen and (max-width: 768px){
@@ -7631,12 +7618,13 @@ input[type='search'], input[type='text'], input[type='email'] {
 	margin-bottom: 15px;
 }
 
-.order-popup__inner > .send-order {
+.order-popup__inner .send-order {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
-.login-popup__inner > .send-login {
+.login-popup__inner .send-login {
 	display: flex;
 	justify-content: center;
 }
