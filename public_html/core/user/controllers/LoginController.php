@@ -7,6 +7,7 @@ use core\base\exceptions\RouteException;
 use core\base\models\UserModel;
 use core\user\controllers\BaseUser;
 use core\user\traits\ValidationHelper;
+use JetBrains\PhpStorm\NoReturn;
 
 class LoginController extends BaseUser
 {
@@ -35,7 +36,11 @@ class LoginController extends BaseUser
 
                     $this->login();
 
-                    break;
+                case 'logout':
+
+                    UserModel::instance()->logout();
+
+                    $this->redirect(PATH);
 
             }
 
@@ -126,9 +131,13 @@ class LoginController extends BaseUser
 
             $result = $result[0];
 
-            $field = $result['phone'] === $_POST['phone'] ? 'телефон' : 'email';
+            if (empty($this->userData) || $this->userData['id'] !== $result['id']) {
 
-            $this->sendError('Такой ' . $field . ' уже зарегистрирован');
+                $field = $result['phone'] === $_POST['phone'] ? 'телефон' : 'email';
+
+                $this->sendError('Такой ' . $field . ' уже зарегистрирован');
+
+            }
 
         }
 
@@ -138,15 +147,29 @@ class LoginController extends BaseUser
 
         }
 
-        $id = $this->model->create('visitors', [
-            'return_id' => true
-        ]);
+        if ($this->userData) {
+
+            $this->model->update('visitors', [
+                'where' => ['id' => $this->userData['id']]
+            ]);
+
+            $id = $this->userData['id'];
+
+        } else {
+
+            $id = $this->model->create('visitors', [
+                'return_id' => true
+            ]);
+
+        }
 
         if (!empty($id)) {
 
             if (UserModel::instance()->checkUser($id)) {
 
-                $this->sendSuccess('Регистрация успешно пройдена');
+                $message = !$this->userData ? 'Регистрация успешно пройдена' : 'Данные успешно изменены';
+
+                $this->sendSuccess($message);
 
             }
 
@@ -159,7 +182,7 @@ class LoginController extends BaseUser
     /**
      * @throws DbException
      */
-    protected function login(): void
+    #[NoReturn] protected function login(): void
     {
 
         $login = $this->clearStr($_POST['login'] ?? '');
