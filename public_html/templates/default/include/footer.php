@@ -59,44 +59,44 @@
     </svg>
 </div>
 
-<?php if (!$this->userData):?>
-    <div class="login-popup">
-        <div class="login-popup__inner">
-            <h2><span>Регистрация</span><span>Вход</span></h2>
-            <form method="post" action="<?=$this->alias(['login' => 'registration'])?>">
-                <label for="name">
-                    <input type="text" name="name" autocomplete="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name')?>">
-                </label>
-                <label for="password">
-                    <input type="password" name="password" autocomplete="new-password" required placeholder="Ваш пароль">
-                </label>
-                <label for="password">
-                    <input type="password" name="confirm_password" autocomplete="new-password" required placeholder="Подтверждение пароля">
-                </label>
-                <label for="phone">
-                    <input type="tel" name="phone" autocomplete="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone')?>">
-                </label>
-                <label for="email">
-                    <input type="email" name="email" autocomplete="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email')?>">
-                </label>
-                <label class="send-login">
-                    <button class="execute-login_btn" type="submit">Зарегистрироваться</button>
-                </label>
-            </form>
-            <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
-                <label for="login">
-                    <input type="text" name="login" autocomplete="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
-                </label>
-                <label for="password">
-                    <input type="password" name="password" autocomplete="current-password" required placeholder="Подтверждение пароля">
-                </label>
-                <label class="send-login">
-                    <button class="execute-login_btn" type="submit">Вход</button>
-                </label>
-            </form>
-        </div>
+
+<div class="login-popup">
+    <div class="login-popup__inner">
+        <h2><span>Регистрация</span><span>Вход</span></h2>
+        <form method="post" action="<?=$this->alias(['login' => 'registration'])?>">
+            <label for="name">
+                <input type="text" name="name" autocomplete="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name', 'userData')?>">
+            </label>
+            <label for="password">
+                <input type="password" name="password" autocomplete="new-password" required placeholder="Ваш пароль">
+            </label>
+            <label for="password">
+                <input type="password" name="confirm_password" autocomplete="new-password" required placeholder="Подтверждение пароля">
+            </label>
+            <label for="phone">
+                <input type="tel" name="phone" autocomplete="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone', 'userData')?>">
+            </label>
+            <label for="email">
+                <input type="email" name="email" autocomplete="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email', 'userData')?>">
+            </label>
+            <label class="send-login">
+                <button class="execute-login_btn" type="submit">Зарегистрироваться</button>
+            </label>
+        </form>
+        <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
+            <label for="login">
+                <input type="text" name="login" autocomplete="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
+            </label>
+            <label for="password">
+                <input type="password" name="password" autocomplete="current-password" required placeholder="Подтверждение пароля">
+            </label>
+            <label class="send-login">
+                <button class="execute-login_btn" type="submit">Вход</button>
+            </label>
+        </form>
     </div>
-<?php endif;?>
+</div>
+
 
 <?php $this->getScripts()?>
 
