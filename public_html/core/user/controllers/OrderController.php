@@ -184,8 +184,6 @@ class OrderController extends BaseUser
 
         }
 
-        $this->sendSuccess('Спасибо за заказ! Наши менеджеры свяжутся с вами в ближайшие время для уточнения деталей заказа');
-
         $order['delivery'] = $this->delivery[$order['delivery_id']]['name'] ?? '';
 
         $order['payment'] = $this->payment[$order['payment_id']]['name'] ?? '';
@@ -194,7 +192,7 @@ class OrderController extends BaseUser
 
         $this->clearCart();
 
-        $this->redirect();
+        $this->sendSuccess('Спасибо за заказ! Наши менеджеры свяжутся с вами в ближайшие время для уточнения деталей заказа');
 
     }
 
