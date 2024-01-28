@@ -96,7 +96,7 @@ abstract class BaseUser extends BaseController
 
     }
 
-    protected function img(string $img = '', bool $tag = false): string
+    protected function img(string|null $img = '', bool $tag = false): string
     {
 
         if (!$img && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . DEFAULT_IMG_DIRECTORY)) {
