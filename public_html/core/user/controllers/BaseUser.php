@@ -26,6 +26,7 @@ abstract class BaseUser extends BaseController
 
     /* Проектные свойства */
     protected array $social_networks = [];
+    protected array $mobile_apps = [];
     /* Проектные свойства */
 
     /**
@@ -65,6 +66,11 @@ abstract class BaseUser extends BaseController
         ]);
 
         $this->social_networks = $this->model->read('social_networks', [
+            'where' => ['visibility' => 1],
+            'order' => ['menu_position']
+        ]);
+
+        $this->mobile_apps = $this->model->read('mobile_apps', [
             'where' => ['visibility' => 1],
             'order' => ['menu_position']
         ]);
