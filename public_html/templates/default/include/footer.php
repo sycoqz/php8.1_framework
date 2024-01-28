@@ -64,24 +64,34 @@
         <div class="login-popup__inner">
             <h2><span>Регистрация</span><span>Вход</span></h2>
             <form method="post" action="<?=$this->alias(['login' => 'registration'])?>">
-                <label>
-                    <input type="text" name="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name')?>">
-                    <input type="password" name="password" required placeholder="Ваш пароль">
-                    <input type="password" name="confirm_password" required placeholder="Подтверждение пароля">
-                    <input type="tel" name="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone')?>">
-                    <input type="email" name="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email')?>">
+                <label for="name">
+                    <input type="text" name="name" autocomplete="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name')?>">
+                </label>
+                <label for="password">
+                    <input type="password" name="password" autocomplete="new-password" required placeholder="Ваш пароль">
+                </label>
+                <label for="password">
+                    <input type="password" name="confirm_password" autocomplete="new-password" required placeholder="Подтверждение пароля">
+                </label>
+                <label for="phone">
+                    <input type="tel" name="phone" autocomplete="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone')?>">
+                </label>
+                <label for="email">
+                    <input type="email" name="email" autocomplete="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email')?>">
                 </label>
                 <label class="send-login">
-                    <input class="execute-login_btn" type="submit" value="Зарегистрироваться">
+                    <button class="execute-login_btn" type="submit">Зарегистрироваться</button>
                 </label>
             </form>
             <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
-                <label>
-                    <input type="text" name="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
-                    <input type="password" name="password" required placeholder="Подтверждение пароля">
+                <label for="login">
+                    <input type="text" name="login" autocomplete="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
+                </label>
+                <label for="password">
+                    <input type="password" name="password" autocomplete="current-password" required placeholder="Подтверждение пароля">
                 </label>
                 <label class="send-login">
-                    <input class="execute-login_btn" type="submit" value="Вход">
+                    <button class="execute-login_btn" type="submit">Вход</button>
                 </label>
             </form>
         </div>

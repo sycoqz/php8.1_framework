@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="header__sidebar_btn">
-                    <a href="<?=$this->userData ? $this->alias('person') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
+                    <a href="<?=$this->userData ? $this->alias('profile') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
                         <img src="<?=PATH . TEMPLATE?>assets/img/user.png" alt="<?=$item['name'] ?? ''?>">
                     </a>
                 </div>
@@ -176,16 +176,16 @@
 </header>
 
 <?php if ($this->getController() !== 'index'):?>
-    <div class="search search-internal">
+    <form class="search search-internal" action="<?=$this->alias('search')?>">
         <button>
             <svg class="inline-svg-icon svg-search">
                 <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#search"></use>
             </svg>
         </button>
         <label class="search search-internal">
-            <input type="search" placeholder="Поиск по каталогу">
+            <input type="search" name="search" placeholder="Поиск по каталогу">
         </label>
-    </div>
+    </form>
 <?php endif;?>
 
 <main class="main">

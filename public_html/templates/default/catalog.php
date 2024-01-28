@@ -12,7 +12,9 @@
                 <?php if (empty($goods)):?>
                     <h2>По вашему запросу ничего не найдено.</h2>
                 <?php else:?>
-                    <aside class="catalog-aside">
+                    <?php if (empty($dontShowAside)):?>
+                        <aside class="catalog-aside">
+                    <?php endif;?>
                         <?php if (!empty($catalogFilters) || !empty($catalogPrices)):?>
                             <div class="catalog-aside__wrap">
                             <div class="catalog-aside-block">
