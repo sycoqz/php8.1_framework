@@ -192,11 +192,34 @@
 </section>
 <?php endif;?>
 
-<div class="search ">
+<form class="search search-internal" action="<?=$this->alias('search')?><!--">-->
     <button>
         <svg class="inline-svg-icon svg-search">
             <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#search"></use>
         </svg>
     </button>
-    <input type="search" placeholder="Поиск по каталогу">
-</div>
+    <label class="search search-internal">
+        <input type="search" name="search" placeholder="Поиск по каталогу">
+    </label>
+</form>
+
+<script>
+
+    document.querySelector('[name="search"]').addEventListener('input', function () {
+
+        let value = this.value.trim()
+
+        $.ajax({
+            data: {
+                ajax: 'search',
+                search: value
+            },
+            success: result => {
+                console.log(result)
+            }
+        })
+
+
+    })
+
+</script>

@@ -1,23 +1,6 @@
 <?php if (!empty($data)):?>
-    <div class="container">
-        <nav class="breadcrumbs">
-            <ul class="breadcrumbs__list" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <a class="breadcrumbs__link" itemprop="item" href="index.html">
-                        <span itemprop="name">Главная</span>
-                    </a>
-                    <meta itemprop="position" content="1" />
-                </li>
-                <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <a class="breadcrumbs__link" itemprop="item" href="card.html#">
-                        <span itemprop="name">автохимия</span>
-                    </a>
-                    <meta itemprop="position" content="2" />
-                </li>
-            </ul>
-        </nav>
-        <h1 class="page-title h1"><?=$data['name']?></h1>
-    </div>
+
+    <?php echo $this->breadcrumbs?>
 
     <section class="card-main">
         <div class="container">

@@ -550,7 +550,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	padding: 15px 86px 0 0;
 	height: 153px;
 	display: flex;
-	z-index: 9999
+	z-index: 800
 }
 
 @media screen and (max-width: 1600px) {
@@ -948,6 +948,12 @@ input[type='search'], input[type='text'], input[type='email'] {
 	border-bottom: 1px solid #fff;
 	height: 79px;
 	transition: .3s
+}
+
+.header__sidebar_btn img {
+	height: 32px;
+	object-fit: contain;
+	filter: brightness(0) invert(1);
 }
 
 @media screen and (max-width: 1600px) {
@@ -7486,7 +7492,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	}
 }
 
-.execute-order_btn{
+.execute-order_btn, .execute-login_btn{
 	display: block;
 	width: 300px;
 	text-transform: uppercase;
@@ -7502,6 +7508,11 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .execute-order_btn:hover{
+	background: #335252;
+	color: #fff;
+}
+
+.execute-login_btn:hover{
 	background: #335252;
 	color: #fff;
 }
@@ -7571,24 +7582,33 @@ input[type='search'], input[type='text'], input[type='email'] {
 	text-decoration: none;
 }
 
-.order-popup {
+.order-popup, .login-popup {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 10;
 	justify-content: center;
 	align-items: center;
 	display: none;
+	z-index: 999;
 }
 
-.order-popup.open {
+.login-popup h2{
+	display: flex;
+	justify-content: space-between;
+}
+
+.login-popup h2 span {
+	cursor: pointer;
+}
+
+.order-popup.open, .login-popup.open {
 	display: flex;
 }
 
-.order-popup__inner {
+.order-popup__inner, .login-popup__inner {
 	margin: 20px;
 	flex-basis: 600px;
 	padding: 30px 20px;
@@ -7597,7 +7617,14 @@ input[type='search'], input[type='text'], input[type='email'] {
 	overflow-y: auto;
 }
 
-.order-popup__inner > input, .order-popup__inner > textarea {
+.order-popup__inner input, .order-popup__inner textarea {
+	width: 100%;
+	padding: 3px 5px;
+	border: 1px solid black;
+	margin-bottom: 15px;
+}
+
+.login-popup__inner input, .login-popup__inner textarea {
 	width: 100%;
 	padding: 3px 5px;
 	border: 1px solid black;
@@ -7605,6 +7632,11 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .order-popup__inner > .send-order {
+	display: flex;
+	justify-content: center;
+}
+
+.login-popup__inner > .send-login {
 	display: flex;
 	justify-content: center;
 }

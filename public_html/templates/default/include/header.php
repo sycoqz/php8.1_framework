@@ -83,11 +83,16 @@
                         <span class="burger-desc">меню</span>
                     </div>
                 </div>
+                <div class="header__sidebar_btn">
+                    <a href="<?=$this->userData ? $this->alias('profile') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
+                        <img src="<?=PATH . TEMPLATE?>assets/img/user.png" alt="<?=$item['name'] ?? ''?>">
+                    </a>
+                </div>
                 <?php if (!empty($this->social_networks)):?>
                     <?php foreach ($this->social_networks as $item):?>
                     <div class="header__sidebar_btn">
                         <a href="<?=$this->alias($item['external_alias'])?>">
-                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>" height="32">
+                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
                         </a>
                     </div>
                     <?php endforeach;?>
@@ -171,16 +176,16 @@
 </header>
 
 <?php if ($this->getController() !== 'index'):?>
-    <div class="search search-internal">
+    <form class="search search-internal" action="<?=$this->alias('search')?>">
         <button>
             <svg class="inline-svg-icon svg-search">
                 <use xlink:href="<?=PATH . TEMPLATE?>/assets/img/icons.svg#search"></use>
             </svg>
         </button>
-        <label>
-            <input type="search" placeholder="Поиск по каталогу">
+        <label class="search search-internal">
+            <input type="search" name="search" placeholder="Поиск по каталогу">
         </label>
-    </div>
+    </form>
 <?php endif;?>
 
 <main class="main">

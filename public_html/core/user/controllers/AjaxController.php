@@ -33,11 +33,22 @@ class AjaxController extends BaseUser
 
                     return $this->_addToCart();
 
+                case 'search':
+
+                    return $this->search();
+
             }
 
         }
 
         return json_encode(['success' => '0', 'message' => 'No ajax variable']);
+
+    }
+
+    protected function search(): array|string
+    {
+
+        return (new SearchController())->search();
 
     }
 
