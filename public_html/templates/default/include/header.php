@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="header__sidebar_btn">
-                    <a href="<?=$this->userData ? $this->alias('person') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
+                    <a href="<?=$this->userData ? $this->alias('profile') : '#'?>" <?=!$this->userData ? 'data-popup="login-popup"' : ''?>>
                         <img src="<?=PATH . TEMPLATE?>assets/img/user.png" alt="<?=$item['name'] ?? ''?>">
                     </a>
                 </div>

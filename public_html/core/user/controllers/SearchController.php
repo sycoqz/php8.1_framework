@@ -17,13 +17,15 @@ class SearchController extends BaseUser
 
         $goods = $this->search();
 
+        $pages = $this->model->getPagination();
+
         $data['name'] = 'Результаты поиска' . (!empty($_GET['search']) ? ' по запросу <b>' . $_GET['search'] . '</b>' : '');
 
         $this->template = TEMPLATE . 'catalog';
 
         $dontShowAside = true;
 
-        return compact('goods', 'data', 'dontShowAside');
+        return compact('goods', 'data', 'dontShowAside', 'pages');
 
     }
 
@@ -46,9 +48,13 @@ class SearchController extends BaseUser
             if ($goodsIds) {
 
                 $data = $this->model->getGoods([
-                    'where' => ['id' => $goodsIds],
-                    'operand' => ['IN']
-                ]);
+                    'where' => ['id' => $goodsIds, 'visibility' => 1],
+                    'operand' => ['IN', '='],
+                    'pagination' => [
+                        'qty' => $_SESSION['quantities'] ?? QTY,
+                        'page' => $this->clearNum($_GET['page'] ?? 1) ?: 1
+                    ],
+                ], ...[false, false]);
 
             }
 
