@@ -33,7 +33,7 @@ class LoginController extends BaseController
             // Логирование входа и выхода пользователя
             $userLogInfo = 'Выход пользователя ' . $this->userID['name'];
 
-            $this->writeLog($userLogInfo, 'user_log.txt', 'Access user');
+            $this->writeLog($userLogInfo, 'admin_log.txt', 'Access user');
 
             $this->model->logout();
 
@@ -138,7 +138,7 @@ class LoginController extends BaseController
                 '<div class="success">Добро пожаловать ' . ($userData[0]['name'] ?? '') . '</div>' :
                 preg_split('/\s*-/', $error, 2, PREG_SPLIT_NO_EMPTY)[0];
 
-            $this->writeLog($error, 'user_log.txt', 'Access user');
+            $this->writeLog($error, 'admin_log.txt', 'Access user');
 
             $path = null;
 
