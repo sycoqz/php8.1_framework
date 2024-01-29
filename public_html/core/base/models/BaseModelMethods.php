@@ -9,7 +9,7 @@ abstract class BaseModelMethods
 
     protected int $postNumber;
     protected int $linksNumber;
-    protected int $numberPages;
+    protected int $numberPages = 0;
     protected int $page;
     protected int $totalCount;
 
@@ -639,7 +639,7 @@ abstract class BaseModelMethods
 
     }
 
-    public function getPagination()
+    public function getPagination(): bool|array
     {
 
         if (!$this->numberPages || $this->numberPages === 1 || $this->page > $this->numberPages) {
