@@ -36,7 +36,7 @@ class Model extends BaseModel
     /**
      * @throws DbException
      */
-    public function updateMenuPosition(string $table, string $row, array|bool $where, string $end_pos, array $update_rows = [])
+    public function updateMenuPosition(string $table, string $row, array|bool $where, string $end_pos, array $update_rows = []): bool|array|int|string|null
     {
 
         if ($update_rows && isset($update_rows['where'])) {
@@ -127,7 +127,7 @@ class Model extends BaseModel
             $query = "UPDATE $table SET $row = $row - 1 $db_where $row <= $end_pos AND $row > $start_pos";
         elseif ($start_pos > $end_pos)
             $query = "UPDATE $table SET $row = $row + 1 $db_where $row >= $end_pos AND $row < $start_pos";
-        else return;
+        else return null;
 
         return $this->query($query, 'u');
 

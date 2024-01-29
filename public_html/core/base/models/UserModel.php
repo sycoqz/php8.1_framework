@@ -131,7 +131,7 @@ class UserModel extends BaseModel
 
             $this->error = $e->getMessage();
 
-            !empty($e->getCode()) && $this->writeLog($this->error, 'log_user.txt');
+            !empty($e->getCode()) && $this->writeLog($this->error, 'user_log.txt');
 
             return false;
 

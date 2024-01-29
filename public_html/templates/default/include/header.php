@@ -183,7 +183,7 @@
             </svg>
         </button>
         <label class="search search-internal">
-            <input type="search" name="search" placeholder="Поиск по каталогу">
+            <input type="search" name="search" placeholder="Поиск по каталогу" autocomplete="off" autocapitalize="off" spellcheck="false">
         </label>
     </form>
 <?php endif;?>

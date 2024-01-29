@@ -11,7 +11,6 @@
                 <input type="search" name="search" placeholder="Поиск по каталогу" autocomplete="off" autocapitalize="off" spellcheck="false">
             </label>
         </form>
-
         <div class="slider__wrapper swiper-wrapper">
             <?php foreach ($sales as $item):?>
                 <a href="<?=$this->alias($item['external_alias'])?>" class="slider__item swiper-slide" style="text-decoration: none">
