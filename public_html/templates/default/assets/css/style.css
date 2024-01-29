@@ -120,9 +120,6 @@ button {
 
 button[type="submit"] {
 	border: 1px solid #000;
-	background-color: transparent;
-	font-weight: 700;
-	font-size: 16px;
 	color: #2D3033;
 	transition: all .3s ease;
 	cursor: pointer;
@@ -7168,12 +7165,24 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .execute-order_btn, .execute-login_btn{
-	display: block;
 	width: 300px;
 	text-transform: uppercase;
     height: 60px;
     background: #D4DDE1;
+	color: #2D3033;
+	font-size: 18px;
+	font-weight: 700;
     margin: 40px 0 60px;
+	cursor: pointer;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.execute-order_btn:hover{
+	color: #D4DDE1;
+	background-color: #335252;
+	transition: all .3s ease;
 }
 
 @media screen and (max-width: 768px){
