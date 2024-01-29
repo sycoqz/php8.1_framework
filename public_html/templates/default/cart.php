@@ -89,7 +89,7 @@
                                 <?php foreach ($this->payment as $key => $item):?>
                                     <label class="order-registration-radio-item">
                                         <input class="order-registration-rad-inp" type="radio" name="payment_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
-                                        <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
+                                        <span class="order-registration-radio-item-descr"><?=$item['name']?></span>
                                     </label>
                                 <?php endforeach;?>
                             </div>
@@ -102,7 +102,7 @@
                             <?php foreach ($this->delivery as $key => $item):?>
                                 <label class="order-registration-radio-item">
                                     <input class="order-registration-rad-inp" type="radio" name="delivery_id" value="<?=$item['id']?>" <?=!$key ? 'checked' : ''?>>
-                                    <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
+                                    <span class="order-registration-radio-item-descr"><?=$item['name']?></span>
                                 </label>
                             <?php endforeach;?>
                         </div>
@@ -112,22 +112,30 @@
                         Сумма к оплате:
                         <span class="amount-pay" data-totalSum><?=$this->cart['total_sum']?> руб.</span>
                     </div>
-                    <input class="execute-order_btn" type="button" value="Оформить заказ" data-popup="order-popup">
+                    <button class="execute-order_btn" type="button" data-popup="order-popup">Оформить заказ</button>
                     <div class="order-popup">
-                        <label class="order-popup__inner">
+                        <div class="order-popup__inner">
                             <h2>Оформление заказа</h2>
-                            <input type="text" name="name" required placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
-                            <input type="tel" name="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone', 'userData')?>">
-                            <input type="email" name="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email', 'userData')?>">
-                            <textarea name="address" rows="5" placeholder="Адрес"></textarea>
+                            <label>
+                                <input type="text" name="name" required placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
+                            </label>
+                            <label>
+                                <input type="tel" name="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone', 'userData')?>">
+                            </label>
+                            <label>
+                                <input type="email" name="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email', 'userData')?>">
+                            </label>
+                            <label>
+                                <textarea name="address" rows="5" placeholder="Адрес"></textarea>
+                            </label>
                             <label class="amount-pay-wrapp">
                                 Сумма к оплате:
                                 <span class="amount-pay" data-totalSum><?=$this->cart['total_sum']?> руб.</span>
                             </label>
                             <label class="send-order">
-                                <input class="execute-order_btn" type="submit" value="Оформить заказ">
+                                <button class="execute-order_btn" type="submit">Оформить заказ</button>
                             </label>
-                        </label>
+                        </div>
                     </div>
                 </form>
             </div>
