@@ -6,14 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Страница авторизации</title>
-
+    <meta name="robots" content="none">
     <link rel="stylesheet" href="/templates/default/assets/css/login.css">
-
 </head>
 <body>
-
     <div class="container">
-
         <?php if (!empty($_SESSION['result']['answer'])) {
 
             echo '<p style="color: red;text-align: center">' . $_SESSION['result']['answer'] . '</p>';
@@ -21,8 +18,6 @@
             unset($_SESSION['result']);
 
         }?>
-
-
         <?php if (isset($adminPath)):?>
             <form action="<?=PATH . $adminPath?>/login" method="post" class="login-form">
                 <h1>Авторизация</h1>
@@ -46,7 +41,6 @@
             </form>
         <?php endif;?>
     </div>
-
     <script src="<?=PATH . ADMIN_TEMPLATE?>js/frameworkfunctions.js"></script>
     <script>
 

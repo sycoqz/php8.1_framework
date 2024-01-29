@@ -163,7 +163,6 @@
         <?php endif;?>
     </div>
 </div>
-
 <section class="feedback ">
     <div class="feedback__name subheader ">Остались вопросы</div>
     <form method="post" action="<?=$this->alias('feedback')?>" class="feedback__form">

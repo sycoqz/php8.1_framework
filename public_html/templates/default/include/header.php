@@ -5,9 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, shrink-to-fit=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Трёшка</title>
+    <title>Интернет-магазин — Трёшка.</title>
     <?php $this->getStyles()?>
-
+    <meta name="description" content="<?=$this->set['description']?>">
+    <meta name="keywords" content="<?=$this->set['keywords']?>">
+    <meta name="google" content="notranslate">
+    <meta name="referrer" content="none-when-downgrade">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?=SITE_URL?>">
+    <meta property="og:title" content="Интернет-магазин — Трёшка.">
+    <meta property="og:description" content="<?=$this->set['description']?>">
+    <meta property="og:image" content="<?=SITE_URL . $this->alias($this->set['img'])?>">
 </head>
 
 <body>
