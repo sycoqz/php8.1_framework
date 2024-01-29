@@ -304,7 +304,7 @@ class CreatesitemapController extends BaseAdmin
                             $extension = addslashes($extension);
                             $extension = str_replace('.', '\.', $extension);
 
-                            if (preg_match('/' . $extension . '(\s*?$|\?[^\/]*$)/uis', $link)) {
+                            if (preg_match('/' . $extension . '(\s*?$|\?[^/]*$)/uis', $link)) {
 
                                 continue 2;
 
@@ -353,7 +353,7 @@ class CreatesitemapController extends BaseAdmin
 
                         if ($type === 'url') {
 
-                            if (preg_match('/^[^\?]*' . $item . '/ui', $link)) return false;
+                            if (preg_match('/^[^?]*' . $item . '/ui', $link)) return false;
 
                         }
 

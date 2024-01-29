@@ -27,25 +27,25 @@
                             <a href="<?=$this->alias('refund')?>" target="_blank">Возврат товаров</a>
                             <a href="<?=$this->alias('contacts')?>" target="_blank">Контакты</a>
                         </div>
-                        <div class="footer__top_contacts">
-                            <div>
+                        <div class="footer__menu_contacts">
+                            <div class="footer__contacts">
                                 <a href="<?=$this->alias('contacts')?>"><?=$this->set['email']?></a>
                                 <a href="<?=$this->alias('contacts')?>"><?=$this->set['phone']?></a>
-                                <a class="js-callback">Связаться с нами</a></div>
+                                <a class="js-callback">Связаться с нами</a>
+                            </div>
+                            <div class="footer__social_networks">
+                                <?php if (!empty($this->social_networks)):?>
+                                    <?php foreach ($this->social_networks as $item):?>
+                                        <a href="<?=$this->alias($item['external_alias'])?>" rel="noopener" target="_blank">
+                                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
+                                        </a>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                             </div>
                         </div>
                     </div>
-                    <div class="footer__social_networks">
-                        <?php if (!empty($this->social_networks)):?>
-                            <?php foreach ($this->social_networks as $item):?>
-                                <a href="<?=$this->alias($item['external_alias'])?>" rel="noopener" target="_blank">
-                                    <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
-                                </a>
-                            <?php endforeach;?>
-                        <?php endif;?>
-                    </div>
-                    <div class="footer__bottom_copy">&copy <?=$this->set['ooo_content'] ?? 'ООО ' . '"' . $this->set['name'] . '"'?>
-                        Все права защищены.
+                    <div class="footer__bottom_copy">
+                        <p>&copy <?=$this->set['ooo_content'] ?? 'ООО ' . '«' . $this->set['name'] . '»'?>. Все права защищены.</p>
                     </div>
                 </div>
             </div>
