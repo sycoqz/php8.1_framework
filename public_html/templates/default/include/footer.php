@@ -1,52 +1,56 @@
 </main>
-<footer class="footer">
-    <div class="container">
-        <div class="footer__wrapper">
-            <div class="footer__top">
-                <div class="footer__top_logo">
-                    <img src="<?=PATH . TEMPLATE?>/assets/img/Logo.svg" alt="">
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__wrapper">
+                <div class="footer__left">
+                    <div class="footer__qrcode">
+                        <img src="<?=$this->img($this->set['qrcode'])?>" alt="qrcode">
+                        <p>Наведите камеру и скачайте бесплатное приложение <?=$this->set['name']?></p>
+                        <?php if (!empty($this->mobile_apps)):?>
+                            <div class="footer__mobile_apps">
+                                <?php foreach ($this->mobile_apps as $item):?>
+                                    <a href="<?=$this->alias($item['external_alias'])?>" rel="noopener" target="_blank">
+                                        <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
+                                    </a>
+                                <?php endforeach;?>
+                            </div>
+                        <?php endif;?>
+                    </div>
                 </div>
-                <div class="footer__top_menu">
-                    <ul>
-
-                        <li>
-                            <a href="http://somesite.ru/catalog/"><span>Каталог</span></a>
-                        </li>
-
-                        <li>
-                            <a href="http://somesite.ru/about/"><span>О нас</span></a>
-                        </li>
-
-                        <li>
-                            <a href="http://somesite.ru/delivery/"><span>Доставка и оплата</span></a>
-                        </li>
-
-                        <li>
-                            <a href="http://somesite.ru/contacts/"><span>Контакты</span></a>
-                        </li>
-
-                        <li>
-                            <a href="http://somesite.ru/news/"><span>Новости</span></a>
-                        </li>
-
-                        <li>
-                            <a href="http://somesite.ru/sitemap/"><span>Карта сайта</span></a>
-                        </li>
-
-                    </ul>
+                <div class="footer__right">
+                    <div class="footer__menu">
+                        <div class="footer__menu_list">
+                            <span class="footer__help">Помощь</span>
+                            <a href="<?=$this->alias('catalog')?>" target="_blank">Каталог</a>
+                            <a href="<?=$this->alias('payment')?>" target="_blank">Оплата</a>
+                            <a href="<?=$this->alias('delivery')?>" target="_blank">Доставка</a>
+                            <a href="<?=$this->alias('refund')?>" target="_blank">Возврат товаров</a>
+                            <a href="<?=$this->alias('contacts')?>" target="_blank">Контакты</a>
+                        </div>
+                        <div class="footer__menu_contacts">
+                            <div class="footer__contacts">
+                                <a href="<?=$this->alias('contacts')?>"><?=$this->set['email']?></a>
+                                <a href="<?=$this->alias('contacts')?>"><?=$this->set['phone']?></a>
+                                <a class="js-callback">Связаться с нами</a>
+                            </div>
+                            <div class="footer__social_networks">
+                                <?php if (!empty($this->social_networks)):?>
+                                    <?php foreach ($this->social_networks as $item):?>
+                                        <a href="<?=$this->alias($item['external_alias'])?>" rel="noopener" target="_blank">
+                                            <img src="<?=$this->img($item['img'])?>" alt="<?=$item['name']?>">
+                                        </a>
+                                    <?php endforeach;?>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__bottom_copy">
+                        <p>&copy <?=$this->set['ooo_content'] ?? 'ООО ' . '«' . $this->set['name'] . '»'?>. Все права защищены.</p>
+                    </div>
                 </div>
-                <div class="footer__top_contacts">
-                    <div><a href="../../../index.php">test@test.ru</a></div>
-                    <div><a href="tel:+74842750204">+7 (4842) 75-02-04</a></div>
-                    <div><a class="js-callback">Связаться с нами</a></div>
-                </div>
-            </div>
-            <div class="footer__bottom">
-                <div class="footer__bottom_copy">Copyright</div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
 <div class="hide-elems">
     <svg>
@@ -59,52 +63,7 @@
     </svg>
 </div>
 
-
-<div class="login-popup">
-    <div class="login-popup__inner">
-        <h2><span>Регистрация</span><span>Вход</span></h2>
-        <form method="post" action="<?=$this->alias(['login' => 'registration'])?>">
-            <label for="name">
-                <input type="text" name="name" autocomplete="name" required placeholder="Ваш логин" value="<?=$this->setFormValues('name', 'userData')?>">
-            </label>
-            <label for="password">
-                <input type="password" name="password" autocomplete="new-password" required placeholder="Ваш пароль">
-            </label>
-            <label for="password">
-                <input type="password" name="confirm_password" autocomplete="new-password" required placeholder="Подтверждение пароля">
-            </label>
-            <label for="phone">
-                <input type="tel" name="phone" autocomplete="phone" required placeholder="Номер телефона" value="<?=$this->setFormValues('phone', 'userData')?>">
-            </label>
-            <label for="email">
-                <input type="email" name="email" autocomplete="email" required placeholder="Электронная почта" value="<?=$this->setFormValues('email', 'userData')?>">
-            </label>
-            <label class="send-login">
-                <button class="execute-login_btn" type="submit">Зарегистрироваться</button>
-            </label>
-        </form>
-        <form method="post" action="<?=$this->alias(['login' => 'login'])?>" style="display: none;">
-            <label for="login">
-                <input type="text" name="login" autocomplete="login" required placeholder="Номер телефона или электронная почта" value="<?=$this->setFormValues('phone')?>">
-            </label>
-            <label for="password">
-                <input type="password" name="password" autocomplete="current-password" required placeholder="Подтверждение пароля">
-            </label>
-            <label class="send-login">
-                <button class="execute-login_btn" type="submit">Вход</button>
-            </label>
-        </form>
-    </div>
-</div>
-
-
 <?php $this->getScripts()?>
 
-<?php if (!empty($_SESSION['result']['answer'])):?>
-    <div class="wq-message__wrap"><?=$_SESSION['result']['answer']?></div>
-<?php endif;?>
-<?php unset($_SESSION['result']);?>
-
-</body>
-
+    </body>
 </html>

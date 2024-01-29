@@ -26,6 +26,7 @@ abstract class BaseUser extends BaseController
 
     /* Проектные свойства */
     protected array $social_networks = [];
+    protected array $mobile_apps = [];
     /* Проектные свойства */
 
     /**
@@ -69,6 +70,11 @@ abstract class BaseUser extends BaseController
             'order' => ['menu_position']
         ]);
 
+        $this->mobile_apps = $this->model->read('mobile_apps', [
+            'where' => ['visibility' => 1],
+            'order' => ['menu_position']
+        ]);
+
     }
 
     /**
@@ -96,7 +102,7 @@ abstract class BaseUser extends BaseController
 
     }
 
-    protected function img(string $img = '', bool $tag = false): string
+    protected function img(string|null $img = '', bool $tag = false): string
     {
 
         if (!$img && is_dir($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . DEFAULT_IMG_DIRECTORY)) {

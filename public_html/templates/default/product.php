@@ -158,7 +158,7 @@
                         </div>
                         <div class="card-tabs-item-wrapper tabs__tab">
                             <div class="card-main-info__table main-info card-main-indfo_toggle">
-                                <?php if ($data['filters']):?>
+                                <?php if (isset($data['filters'])):?>
                                     <?php foreach ($data['filters'] as $item):?>
                                         <div class="card-main-info__table-row">
                                             <div class="card-main-info__table-item">
