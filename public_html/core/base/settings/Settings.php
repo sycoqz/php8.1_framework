@@ -60,17 +60,18 @@ class Settings
         'news' => ['name' => 'Новости'],
         'information' => ['name' => 'Информация'],
         'advantages' => ['name' => 'Преимущества'],
+        'settings' => ['name' => 'Настройки системы'],
         'social_networks' => ['name' => 'Социальные сети'],
-        'settings' => ['name' => 'Настройки системы']
+        'mobile_apps' => ['name' => 'Мобильные приложения']
     ];
 
     private array $templateArr = [
         'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'sub_title', 'number_of_years', 'price', 'discount'],
-        'textarea' => ['keywords', 'content', 'address', 'description', 'short_content'],
+        'textarea' => ['keywords', 'content', 'address', 'description', 'short_content', 'ooo_content'],
         'radio' => ['visibility', 'show_top_menu', 'hit', 'sale', 'new', 'hot'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
-        'img' => ['img', 'main_img', 'img_years', 'promo_img'],
+        'img' => ['img', 'main_img', 'img_years', 'promo_img', 'qrcode'],
         'gallery_img' => ['gallery_img', 'new_gallery_img']
     ];
 
@@ -100,6 +101,8 @@ class Settings
         'new' => ['Новинка'],
         'hot' => ['Горячее предложение'],
         'promo_img' => ['Изображение для главной страницы'],
+        'ooo_content' => ['Copyright плашка'],
+        'qrcode' => ['QRCODE']
     ];
 
     private array $manyToMany = [

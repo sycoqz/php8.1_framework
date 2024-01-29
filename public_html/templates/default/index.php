@@ -1,6 +1,16 @@
 <?php if (!empty($sales)):?>
 <section class="slider">
     <div class="slider__container swiper-container">
+        <form class="search search-internal" action="<?=$this->alias('search')?>">
+            <button>
+                <svg class="inline-svg-icon svg-search">
+                    <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#search"></use>
+                </svg>
+            </button>
+            <label class="search search-internal">
+                <input type="search" name="search" placeholder="Поиск по каталогу" autocomplete="off" autocapitalize="off" spellcheck="false">
+            </label>
+        </form>
 
         <div class="slider__wrapper swiper-wrapper">
             <?php foreach ($sales as $item):?>
@@ -138,15 +148,14 @@
                             <div class="advantages__row <?=!$counter ? 'advantages__row_left' : 'advantages__row_right'?>">
                         <?php endif;?>
                         <?php $counter++?>
-                            <div class="advantages__item">
-                                <div class="advantages__item_header"><?=$item['name']?></div>
-                                <img src="<?=$this->img($item['img'])?>" class="advantages__item_image" alt="">
-                            </div>
+                                <div class="advantages__item">
+                                    <div class="advantages__item_header"><?=$item['name']?></div>
+                                    <img src="<?=$this->img($item['img'])?>" class="advantages__item_image" alt="">
+                                </div>
                         <?php if (!($counter % 3)):?>
                             </div>
                         <?php endif;?>
                     <?php endforeach;?>
-
                     <?php if ($counter % 3):?>
                         </div>
                     <?php endif;?>
@@ -158,19 +167,27 @@
 
 <section class="feedback ">
     <div class="feedback__name subheader ">Остались вопросы</div>
-    <form action="index.html" class="feedback__form">
+    <form method="post" action="<?=$this->alias('feedback')?>" class="feedback__form">
         <div class="feedback__form_left">
-            <input type="text" class="input-text feedback__input" placeholder="Ваше имя">
-            <input type="email" class="input-text feedback__input" placeholder="E-mail">
-            <input type="text" class="input-text feedback__input js-mask-phone" placeholder="Телефон">
+            <label>
+                <input type="text" class="input-text feedback__input" placeholder="Ваше имя">
+            </label>
+            <label>
+                <input type="email" class="input-text feedback__input" placeholder="E-mail">
+            </label>
+            <label>
+                <input type="text" class="input-text feedback__input js-mask-phone" placeholder="Телефон">
+            </label>
         </div>
         <div class="feedback__form_right">
-            <textarea class="input-textarea feedback__textarea" placeholder="Ваш вопрос"></textarea>
+            <label>
+                <textarea class="input-textarea feedback__textarea" placeholder="Ваш вопрос"></textarea>
+            </label>
         </div>
         <div class="feedback__privacy">
             <label class="checkbox">
                 <input type="checkbox" />
-                <div class="checkbox__text">Соглашаюсь с правилами обработки персональных данных</div>
+                <span class="checkbox__text">Соглашаюсь с правилами обработки персональных данных</span>
             </label>
         </div>
         <button type="submit" class="form-submit feedback__submit">Отправить</button>
@@ -191,17 +208,6 @@
     <a href="<?=$this->alias('news')?>" class="news__reasdmore readmore">Смотреть все</a>
 </section>
 <?php endif;?>
-
-<form class="search search-internal" action="<?=$this->alias('search')?><!--">-->
-    <button>
-        <svg class="inline-svg-icon svg-search">
-            <use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#search"></use>
-        </svg>
-    </button>
-    <label class="search search-internal">
-        <input type="search" name="search" placeholder="Поиск по каталогу">
-    </label>
-</form>
 
 <script>
 

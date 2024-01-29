@@ -78,7 +78,7 @@ trait ValidationHelper
 
     }
 
-    protected function sendSuccess(string $text, string $class = 'success'): void
+    #[NoReturn] protected function sendSuccess(string $text, string $class = 'success'): void
     {
 
         $this->sendError($text, $class);
